@@ -14,6 +14,7 @@ import {
   Select,
   Radio,
   Upload,
+  Spin
 } from "ant-design-vue";
 
 import VueCookie from 'vue-cookie'
@@ -43,6 +44,7 @@ app.use(Input);
 app.use(Select);
 app.use(Radio);
 app.use(Upload);
+app.use(Spin);
 app.use(pinia);
 app.use(vue3GoogleLogin, {
   clientId: '753235075367-ojfpmgrnold60alog8r8bfapt21k2aut.apps.googleusercontent.com'
