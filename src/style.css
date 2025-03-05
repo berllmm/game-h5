@@ -1,0 +1,61 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  /* display: flex; */
+  /* place-items: center; */
+  min-width: 375px;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('./assets/fonts/Figtree-VariableFont_wght.ttf') format('ttf');
+  src: url('./assets/fonts/Figtree-VariableFont_wght.woff') format('woff');
+  src: url('./assets/fonts/Figtree-VariableFont_wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Figtree-bold';
+  src: url('./assets/fonts/Figtree-Italic-VariableFont_wght.ttf') format('ttf');
+  src: url('./assets/fonts/Figtree-Italic-VariableFont_wght.woff') format('woff');
+  src: url('./assets/fonts/Figtree-Italic-VariableFont_wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+p,
+span,
+i,
+h1,
+h2,
+h3,
+h4,
+h5,
+div,
+button,
+tr,
+td,
+input,
+textarea {
+  font-family: 'Figtree', "Figtree-bold";
+  user-select: none;
+}

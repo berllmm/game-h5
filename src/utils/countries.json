@@ -1,0 +1,680 @@
+[
+    {
+        "name": "Albania",
+        "styles": "--x:-170px;--y:-96px;",
+        "code": "AL",
+        "fee": "603.1431"
+    },
+    {
+        "name": "Andorra",
+        "styles": "--x:-86px;--y:-12px;",
+        "code": "AD",
+        "fee": "630.8694"
+    },
+    {
+        "name": "Antigua and Barbuda",
+        "styles": "--x:-86px;--y:-96px;",
+        "code": "AG",
+        "fee": "1038.4101"
+    },
+    {
+        "name": "Argentina",
+        "styles": "--x: -254px; --y: -96px;",
+        "code": "AR",
+        "fee": "1053.0639"
+    },
+    {
+        "name": "Australia",
+        "styles": "--x: -86px; --y: -264px;",
+        "code": "AU",
+        "fee": "393.4098"
+    },
+    {
+        "name": "Bahamas",
+        "styles": "--x: -86px; --y: -432px;",
+        "code": "BS",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Bahrain",
+        "styles": "--x: -254px; --y: -348px;",
+        "code": "BH",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Bangladesh",
+        "styles": "--x: -338px; --y: -264px;",
+        "code": "BD",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Barbados",
+        "styles": "--x: -338px; --y: -180px;",
+        "code": "BB",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Belgium",
+        "styles": "--x: -2px; --y: -348px;",
+        "code": "BE",
+        "fee":"646.7139"
+    },
+    {
+        "name": "Belize",
+        "styles": "--x: -422px; --y: -432px;",
+        "code": "BZ",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Bolivia",
+        "styles": "--x: -422px; --y: -348px;",
+        "code": "BO",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Bosnia and Herzegovina",
+        "styles": "--x: -338px; --y: -96px;",
+        "code": "BA",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Botswana",
+        "styles": "--x: -254px; --y: -432px;",
+        "code": "BW",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Brazil",
+        "styles": "--x: -2px; --y: -432px;",
+        "code": "BR",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Brunei",
+        "styles": "--x: -422px; --y: -264px;",
+        "code": "BN",
+        "fee":"282.2211"
+    },
+    {
+        "name": "Bulgaria",
+        "styles": "--x: -170px; --y: -348px;",
+        "code": "BG",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Burkina Faso",
+        "styles": "--x: -86px; --y: -348px;",
+        "code": "BF",
+        "fee":"1074.0618"
+    },
+    {
+        "name": "Cambodia",
+        "styles": "--x: -422px; --y: -852px;",
+        "code": "KH",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Canada",
+        "styles": "--x: -506px; --y: -12px;",
+        "code": "CA",
+        "fee":"477.0486"
+    },
+    {
+        "name": "Cape Verde",
+        "styles": "--x: -590px; --y: -96px;",
+        "code": "CV",
+        "fee":"1066.1364"
+    },
+    {
+        "name": "Chile",
+        "styles": "--x: -170px; --y: -516px;",
+        "code": "CL",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "China",
+        "styles": "--x: -338px; --y: -516px;",
+        "code": "CN",
+        "fee":"256.5486"
+    },
+    {
+        "name": "Hong Kong China",
+        "styles": "--x: -338px; --y: -768px;",
+        "code": "HK",
+        "fee":"261.2988"
+    },
+    {
+        "name": "Macau SAR China",
+        "styles": "--x: -1010px; --y: -264px;",
+        "code": "MO",
+        "fee":"256.5486"
+    },
+    {
+        "name": "TaiWan China",
+        "styles": "--x: -1178px; --y: -1188px;",
+        "code": "TW",
+        "fee":"293.9643"
+    },
+    {
+        "name": "Colombia",
+        "styles": "--x: -422px; --y: -516px;",
+        "code": "CO",
+        "fee":"1057.8204"
+    },
+    {
+        "name": "Costa Rica",
+        "styles": "--x: -506px; --y: -516px;",
+        "code": "CR",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Croatia",
+        "styles": "--x: -506px; --y: -768px;",
+        "code": "HR",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Curacao",
+        "styles": "--x: -86px; --y: -1272px;",
+        "code": "CW",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Cyprus",
+        "styles": "--x: -590px; --y: -348px;",
+        "code": "CY",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Czech Republic",
+        "styles": "--x: -590px; --y: -432px;",
+        "code": "CZ",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Denmark",
+        "styles": "--x: -86px; --y: -600px;",
+        "code": "DK",
+        "fee":"646.7139"
+    },
+    {
+        "name": "Dominican Republic",
+        "styles": "--x: -254px; --y: -600px;",
+        "code": "DO",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Ecuador",
+        "styles": "--x: -422px; --y: -600px;",
+        "code": "EC",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "El Salvador",
+        "styles": "--x: -1178px; --y: -936px;",
+        "code": "SV",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Estonia",
+        "styles": "--x: -506px; --y: -600px;",
+        "code": "EE",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Fiji",
+        "styles": "--x: -674px; --y: -516px;",
+        "code": "FJ",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Finland",
+        "styles": "--x: -674px; --y: -432px;",
+        "code": "FI",
+        "fee":"607.8996"
+    },
+    {
+        "name": "France",
+        "styles": "--x: -170px; --y: -684px;",
+        "code": "FR",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Germany",
+        "styles": "--x: -590px; --y: -516px;",
+        "code": "DE",
+        "fee":"646.7139"
+    },
+    {
+        "name": "Gibraltar",
+        "styles": "--x: -758px; --y: -96px;",
+        "code": "GI",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Greece",
+        "styles": "--x: -758px; --y: -600px;",
+        "code": "GR",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Greenland",
+        "styles": "--x: -758px; --y: -180px;",
+        "code": "GL",
+        "fee":"1066.1364"
+    },
+    {
+        "name": "Grenada",
+        "styles": "--x: -422px; --y: -684px;",
+        "code": "GD",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Guatemala",
+        "styles": "--x: -2px; --y: -768px;",
+        "code": "GT",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Hungary",
+        "styles": "--x: -674px; --y: -768px;",
+        "code": "HU",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Iceland",
+        "styles": "--x: -842px; --y: -600px;",
+        "code": "IS",
+        "fee":"1045.737"
+    },
+    {
+        "name": "India",
+        "styles": "--x: -842px; --y: -348px;",
+        "code": "IN",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Indonesia",
+        "styles": "--x: -842px; --y: -12px;",
+        "code": "ID",
+        "fee":"282.2211"
+    },
+    {
+        "name": "Ireland",
+        "styles": "--x: -842px; --y: -96px;",
+        "code": "IE",
+        "fee":"646.7139"
+    },
+    {
+        "name": "Israel",
+        "styles": "--x: -842px; --y: -180px;",
+        "code": "IL",
+        "fee":"1077.7851"
+    },
+    {
+        "name": "Italy",
+        "styles": "--x: -842px; --y: -684px;",
+        "code": "IT",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Japan",
+        "styles": "--x: -170px; --y: -852px;",
+        "code": "JP",
+        "fee":"6.3"
+    },
+    {
+        "name": "Jamaica",
+        "styles": "--x: -2px; --y: -852px;",
+        "code": "JM",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Jordan",
+        "styles": "--x: -86px; --y: -852px;",
+        "code": "JO",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Korea South",
+        "styles": "--x: -842px; --y: -852px;",
+        "code": "KR",
+        "fee":"250.3935"
+    },
+    {
+        "name": "Kuwait",
+        "styles": "--x: -926px; --y: -96px;",
+        "code": "KW",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Laos",
+        "styles": "--x: -926px; --y: -348px;",
+        "code": "LA",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Latvia",
+        "styles": "--x: -170px; --y: -936px;",
+        "code": "LV",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Liechtenstein",
+        "styles": "--x: -926px; --y: -600px;",
+        "code": "LI",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Lithuania",
+        "styles": "--x: -2px; --y: -936px;",
+        "code": "LT",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Luxembourg",
+        "styles": "--x: -86px; --y: -936px;",
+        "code": "LU",
+        "fee":"646.7139"
+    },
+    {
+        "name": "Malaysia",
+        "styles": "--x: -86px; --y: -1020px;",
+        "code": "MY",
+        "fee":"286.9776"
+    },
+    {
+        "name": "Malta",
+        "styles": "--x: -1010px; --y: -684px;",
+        "code": "MT",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Mexico",
+        "styles": "--x: -2px; --y: -1020px;",
+        "code": "MX",
+        "fee":"504.7749"
+    },
+    {
+        "name": "Monaco",
+        "styles": "--x: -422px; --y: -936px;",
+        "code": "MC",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Montenegro",
+        "styles": "--x: -590px; --y: -936px;",
+        "code": "ME",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Morocco",
+        "styles": "--x: -338px; --y: -936px;",
+        "code": "MA",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Myanmar",
+        "styles": "--x: -1010px; --y: -96px;",
+        "code": "MM",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Namibia",
+        "styles": "--x: -254px; --y: -1020px;",
+        "code": "NA",
+        "fee":"1043.1603"
+    },
+    {
+        "name": "The Netherlands",
+        "styles": "--x: -758px; --y: -1020px;",
+        "code": "NL",
+        "fee":"646.7139"
+    },
+    {
+        "name": "New Zealand",
+        "styles": "--x: -1094px; --y: -96px;",
+        "code": "NZ",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Norway",
+        "styles": "--x: -842px; --y: -1020px;",
+        "code": "NO",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Oman",
+        "styles": "--x: -1094px; --y: -180px;",
+        "code": "OM",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Panama",
+        "styles": "--x: -1094px; --y: -264px;",
+        "code": "PA",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Papua New Guinea",
+        "styles": "--x: -1094px; --y: -516px;",
+        "code": "PG",
+        "fee":"393.4098"
+    },
+    {
+        "name": "Paraguay",
+        "styles": "--x: -170px; --y: -1104px;",
+        "code": "PY",
+        "fee":"1057.8204"
+    },
+    {
+        "name": "Peru",
+        "styles": "--x: -1094px; --y: -348px;",
+        "code": "PE",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Philippines",
+        "styles": "--x: -1094px; --y: -600px;",
+        "code": "PH",
+        "fee":"325.7919"
+    },
+    {
+        "name": "Poland",
+        "styles": "--x: -1094px; --y: -768px;",
+        "code": "PL",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Portugal",
+        "styles": "--x: -2px; --y: -1104px;",
+        "code": "PT",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Qatar",
+        "styles": "--x: -254px; --y: -1104px;",
+        "code": "QA",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Romania",
+        "styles": "--x: -422px; --y: -1104px;",
+        "code": "RO",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Rwanda",
+        "styles": "--x: -674px; --y: -1104px;",
+        "code": "RW",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Samoa",
+        "styles": "--x: -1262px; --y: -1188px;",
+        "code": "WS",
+        "fee":"1025.2179"
+    },
+    {
+        "name": "Saudi Arabia",
+        "styles": "--x: -758px; --y: -1104px;",
+        "code": "SA",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Serbia",
+        "styles": "--x: -506px; --y: -1104px;",
+        "code": "RS",
+        "fee":"603.1431"
+    },
+    {
+        "name": "Seychelles",
+        "styles": "--x: -926px; --y: -1104px;",
+        "code": "SC",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Singapore",
+        "styles": "--x: -1178px; --y: -12px;",
+        "code": "SG",
+        "fee":"286.9776"
+    },
+    {
+        "name": "Slovakia",
+        "styles": "--x: -1178px; --y: -264px;",
+        "code": "SK",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Slovenia",
+        "styles": "--x: -1178px; --y: -180px;",
+        "code": "SI",
+        "fee":"607.8996"
+    },
+    {
+        "name": "South Africa",
+        "styles": "--x: -674px; --y: -1272px;",
+        "code": "ZA",
+        "fee":"1081.9809"
+    },
+    {
+        "name": "Spain",
+        "styles": "--x: -674px; --y: -180px;",
+        "code": "ES",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Sri Lanka",
+        "styles": "--x: -926px; --y: -684px;",
+        "code": "LK",
+        "fee":"1025.2179"
+    },
+    {
+        "name": "Suriname",
+        "styles": "--x: -1178px; --y: -684px;",
+        "code": "SR",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Sweden",
+        "styles": "--x: -1094px; --y: -1104px;",
+        "code": "SE",
+        "fee":"646.7139"
+    },
+    {
+        "name": "Switzerland",
+        "styles": "--x: -506px; --y: -432px;",
+        "code": "CH",
+        "fee":"607.8996"
+    },
+    {
+        "name": "Tajikistan",
+        "styles": "--x: -422px; --y: -1188px;",
+        "code": "TJ",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Tanzania",
+        "styles": "--x: -1262px; --y: -12px;",
+        "code": "TZ",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Thailand",
+        "styles": "--x: -338px; --y: -1188px;",
+        "code": "TH",
+        "fee":"282.2211"
+    },
+    {
+        "name": "Trinidad and Tobago",
+        "styles": "--x: -1010px; --y: -1188px;",
+        "code": "TT",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Tunisia",
+        "styles": "--x: -758px; --y: -1188px;",
+        "code": "TN",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Turkey",
+        "styles": "--x: -926px; --y: -1188px;",
+        "code": "TR",
+        "fee":"603.1431"
+    },
+    {
+        "name": "United Arab Emirates",
+        "styles": "--x: -926px; --y: -432px;",
+        "code": "AE",
+        "fee":"1007.0739"
+    },
+    {
+        "name": "United Kingdom",
+        "styles": "--x: -338px; --y: -684px;",
+        "code": "GB",
+        "fee":"646.7139"
+    },
+    {
+        "name": "United States of America",
+        "styles": "--x: -1262px; --y: -264px;",
+        "code": "US",
+        "fee":"481.7988"
+    },
+    {
+        "name": "Uruguay",
+        "styles": "--x: -1262px; --y: -348px;",
+        "code": "UY",
+        "fee":"1053.0639"
+    },
+    {
+        "name": "Uzbekistan",
+        "styles": "--x: -1262px; --y: -432px;",
+        "code": "UZ",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Vanuatu",
+        "styles": "--x: -1262px; --y: -1020px;",
+        "code": "VU",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Vietnam",
+        "styles": "--x: -1262px; --y: -936px;",
+        "code": "VN",
+        "fee":"282.2211"
+    },
+    {
+        "name": "Virgin Islands (British)",
+        "styles": "--x: -1262px; --y: -768px;",
+        "code": "VG",
+        "fee":"1038.4101"
+    },
+    {
+        "name": "Virgin Islands (US)",
+        "styles": "--x: -1262px; --y: -852px;",
+        "code": "VI",
+        "fee":"1053.0639"
+    }
+]
