@@ -32,8 +32,8 @@
       </div>
     </div>
 
-    <a-spin :spinning="spinning">
-      <Modal v-model="showCandy" width="500px">
+    <Modal v-model="showCandy" width="500px">
+      <a-spin :spinning="spinning">
         <div class="wallet-box">
           <p class="wallet-title">BUY</p>
           <div class="wallet-tag wallet-candy">
@@ -85,28 +85,33 @@
             <p>You don't have enough TSG in your wallet, please top up.</p>
           </div>
           <div class="wallet-tipbox">
-            <span class="wallet-tip" v-if="isTip == 1">You get {{ cutApart(candyType.candy) }} CANDY for
+            <span class="wallet-tip" v-if="isTip == 1">You get {{ cutApart(candyType.candyNum) }} CANDY for
               {{ cutApartNumber(candyOrder.currencyNum) }} Sol</span>
-            <span class="wallet-tip" v-if="isTip == 2">You get {{ cutApart(candyType.candy) }} CANDY for
+            <span class="wallet-tip" v-if="isTip == 2">You get {{ cutApart(candyType.candyNum) }} CANDY for
               {{ cutApartNumber(candyOrder.currencyNum) }} USDC</span>
-            <span class="wallet-tip" v-if="isTip == 3">You get {{ cutApart(candyType.candy) }} CANDY for
+            <span class="wallet-tip" v-if="isTip == 3">You get {{ cutApart(candyType.candyNum) }} CANDY for
               {{ cutApartNumber(candyOrder.currencyNum) }} TSG</span>
           </div>
-          <!-- <div class="wallet-updata">
-          <p>Quote updates in {{ updataTime }}s</p>
-        </div> -->
+          <div class="wallet-updata">
+            <p>Quote updates in {{ updataTime }}s</p>
+          </div>
+
           <div class="wallet-buy">
             <button @click="walletConect">Continue</button>
           </div>
         </div>
-      </Modal>
-    </a-spin>
+      </a-spin>
+    </Modal>
+
   </div>
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
-import { playerInfo } from "../utils/counter";
-import { cutApart, cutApartNumber } from "../utils/burn";
+import { playerInfo, userPay, userPayNow, useUmiWallet } from "../utils/counter";
+import { Connection, clusterApiUrl, Transaction, SystemProgram, PublicKey } from '@solana/web3.js';
+import { selectWallet, selectConnection, cutApartNumber, cutApart } from '@/utils/burn'
+import { Token, ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token'
+import { transferTokens } from '@metaplex-foundation/mpl-toolbox'
 import Modal from "@/components/Modal.vue";
 import axios from "@/utils/axios";
 
@@ -164,14 +169,30 @@ const contactList = ref({})
 const isDropdownOpen = ref(false)
 const candyOrder = ref({})
 const spinning = ref(false)
+const isSolana = ref(false)
+const isUSDC = ref(false)
+const isTSG = ref(false)
+const updataTime = ref(180)
+const updataChange = ref(null)
+const isTip = ref(0)
+
+const toWallet = new PublicKey("86QWt6CRdUVNUgbzBnhES7C1PVFzkceodcYVryGWC7pY");
+const usdMintAddress = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v")
+const TSGMintAddress = new PublicKey("HuWxLYJ3favQ6e3zK5559zk9Qd2T38gGHK5fS1Wcpump")
 
 const getPrizeInit = () => {
   userInfo.value = playerInfo().user
 }
 
 const getOrder = (item) => {
+  if(!userPayNow().isPay){
+    return
+  }
+
   showCandy.value = true
   candyType.value = item;
+  console.log(item);
+
   contactList.value = {
     type: 'USDC',
     value: candyType.value.candyPrice
@@ -193,7 +214,13 @@ const selectCountry = (country) => {
 
 const getUserPay = async () => {
   spinning.value = true
-
+  if (contactList.value.type == 'Sol') {
+    isTip.value = 1
+  } else if (contactList.value.type == 'USDC') {
+    isTip.value = 2
+  } else if (contactList.value.type == 'TSG') {
+    isTip.value = 3
+  }
   const res = await axios.post("/tsg/pay/reqWalletPayCreateOrder", {
     type: 1,
     baseCurrencyCode: "usd",
@@ -205,10 +232,166 @@ const getUserPay = async () => {
     candyOrder.value = res.data.data.order;
     contactList.value.value = candyOrder.value.currencyNum
 
-    console.log(contactList.value);
+    updataTime.value = 180;
+    isSolana.value = true
+    isUSDC.value = true
+    isTSG.value = true
+
+    const connection = selectConnection(localStorage.getItem('local'))
+    const publicKey = userInfo.value.account
+    const walletAddress = new PublicKey(publicKey)
+    const solanaRes = await connection.getBalance(walletAddress);
+    const solPrize = (solanaRes / 1000000000).toFixed(5)
+    if (contactList.value.type == 'USDC') {
+      const usdcPrize = await connection.getParsedTokenAccountsByOwner(walletAddress, {
+        mint: usdMintAddress
+      })
+      if (usdcPrize.value.length > 0) {
+        const usdcAccount = usdcPrize.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+        if (Number(usdcAccount) >= contactList.value.value && Number(solPrize) >= 0.01) {
+          isUSDC.value = true
+        } else {
+          isUSDC.value = false
+        }
+      } else {
+        isUSDC.value = false
+      }
+    } else if (contactList.value.type == 'TSG') {
+      const usdcPrize = await connection.getParsedTokenAccountsByOwner(walletAddress, {
+        mint: TSGMintAddress
+      })
+      if (usdcPrize.value.length > 0) {
+        const usdcAccount = usdcPrize.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+        if (Number(usdcAccount) >= contactList.value.value && Number(solPrize) >= 0.01) {
+          isTSG.value = true
+        } else {
+          isTSG.value = false
+        }
+      } else {
+        isTSG.value = false
+      }
+    } else if (contactList.value.type == 'Sol') {
+      if ((candyOrder.value.currencyNum + 0.01) <= Number(solPrize)) {
+        isSolana.value = true
+      } else {
+        isSolana.value = false
+      }
+    }
     spinning.value = false
+    updataChange.value = setInterval(() => {
+      updataTime.value--;
+      if (updataTime.value == 0) {
+        getUserPay();
+      }
+    }, 1000);
+  }
+}
+
+const walletConect = async () => {
+  let typeCode = ''
+  var transferLamports
+  if (contactList.value.type == 'Sol') {
+    typeCode = 'sol'
+    transferLamports = 1000000000 * candyOrder.value.currencyNum;
+    // if (!isSolana.value) {
+    //   return tipText.openSet("You don't have enough SOL in your wallet, please top up.")
+    // }
+  } else if (contactList.value.type == 'USDC') {
+    typeCode = 'usdc'
+    transferLamports = candyOrder.value.currencyNum * 10 ** 6;
+    // if (!isUSDC.value) {
+    //   return tipText.openSet("You don't have enough USDC in your wallet, please top up.")
+    // }
+  } else if (contactList.value.type == 'TSG') {
+    typeCode = 'tsg'
+    transferLamports = candyOrder.value.currencyNum * 10 ** 6;
+    // if (!isTSG.value) {
+    //   return tipText.openSet("You don't have enough TSG in your wallet, please top up.")
+    // }
   }
 
+  if (localStorage.getItem('local') == "Wallet") {
+    const res = await axios.get("/tsg/pay/reqWalletPayWeb2", {
+      params: {
+        gameOrderId: candyOrder.value.gameOrderId,
+        lamports: transferLamports,
+        currencyCode: typeCode
+      },
+    });
+    if (res.data.code == 200) {
+      showCandy.value = false
+      userPay().changePay()
+    }
+  } else {
+    const connection = selectConnection(localStorage.getItem('local'))
+
+    const { blockhash } = await connection.getLatestBlockhash('finalized');
+
+    const wallet = selectWallet(localStorage.getItem('local'))
+
+    const fromAddress = new PublicKey(userInfo.value.account)
+
+    if (contactList.value.type == 'Sol') {
+      const transaction = new Transaction({
+        recentBlockhash: blockhash,
+        feePayer: fromAddress,
+      }).add(
+        SystemProgram.transfer({
+          fromPubkey: fromAddress,
+          toPubkey: toWallet,
+          lamports: transferLamports,
+        })
+      );
+      const signatures = await wallet.signAndSendTransaction(transaction);
+      const res = await axios.get("/tsg/pay/reqWalletPay", {
+        params: {
+          gameOrderId: candyOrder.value.gameOrderId,
+          transactionId: signatures.signature,
+        },
+      });
+      if (res.data.code == 200) {
+        showCandy.value = false
+        userPay().changePay()
+      }
+    } else {
+      let userMint
+      if (contactList.value.type == 'USDC') {
+        userMint = usdMintAddress
+      } else {
+        userMint = TSGMintAddress
+      }
+      const umi = useUmiWallet().umi
+      const sourceTokenAccount = await Token.getAssociatedTokenAddress(
+        ASSOCIATED_TOKEN_PROGRAM_ID,
+        TOKEN_PROGRAM_ID,
+        userMint,
+        fromAddress
+      )
+      const destinationTokenAccount = await Token.getAssociatedTokenAddress(
+        ASSOCIATED_TOKEN_PROGRAM_ID,
+        TOKEN_PROGRAM_ID,
+        userMint,
+        toWallet
+      )
+      const tx = await transferTokens(umi, {
+        source: sourceTokenAccount,
+        destination: destinationTokenAccount,
+        authority: fromAddress,
+        amount: contactList.value.value * 10 ** 6,
+      }).sendAndConfirm(umi)
+
+      const res = await axios.get("/tsg/pay/reqWalletPay", {
+        params: {
+          gameOrderId: candyOrder.value.gameOrderId,
+          transactionId: bs58.encode(tx.signature),
+        },
+      });
+      if (res.data.code == 200) {
+        showCandy.value = false
+        userPay().changePay()
+      }
+    }
+  }
 }
 </script>
 

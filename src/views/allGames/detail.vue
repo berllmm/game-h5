@@ -20,8 +20,8 @@
           <div class="title">{{ detailsList.name }}</div>
           <div class="user-box">
             <div class="left">
-              <img src="../../assets/avatar.svg" class="avatar" />
-              <span>Player678</span>
+              <img src="../../assets/wwallet.png" class="avatar" />
+              <span>Tokyo Stupid Games</span>
             </div>
             <div class="right">{{ detailsList.gener }}</div>
           </div>
@@ -89,6 +89,18 @@
     </div>
   </div>
   <FullCardList :imgData="imgData" />
+
+  <Modal v-model="tipVisible" width="600px">
+    <div class="results-box">
+      <div>
+        <img src="../../assets/tip_error.svg" class="result-img" />
+        <div class="result-title">Error</div>
+        <div class="result-tips">
+          {{ checkTicketTip }}
+        </div>
+      </div>
+    </div>
+  </Modal>
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
@@ -101,6 +113,7 @@ import circle5 from "@/assets/circle5.png";
 import FullCardList from "./components/FullCardList.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useChangePrize } from "../../utils/counter";
+import Modal from "@/components/Modal.vue";
 
 const route = useRoute();
 
@@ -188,6 +201,9 @@ const getDetailsInit = async () => {
         cardList: findPrize("LASTONE")?.cardInfoList,
       },
     ]
+
+    console.log(imgData.value);
+    
   }
 }
 
@@ -209,6 +225,8 @@ function formatTimestamp(timestamp) {
   return `${year}-${month}-${day}`;
 }
 
+const checkTicketTip = ref('')
+const tipVisible = ref(false)
 // 当前选中的票数
 const currentTicketValue = ref(1);
 const handleSwitchCurrentTicketValue = (value) => {
@@ -216,13 +234,17 @@ const handleSwitchCurrentTicketValue = (value) => {
     item == value
   })
 
-  if (index == -1) {
+  if (index == -1 && value < detailsList.value.drawCardCount) {
     currentTicketValue.value = value;
-  } else {
-    alert(`当前卡池不支持${value}连抽`)
+  } else if (index !== -1 || value > detailsList.value.drawCardCount) {
+    tipVisible.value = true
+    checkTicketTip.value = `Less than ${value} cards in total`
   }
-
 };
+
+const closeModal = () => {
+  tipVisible.value = false
+}
 
 const router = useRouter();
 // 跳转游戏开始界面
@@ -241,6 +263,9 @@ const goPage = async (path) => {
     useChangePrize().changePrize()
 
     router.push(path);
+  } else {
+    checkTicketTip.value = `Less than ${value} cards in total`
+    tipVisible.value = true
   }
 };
 </script>
@@ -438,6 +463,85 @@ const goPage = async (path) => {
     background-image: linear-gradient(to right, #1f0c27, #1f0c27),
       linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
   }
+}
+
+.results-box {
+  color: #fff;
+  text-align: center;
+
+  .result-title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .result-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .result-center span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .result-center span:nth-child(2) {
+    padding: 0 10px;
+  }
+
+  .result-img {
+    margin: 20px 0;
+    width: 120px;
+    height: 120px;
+  }
+
+  .result-tips {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .blue-text {
+    color: #3052fa;
+    font-weight: 600;
+  }
+
+  .footer-btn__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn1 {
+      margin-right: 16px;
+      padding: 12px 24px;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 48px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(to right, #1f0c27, #1f0c27),
+        linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+    }
+
+    .btn2 {
+      padding: 12px 24px;
+      font-size: 20px;
+      display: inline-block;
+      border-radius: 48px;
+      border: 1px solid #3f3f3f;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      cursor: pointer;
+    }
+  }
+
+
 }
 
 @media (max-width: 576px) {

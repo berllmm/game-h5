@@ -53,7 +53,7 @@
       <div></div>
     </div>
     <div class="btn1">
-      <div class="btn me-2" @click="tansformwallet">Add to your wallet</div>
+      <div class="btn me-2" @click="tansformwallet">Transfer to your wallet</div>
       <div>Withdraw the NFTS</div>
     </div>
     <div class="btn2">
@@ -81,6 +81,39 @@
       </div>
     </div>
   </Modal>
+
+  <Modal v-model="tipModal" width="600px">
+    <div class="results-box">
+      <div>
+        <div class="result-title">{{ tipTitle }}</div>
+        <div class="result-center">
+          <img v-if="tipType" src="../assets/candy.svg" width="32" alt="">
+          <span>{{ tipPrize }}</span>
+          <span v-if="!tipType">USDC</span>
+        </div>
+        <div class="result-tips">{{ tipFoot }}</div>
+      </div>
+      <div class="footer-btn__modal footer-btn__modal2">
+        <div @click="okTipModal" class="btn1">Confirm</div>
+        <div @click="closeTipModal" class="btn2">Cancel</div>
+      </div>
+    </div>
+  </Modal>
+
+  <Modal v-model="agianModal" width="600px">
+    <div class="results-box">
+      <div>
+        <div class="result-title">{{ tipTitle }}</div>
+        <div class="result-center">
+          <span>{{ agianText }}</span>
+        </div>
+      </div>
+      <div class="footer-btn__modal footer-btn__modal2">
+        <div @click="transferPrize" class="btn1">Confirm</div>
+        <div @click="closeAgainModal" class="btn2">Cancel</div>
+      </div>
+    </div>
+  </Modal>
 </template>
 <script setup>
 import { onMounted, ref, watch } from "vue";
@@ -98,6 +131,7 @@ const tip = ref('')
 const showModal = ref(false)
 const tipText = ref('')
 const tipVisible = ref(false)
+const tipModal = ref(false)
 
 const closeModal = () => {
   showModal.value = false
@@ -230,12 +264,67 @@ const goPage = () => {
   router.push("shipping");
 };
 
+const tipTitle = ref('')
+const tipFoot = ref('')
+const tipPrize = ref('')
+const tipType = ref(false)
+
 const exchangePrize = (val) => {
+  if (val == 1) {
+    tipTitle.value = 'Are you sure you want to exchange?'
+    tipFoot.value = 'TIPS: Please note, transaction results irreversible'
+    tipPrize.value = allCandy.value + ''
+    tipType.value = false
+  } else {
+    tipTitle.value = 'Are you sure you want to exchange?'
+    tipFoot.value = 'TIPS: Please note, transaction results irreversible'
+    tipPrize.value = allUSDC.value + ''
+    tipType.value = true
+  }
+
+  tipModal.value = true
+}
+
+const closeTipModal = () => {
+  tipModal.value = false
+}
+
+const agianModal = ref(false)
+const agianText = ref('')
+
+const okTipModal = () => {
+  console.log(tipType.value);
+  
+  if (!tipType.value) {
+    tipModal.value = false
+    transferPrize()
+  } else {
+    const index = dataSource.value.findIndex(item => item.usd == 0)
+    if (index !== -1) {
+      tipTitle.value = 'Error'
+      agianText.value = 'The NFTs you have selected include those that cannot be exchanged for USDC. If you continue the progress, the NFTs will be burned together, do you want to continue to send the exchange request?'
+      tipModal.value = false
+      agianModal.value = true
+    } else {
+      tipModal.value = false
+      transferPrize()
+    }
+  }
+}
+
+const closeAgainModal = () => {
+  agianModal.value = false
+}
+
+const transferPrize = () => {
+  agianModal.value = false
   let exchangeList = []
-
-  console.log(playerInfo().user);
-
-
+  let val
+  if (!tipType.value) {
+    val = 1
+  } else {
+    val = 2
+  }
   dataSource.value.forEach((item) =>
     exchangeList.push({
       type: val,
@@ -250,19 +339,9 @@ const exchangePrize = (val) => {
       targetWalletAddress: playerInfo().user?.account,
     }));
 
-  // for (let i = 0; i < dataSource.value.length; i++) {
-  //   const element = dataSource.value[i];
-  //   if (element.value == 0) {
-  //     return Continuenext.open('The NFTs you have selected include those that cannot be exchanged for USDC. If you continue the progress, the NFTs will be burned together, do you want to continue to send the exchange request?')
-  //   }
-  // }
-
   goBurn(exchangeList)
-
   useChangePrize().changePrize()
-
   clearSell()
-
   showModal.value = true
   tipText.value = 'Candy transfer successful'
   tipVisible.value = true
@@ -283,7 +362,6 @@ const goBurn = async (list) => {
 
 const tansformwallet = async () => {
   let exchangeList = []
-
   dataSource.value.forEach((item) =>
     exchangeList.push({
       type: 4,
@@ -297,19 +375,14 @@ const tansformwallet = async () => {
       candy: item.candy,
       targetWalletAddress: playerInfo().user?.account,
     }));
-
   if (exchangeList.length == 0) {
     return
   }
-
   const res = await axios.post("/tsg/player/burnCard", {
     refundList: exchangeList,
   });
-
   if (res.data.code == 200) {
-
     clearSell()
-
     showModal.value = true
     tipText.value = 'The NFT is being transferred to your designated wallet. Please check your wallet. (The transfer speed will depend on the current Solana network speed. Please be patient.)'
     tipVisible.value = true
@@ -377,6 +450,22 @@ const clearSell = () => {
     font-weight: 600;
   }
 
+  .result-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .result-center span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .result-center span:nth-child(2) {
+    padding: 0 10px;
+  }
+
   .result-img {
     margin: 40px 0;
     width: 120px;
@@ -394,9 +483,40 @@ const clearSell = () => {
     font-weight: 600;
   }
 
-  .btn2 {
-    cursor: pointer;
+  .footer-btn__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn1 {
+      margin-right: 16px;
+      padding: 12px 24px;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 48px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(to right, #1f0c27, #1f0c27),
+        linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+    }
+
+    .btn2 {
+      padding: 12px 24px;
+      font-size: 20px;
+      display: inline-block;
+      border-radius: 48px;
+      border: 1px solid #3f3f3f;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      cursor: pointer;
+    }
   }
+
+
 }
 
 

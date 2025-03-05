@@ -237,8 +237,6 @@ const goPage = (name) => {
 };
 
 const closeLogin = () => {
-  console.log('123');
-  
   userLogin().changeIsLogin()
 }
 </script>

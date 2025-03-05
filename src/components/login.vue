@@ -49,7 +49,7 @@
                   <img @click="loginWallet('Phantom')" src="../assets/button-soft-p.svg" alt="" />
                   <img @click="loginWallet('Solflare')" src="../assets/button-soft-s.svg" alt="" />
                   <img @click="loginWallet('Backpack')" src="../assets/button-soft-b.svg" alt="" />
-                  <img @click="loginWallet('magicEden')" src="../assets/button-soft-b.svg" alt="" />
+                  <img @click="loginWallet('magicEden')" src="../assets/button-soft-m.svg" alt="" />
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@
               <img @click="loginWallet('Phantom')" src="../assets/button-soft-mini-p.svg" alt="" />
               <img @click="loginWallet('Solflare')" src="../assets/button-soft-mini-s.svg" alt="" />
               <img @click="loginWallet('Backpack')" src="../assets/button-soft-mini-b.svg" alt="" />
-              <img @click="loginWallet('magicEden')" src="../assets/button-soft-mini-b.svg" alt="" />
+              <img @click="loginWallet('magicEden')" src="../assets/button-soft-mini-m.svg" alt="" />
             </div>
           </div>
         </div>

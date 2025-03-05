@@ -70,3 +70,28 @@ export const playerInfo = defineStore('userInfo', {
         }
     },
 });
+
+export const userPay = defineStore('solanaPay', {
+    state: () => ({
+        isPay: false,
+    }),
+    actions: {
+        changePay() {
+            this.isPay = !this.isPay
+        }
+    },
+});
+
+export const userPayNow = defineStore('paynow', {
+    state: () => ({
+        isPay: true,
+    }),
+    actions: {
+        truePay() {
+            this.isPay = true
+        },
+        falsePay() {
+            this.isPay = false
+        }
+    },
+});

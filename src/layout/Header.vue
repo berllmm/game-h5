@@ -113,7 +113,7 @@
     </div>
 
     <!-- <span class="title">TOKYO $TUPID GAMES</span> -->
-    <img src="../assets/header.svg" class="header-title" />
+    <img @click="goHome()" src="../assets/header.svg" class="header-title" />
 
     <!-- 右侧按钮 -->
     <div class="w-172 d-flex justify-content-end">
@@ -182,9 +182,10 @@ import { useRouter } from "vue-router";
 import VueCookie from "vue-cookie";
 import { selectConnection, selectWallet, cutApart } from '@/utils/burn'
 import { cutApartNumber, initWalletUmi } from "../utils/burn";
-import { playerInfo, useChangePrize, userLogin } from "../utils/counter";
+import { playerInfo, useChangePrize, userLogin, userPay, userPayNow } from "../utils/counter";
 import axios from "@/utils/axios";
-import { Connection, clusterApiUrl, Transaction, SystemProgram, PublicKey } from '@solana/web3.js';
+import { PublicKey } from '@solana/web3.js';
+
 
 const router = useRouter();
 const goPage = (path) => {
@@ -273,7 +274,6 @@ const getLoginInit = async () => {
       await bindTwitter(code.value);
     }
   }
-
   await getWalletPrize()
 }
 
@@ -285,9 +285,6 @@ const getWalletPrize = async () => {
   const connection = selectConnection(localStorage.getItem('local'))
   const res = await connection.getBalance(walletAddress);
   SolanaPrize.value = (res / 1000000000).toFixed(5);
-
-  console.log(typeof(SolanaPrize.value),SolanaPrize.value);
-  
 }
 
 const bindDiscord = async (val) => {
@@ -313,14 +310,22 @@ const bindTwitter = async (val) => {
   }
 };
 
+const isPay = ref(false)
+
 const reqWallet = async () => {
   const res = await axios.get("/tsg/pay/reqWalletPayState");
   if (res.data.code == 200) {
     res.data.data ? (isPay.value = true) : (isPay.value = false);
 
     if (isPay.value) {
-      getPrize();
+      if (userPay().isPay) {
+        userPay().changePay()
+      }
+      userPayNow().truePay()
+      await getPrize();
+      await getWalletPrize()
     } else {
+      userPayNow().falsePay()
       setTimeout(() => {
         reqWallet();
       }, 3000);
@@ -349,6 +354,10 @@ const closeLogin = () => {
 
 }
 
+const goHome = () => {
+  router.push({ path: "/" })
+}
+
 watch(
   () => userLogin().isLogin,
   (newVal, oldVal) => {
@@ -369,6 +378,15 @@ watch(
   (newVal, oldVal) => {
     if (newVal) {
       getPrize()
+    }
+  }
+)
+
+watch(
+  () => userPay().isPay,
+  (newVal, oldVal) => {
+    if (newVal) {
+      reqWallet()
     }
   }
 )
@@ -556,6 +574,10 @@ watch(
       cursor: pointer;
     }
   }
+
+  .header-title {
+    cursor: pointer;
+  }
 }
 
 // 底部抽屉样式
@@ -593,6 +615,7 @@ watch(
 
   .header-title {
     width: 200px;
+    cursor: pointer;
   }
 }
 

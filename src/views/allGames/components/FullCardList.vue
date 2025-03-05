@@ -3,7 +3,7 @@
     <div class="title base-border">Collection’s full item list</div>
 
     <div v-for="(item, index) in props.imgData" :key="index" class="type-item">
-      <div class="title-box">
+      <div class="title-box" v-if="item.cardList.length > 0">
         <img :src="item.typeImage" class="item-type__image" />
         <span>{{ item.typeName }}</span>
       </div>

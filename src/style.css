@@ -23,3 +23,39 @@ body {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('./assets/fonts/Figtree-VariableFont_wght.ttf') format('ttf');
+  src: url('./assets/fonts/Figtree-VariableFont_wght.woff') format('woff');
+  src: url('./assets/fonts/Figtree-VariableFont_wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Figtree-bold';
+  src: url('./assets/fonts/Figtree-Italic-VariableFont_wght.ttf') format('ttf');
+  src: url('./assets/fonts/Figtree-Italic-VariableFont_wght.woff') format('woff');
+  src: url('./assets/fonts/Figtree-Italic-VariableFont_wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+p,
+span,
+i,
+h1,
+h2,
+h3,
+h4,
+h5,
+div,
+button,
+tr,
+td,
+input,
+textarea {
+  font-family: 'Figtree', "Figtree-bold";
+  user-select: none;
+}

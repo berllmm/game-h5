@@ -43,8 +43,9 @@
           <template v-if="column.key === 'winner'">
             <div class="d-flex align-items-center">
               <img v-if="record.playerAvatar == ''" :src="morAvantar" width="40" class="d-none d-md-block"
-                style="margin-right: 15px" />
-              <img v-else :src="record.playerAvatar" width="40" class="d-none d-md-block" style="margin-right: 15px" />
+                style="border-radius: 50%;overflow: hidden;margin-right: 15px" />
+              <img v-else :src="record.playerAvatar" width="40" height="40"
+                style="border-radius: 50%;overflow: hidden;margin-right: 15px" class="d-none d-md-block" />
               <div>
                 <div class="item-desc">
                   {{ record.playerName }}
@@ -62,6 +63,30 @@
       <div v-if="showBottomBtn" class="right-btn">
         <div @click="goPage" class="round-btn">
           See all <img src="../assets/link.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="pagebox" v-if="!showBottomBtn">
+        <div @click="prePage()">
+          <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+            <path
+              d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
+              fill="#ffffff" p-id="4368"></path>
+          </svg>
+        </div>
+        <div>{{ page }} / {{ total }}</div>
+        <div @click="nextPage()">
+          <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+            <path
+              d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
+              fill="#ffffff" p-id="4368"></path>
+          </svg>
+        </div>
+        <div class="nextpage">
+          <input type="text" v-model="page" @keydown.enter="goPageText">
+          <button @click="goPageText">GO</button>
         </div>
       </div>
     </div>
@@ -128,18 +153,45 @@ function formatTimestamp(timestamp) {
 }
 
 const winnerList = ref([])
+const page = ref(1)
+const pageSize = ref(10)
+const total = ref(0)
 
 const winnerInit = async () => {
   const res = await axios.get('/tsg/publicinfo/allDrawCardHistory', {
     params: {
-      pageNum: 1,
-      pageSize: 10
+      pageNum: page.value,
+      pageSize: pageSize.value
     }
   })
 
   if (res.data.code == 200) {
     winnerList.value = res.data.data.data
+    total.value = Math.ceil(res.data.data.total / pageSize.value)
   }
+}
+
+const prePage = () => {
+  if (page.value <= 1) {
+    return
+  }
+  page.value--
+  winnerInit()
+}
+
+const nextPage = () => {
+  if (page.value >= total.value) {
+    return
+  }
+  page.value++
+  winnerInit()
+}
+
+const goPageText = () => {
+  if (page.value > size.value || page.value < 1) {
+    return page.value = 0
+  }
+  winnerInit()
 }
 
 watch(
@@ -400,6 +452,65 @@ const goPage = () => {
     border: 1px solid #fff;
     cursor: pointer;
   }
+}
+
+.pagebox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.pagebox>div {
+  margin: 0px 10px;
+}
+
+.pagebox>div:nth-child(1) {
+
+
+  cursor: pointer;
+}
+
+.pagebox>div:nth-child(1) svg {
+  transform: rotateY(180deg);
+}
+
+.pagebox>div:nth-child(3) {
+  cursor: pointer;
+}
+
+.pagebox>div:nth-child(1):hover svg,
+.pagebox>div:nth-child(3):hover svg {
+  fill: #ffff00;
+}
+
+.nextpage input {
+  width: 40px;
+  padding: 2px 5px;
+  outline: none;
+  text-align: center;
+  color: #000;
+}
+
+.nextpage button {
+  margin-left: 5px;
+  color: #fff;
+  padding: 2px 5px;
+  border: 1px solid #fff;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.order-content-title {
+  margin-bottom: 40px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 20px;
+  /* identical to box height, or 83% */
+  text-align: center;
+
+  color: #ffffff;
 }
 
 @media (max-width: 576px) {
