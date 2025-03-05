@@ -75,6 +75,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/abount-us",
+      name: "aboutUs",
+      component: () => import("../views/aboutUs/index.vue"),
+      meta: {
+        isLogin: true
+      },
+    },
+    {
       path: "/missing",
       name: "missing",
       component: () => import("../views/missing/index.vue"),

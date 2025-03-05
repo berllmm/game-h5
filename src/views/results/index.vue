@@ -4,7 +4,7 @@
 
     <div class="footer-btns">
       <div @click="handleAgain" class="btn1 base-round-border">Spin again</div>
-      <div @click="goPage" class="btn2">My Inventory</div>
+      <!-- <div @click="goPage" class="btn2">My Inventory</div> -->
     </div>
 
     <Modal v-model="showModal" width="400px">
@@ -190,6 +190,10 @@ const goPage = () => {
     cursor: pointer;
     background-image: linear-gradient(to right, #1f0c27, #1f0c27),
       linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+
+    &.base-round-border {
+      margin-right: 0;
+    }
   }
 
   .btn2 {

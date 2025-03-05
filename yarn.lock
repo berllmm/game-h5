@@ -54,6 +54,11 @@
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
 
+"@bytescale/sdk@^3.50.0":
+  version "3.50.0"
+  resolved "https://registry.npmmirror.com/@bytescale/sdk/-/sdk-3.50.0.tgz#ae14c8c50ce89f6175f844c476cc6b7d84845f06"
+  integrity sha512-xgLMkWGZqIhx/FizZysJ0FhUQmKHQKlDLppET5Bfhqtnbj2pEbe3VTndLGQJLqG6CJzMNt2WtKqAN0xY/twakg==
+
 "@ctrl/tinycolor@^3.4.0", "@ctrl/tinycolor@^3.5.0":
   version "3.6.1"
   resolved "https://registry.npmmirror.com/@ctrl/tinycolor/-/tinycolor-3.6.1.tgz#b6c75a56a1947cc916ea058772d666a2c8932f31"

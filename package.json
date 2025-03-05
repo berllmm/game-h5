@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bytescale/sdk": "^3.50.0",
     "@metaplex-foundation/digital-asset-standard-api": "^1.0.4",
     "@metaplex-foundation/mpl-bubblegum": "^4.2.1",
     "@metaplex-foundation/mpl-token-metadata": "^3.3.0",

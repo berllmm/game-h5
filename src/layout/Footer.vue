@@ -7,10 +7,10 @@
     <div class="right">
       <div class="d-none d-sm-block">
         <div class="links mr-40">
-          <div class="link-item me-3">ABOUT</div>
-          <div class="link-item me-3">DOCS</div>
-          <div class="link-item me-3">TERMS OF USE</div>
-          <div class="link-item">PRIVACY POLICY</div>
+          <div class="link-item me-3" @click="openPage('about')">ABOUT</div>
+          <div class="link-item me-3" @click="openPage('doc')">DOCS</div>
+          <div class="link-item me-3" @click="openPage('tirms')">TERMS OF USE</div>
+          <div class="link-item" @click="openPage('policy')">PRIVACY POLICY</div>
         </div>
       </div>
 
@@ -24,15 +24,31 @@
 
   <div class="d-block d-sm-none">
     <div class="links links-box">
-      <div class="link-item">ABOUT</div>
-      <div class="link-item">DOCS</div>
-      <div class="link-item">TERMS OF USE</div>
-      <div class="link-item">PRIVACY POLICY</div>
+      <div class="link-item" @click="openPage('about')">ABOUT</div>
+      <div class="link-item" @click="openPage('doc')">DOCS</div>
+      <div class="link-item" @click="openPage('tirms')">TERMS OF USE</div>
+      <div class="link-item" @click="openPage('policy')">PRIVACY POLICY</div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+const openPage = (val) => {
+  if (val == 'about') {
+    router.push({ path: '/about' })
+  } else if (val == 'doc') {
+    window.open("https://docs.tokyostupidgames.io/", "_blank");
+  } else if (val == 'tirms') {
+    window.open("https://docs.tokyostupidgames.io/legal/terms-of-use", "_blank");
+  } else if (val == 'policy') {
+    window.open("https://docs.tokyostupidgames.io/legal/privacy-policy", "_blank");
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .footer {
@@ -43,11 +59,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .right {
     display: flex;
     align-items: center;
   }
 }
+
 .links {
   display: flex;
   align-items: center;
@@ -55,6 +73,11 @@
   color: rgba(96, 96, 96, 1);
   font-size: 12px;
 }
+
+.link-item {
+  cursor: pointer;
+}
+
 .mr-40 {
   margin-right: 40px;
 }

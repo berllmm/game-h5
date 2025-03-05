@@ -302,7 +302,8 @@ const goSell = () => {
 
     .item-list {
       flex: 1;
-      //   max-height: 400px;
+      max-height: 310px;
+      overflow-x: hidden;
       //   overflow: auto;
     }
 

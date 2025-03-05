@@ -2,9 +2,9 @@
   <div class="userInfo-box">
     <div class="user-name">
       <!-- ../assets/avatar.svg -->
-      <img :src="imageSrc" width="80px" />
+      <img :src="imageSrc" width="80" height="80" style="border-radius: 50%;"/>
       <span class="user-name__text">{{ props.playerList?.playerName }}</span>
-      <img src="../assets/gold.svg" alt="" />
+      <img :src="expImage" alt="" />
     </div>
 
     <div class="first-modal">
@@ -12,13 +12,12 @@
         <div class="left d-flex justify-content-between align-items-center">
           <img src="../assets/header-wallet.svg" alt="" />
           <div class="detail-box">
-            <div>wallet1</div>
+            <div>wallet</div>
             <div class="desc-info">{{ walletAddress }}</div>
           </div>
         </div>
-        <div class="right">{{ cutApartNumber(props.SolanaPrize) }} SOL</div>
+        <div class="right">{{ cutApartNumber(solPrize) }} SOL</div>
       </div>
-
       <div @click="handleShowCandy" class="money-item d-flex justify-content-between align-items-center">
         <div class="left d-flex justify-content-between align-items-center">
           <img src="../assets/header-candy.svg" alt="" />
@@ -117,7 +116,7 @@
                 <div class="desc-info">{{ walletAddress }}</div>
               </div>
             </div>
-            <div class="right">{{ cutApartNumber(props.SolanaPrize) }} SOL</div>
+            <div class="right">{{ cutApartNumber(solPrize) }} SOL</div>
           </div>
         </div>
 
@@ -179,19 +178,42 @@
   </Modal>
 </template>
 <script setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import Modal from "@/components/Modal.vue";
 import Candy from "@/components/Candy.vue";
 import morAvantar from "@/assets/avatar.svg"
 import { cutApart, cutApartNumber } from "../utils/burn";
-import { userLogin } from "../utils/counter";
+import { playerInfo, userLogin, userSol } from "../utils/counter";
+import Tier from "../assets/Tier.png"
+import silver from "../assets/SILVER.png"
+import gold from "../assets/GOLD.png"
+import diamond from "../assets/DIAMOND.png"
 
 const emits = defineEmits(["closeAccount"]);
 
 const props = defineProps({
   playerList: Object,
-  SolanaPrize:String
+  SolanaPrize: String
+})
+
+const solPrize = ref('')
+const expImage = ref('')
+
+onMounted(() => {
+  solPrize.value = userSol().sol
+  const info = playerInfo().user
+  console.log(info);
+  if (info.vipExp < 3000000) {
+    expImage.value = Tier
+  } else if (info.vipExp > 3000000 && info.vipExp < 15000000) {
+    expImage.value = silver
+  } else if (info.vipExp > 15000000 && info.vipExp < 90000000) {
+    expImage.value = gold
+  } else {
+    expImage.value = diamond
+  }
+
 })
 
 const imageSrc = computed(() => {
@@ -381,6 +403,7 @@ const closeLogin = () => {
       padding: 8px;
       border-radius: 28px;
       background-color: #36253d;
+      letter-spacing: 1px;
     }
 
     .color-blue {

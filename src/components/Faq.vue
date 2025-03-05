@@ -4,30 +4,15 @@
     <div class="faq d-none d-sm-block">
       <div class="title base-border">FAQ</div>
 
-      <div
-        v-for="(item, index) in listData"
-        :key="item.id"
-        class="item bo-bottom"
-      >
+      <div v-for="(item, index) in listData" :key="item.id" class="item bo-bottom">
         <div class="flex">
           <span>{{ item.questionValue }}</span>
-          <img
-            @click="handleChangeIndex(index)"
-            v-show="currentIndex !== index"
-            src="../assets/plus.svg"
-            alt=""
-          />
-          <img
-            @click="handleChangeIndex(index)"
-            v-show="currentIndex === index"
-            src="../assets/reduce.svg"
-            alt=""
-          />
+          <img @click="handleChangeIndex(index)" v-show="currentIndex !== index" src="../assets/plus.svg" alt="" />
+          <img @click="handleChangeIndex(index)" v-show="currentIndex === index" src="../assets/reduce.svg" alt="" />
         </div>
 
         <Transition name="fade">
-          <div v-show="currentIndex === index" class="answer">
-            {{ item.answerValue }}
+          <div v-show="currentIndex === index" class="answer" v-html="item.answerValue">
           </div>
         </Transition>
       </div>
@@ -37,30 +22,15 @@
     <div class="faq faq-small d-block d-sm-none">
       <div class="title base-border">FAQ</div>
 
-      <div
-        v-for="(item, index) in listData"
-        :key="item.id"
-        class="item bo-bottom"
-      >
+      <div v-for="(item, index) in listData" :key="item.id" class="item bo-bottom">
         <div class="flex">
           <span>{{ item.questionValue }}</span>
-          <img
-            @click="handleChangeIndex(index)"
-            v-show="currentIndex !== index"
-            src="../assets/plus.svg"
-            alt=""
-          />
-          <img
-            @click="handleChangeIndex(index)"
-            v-show="currentIndex === index"
-            src="../assets/reduce.svg"
-            alt=""
-          />
+          <img @click="handleChangeIndex(index)" v-show="currentIndex !== index" src="../assets/plus.svg" alt="" />
+          <img @click="handleChangeIndex(index)" v-show="currentIndex === index" src="../assets/reduce.svg" alt="" />
         </div>
 
         <Transition name="fade">
-          <div v-show="currentIndex === index" class="answer">
-            {{ item.answerValue }}
+          <div v-show="currentIndex === index" class="answer" v-html="item.answerValue">
           </div>
         </Transition>
       </div>
@@ -75,44 +45,52 @@ const listData = ref([
   {
     id: 0,
     questionValue: "WHAT ARE CANDY POINTS?",
-    answerValue: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem
-          elit, laoreet quis nisl non, commodo dignissim est. Aenean tempor
-          scelerisque sem ac tincidunt. Quisque vel sem posuere, varius orci sit
-          amet, finibus lacus. Suspendisse vitae libero vestibulum, fringilla
-          leo sed, congue mauris. Cras tempor non orci in dignissim. Vivamus
-          mollis metus tortor, sit amet mollis lacus ullamcorper at.
-          Pellentesque et convallis ipsum. Pellentesque imperdiet diam quis
-          sagittis placerat. Donec in laoreet velit. Interdum et malesuada fames
-          ac ante ipsum primis in faucibus. Duis ligula lacus, efficitur non
-          mattis pulvinar, semper nec lectus. Praesent quis euismod magna.
-          Suspendisse eu nisi vitae ex tempus hendrerit. Nunc feugiat neque
-          blandit lacus dignissim dictum. Nullam varius tincidunt ante. Vivamus
-          elit orci, dapibus id dictum cursus, fermentum a felis.`,
+    answerValue: `
+      <p>CANDY Points are the in-game currency (non-token) used within Tokyo Stupid Games. Users can acquire CANDY Points by purchasing them or by completing missions through the reward program. CANDY Points can be exchanged for game tickets, which are used to play games.</p>
+      <p>In the <span style="font-weight:bold;">GACHA game</span>, players can purchase tickets with CANDY Points, and use those tickets to spin the gacha and earn RWA NFTs. Additionally, the earned RWA NFTs can be burned, allowing players to convert them back into CANDY Points. This mechanism allows players to increase their points or acquire other valuable items based on their achievements and progress in the game.</p>
+      <p>CANDY Points are valued at 0.001 USD per point, and offer a higher redemption rate compared to SOL or USDC, making it more advantageous for players to enjoy the game.</p>
+      <p>In this way, CANDY Points serve as a vital currency for progressing through the game and are a means for players to acquire valuable items and rewards.</p>
+    `,
   },
   {
     id: 1,
-    questionValue: "CAN I SELL MY NFTS?",
-    answerValue: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem
-          elit, laoreet quis nisl non, commodo dignissim est. Aenean tempor
-          scelerisque sem ac tincidunt. `,
+    questionValue: "What is the CANDY Points System?",
+    answerValue: `
+    <p>The CANDY Points System is a flexible and interactive feature that allows users to earn CANDY Points by completing in-game missions, participating in special tasks, and inviting friends.<p>
+    <p>These points can be used to play various games, including online gachas.<p>
+    <p>Designed for all types of players, from casual gamers to leaderboard contenders, this system ensures that everyone can enjoy and engage in their own way.<p>
+    `,
   },
   {
     id: 2,
-    questionValue: "HOW DO I EXCHANGE NFTS FOR REAL WORLD ASSETS?",
-    answerValue: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem
-          elit, laoreet quis nisl non, commodo dignissim est. Aenean tempor
-          scelerisque sem ac tincidunt. Quisque vel sem posuere, varius orci sit
-          amet, finibus lacus. Suspendisse vitae libero vestibulum, fringilla
-          leo sed, congue mauris`,
+    questionValue: "How to Earn CANDY Points",
+    answerValue: `
+    <b>Daily Missions</b>
+    <p>Earn CANDY Points through simple daily tasks such as logging in, completing mini-challenges, and engaging with the community.</p>
+    <b>Supreme Missions</b>
+    <p>For players seeking bigger rewards, Supreme Missions offer high-difficulty challenges with larger point payouts.</p>
+    <b>Referral Program</b>
+    <p>Invite your friends to join TSG and earn CANDY Points for both you and your referrals. The more friends you bring in, the more points you accumulate!</p>
+    `,
   },
   {
     id: 3,
-    questionValue: "HOW DO I CREATE A NEW COLLECTION?",
-    answerValue: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem
-          elit, laoreet quis nisl non, commodo dignissim est. Aenean tempor
-          scelerisque sem ac tincidunt. Quisque vel sem posuere, varius orci sit
-          amet, finibus lacus. Suspendisse vitae libero vestibulum, fringilla
-          leo sed, congue mauris`,
+    questionValue: "How to Use CANDY Points",
+    answerValue: `
+    <b>Gacha</b>
+    <p>Use your CANDY Points in TSG’s online gacha system!</p>
+    <p>Try your luck to win luxurious prizes, including Real-World Assets (RWAs) with tangible value. With each roll, you have a chance to score rare and exciting items.</p>
+    `,
+  },
+  {
+    id: 4,
+    questionValue: "Why the CANDY Points System Matters",
+    answerValue: `
+    <p>The introduction of the CANDY Points System is a significant step toward building a sustainable and value-driven ecosystem.</p>
+    <p>By providing multiple earning opportunities, we enhance the gaming experience while giving players the freedom to shape their own journey.</p>
+    <p>Additionally, there is potential for CANDY Points to be converted into TSG Tokens in the future, making this system even more valuable.</p>
+    <p>Not only are you earning rewards today, but you could also be positioning yourself for long-term gains.</p>
+    `,
   },
 ]);
 
@@ -127,10 +105,22 @@ const handleChangeIndex = (index) => {
 };
 </script>
 
+<style>
+p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+</style>
+
 <style lang="scss" scoped>
 .faq-box {
   margin: 60px 0 50px;
 }
+
 .faq {
   margin: 0;
   padding: 40px;
@@ -140,6 +130,7 @@ const handleChangeIndex = (index) => {
   border-radius: 32px;
 
   color: #fff;
+
   .title {
     display: inline-block;
     margin-bottom: 40px;
@@ -159,6 +150,7 @@ const handleChangeIndex = (index) => {
     padding-bottom: 16px;
     padding-top: 16px;
     font-size: 24px;
+
     .flex {
       display: flex;
       justify-content: space-between;
@@ -168,6 +160,7 @@ const handleChangeIndex = (index) => {
         cursor: pointer;
       }
     }
+
     .answer {
       margin-top: 16px;
       margin-left: 24px;
@@ -179,6 +172,7 @@ const handleChangeIndex = (index) => {
       color: #ffffff;
     }
   }
+
   .bo-bottom {
     border-bottom: 1px solid rgba(63, 63, 63, 1);
   }
@@ -195,6 +189,7 @@ const handleChangeIndex = (index) => {
   border-radius: 32px;
 
   color: #fff;
+
   .title {
     display: inline-block;
     margin-bottom: 40px;
@@ -214,6 +209,7 @@ const handleChangeIndex = (index) => {
     padding-bottom: 16px;
     padding-top: 16px;
     font-size: 14px;
+
     .flex {
       display: flex;
       justify-content: space-between;
@@ -223,10 +219,12 @@ const handleChangeIndex = (index) => {
         cursor: pointer;
       }
     }
+
     img {
       width: 24px;
       height: 24px;
     }
+
     .answer {
       margin-top: 8px;
       margin-left: 0;
@@ -238,9 +236,11 @@ const handleChangeIndex = (index) => {
       color: #ffffff;
     }
   }
+
   .bo-bottom {
     border-bottom: 1px solid rgba(63, 63, 63, 1);
   }
+
   .icon {
     margin-left: 16px;
     width: 32px;

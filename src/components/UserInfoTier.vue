@@ -124,7 +124,6 @@ watch(
     }
 
     .title2 {
-      font-family: "IBM Plex Sans";
       font-style: normal;
       font-weight: 400;
       font-size: 20px;

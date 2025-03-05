@@ -3,23 +3,11 @@
     <!-- 左侧按钮 -->
     <div class="img-box w-172">
       <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
-      <img
-        @click="handleShowPanel"
-        src="../assets/menu.svg"
-        class="d-none d-sm-block"
-        alt=""
-        ref="targetElement2"
-      />
+      <img @click="handleShowPanel" src="../assets/menu.svg" class="d-none d-sm-block" style="cursor: pointer;" alt=""
+        ref="targetElement2" />
       <!-- 在小屏幕（<576px）上显示 -->
-      <img
-        @click="handleShowPanel"
-        src="../assets/menu.svg"
-        class="d-block d-sm-none"
-        alt=""
-        data-bs-toggle="offcanvas"
-        href="#offcanvasExample"
-        ref="targetElement3"
-      />
+      <img @click="handleShowPanel" src="../assets/menu.svg" class="d-block d-sm-none" style="cursor: pointer;" alt=""
+        data-bs-toggle="offcanvas" href="#offcanvasExample" ref="targetElement3" />
 
       <!-- 在中等屏幕（≥576px 且 <992px）上显示 面板信息-->
       <Transition class="d-none d-sm-block" name="fade">
@@ -29,12 +17,9 @@
           <login v-if="!isLogin" />
 
           <div v-else class="user-box">
-            <img
-              v-if="userList.avatarUrl == ''"
-              src="../assets/avatar.svg"
-              alt=""
-            />
-            <img v-else :src="userList.avatarUrl" alt="" />
+            <img v-if="userList.avatarUrl == ''" src="../assets/avatar.svg" width="68" height="68"
+              style="border-radius: 50%;" alt="" />
+            <img v-else :src="userList.avatarUrl" alt="" width="68" height="68" style="border-radius: 50%;" />
             <div>
               <div class="userName">{{ userList.playerName }}</div>
               <div class="userId">UID:{{ userList.playerId }}</div>
@@ -45,24 +30,20 @@
             <div @click="goPage('allGames')" class="menu-item border-bo">
               GACHA GAMES
             </div>
-            <div @click="goPage('home')" class="menu-item border-bo">
+            <div @click="goPage('market')" class="menu-item border-bo">
               MARKETPLACE
             </div>
             <div @click="goPage('liveWinners')" class="menu-item border-bo">
               LIVE WINNERS HISTORY
             </div>
-            <div @click="goPage('home')" class="menu-item">FAQ</div>
+            <div @click="goPage('faq')" class="menu-item">FAQ</div>
           </div>
           <div class="desc d-flex align-items-center">
-            <div
-              @click="goPage('about')"
-              class="d-flex align-items-center"
-              style="margin-right: 24px"
-            >
+            <div @click="goPage('about')" class="d-flex align-items-center" style="margin-right: 24px;cursor: pointer;">
               <img src="../assets/u-aboutUs.svg" style="margin-right: 4px" />
               <span>ABOUT US</span>
             </div>
-            <div class="d-flex align-items-center">
+            <div @click="goPage('aboutUs')" class="d-flex align-items-center" style="cursor: pointer;">
               <img src="../assets/u-contactUs.svg" style="margin-right: 4px" />
               <span>CONTACT US</span>
             </div>
@@ -99,12 +80,9 @@
             </div>
 
             <div v-else class="user-box">
-              <img
-                v-if="userList.avatarUrl == ''"
-                src="../assets/avatar.svg"
-                alt=""
-              />
-              <img v-else :src="userList.avatarUrl" alt="" />
+              <img v-if="userList.avatarUrl == ''" width="60" height="60" style="border-radius: 50%;"
+                src="../assets/avatar.svg" alt="" />
+              <img v-else :src="userList.avatarUrl" width="60" height="60" style="border-radius: 50%;" alt="" />
               <div>
                 <div class="userName">{{ userList.playerName }}</div>
                 <div class="userId">UID:{{ userList.playerId }}</div>
@@ -119,13 +97,13 @@
               <div @click="goPage('allGames')" class="menu-item border-bo">
                 GACHA GAMES
               </div>
-              <div @click="goPage('home')" class="menu-item border-bo">
+              <div @click="goPage('market')" class="menu-item border-bo">
                 MARKETPLACE
               </div>
               <div @click="goPage('liveWinners')" class="menu-item border-bo">
                 LIVE WINNERS HISTORY
               </div>
-              <div @click="goPage('home')" class="menu-item">FAQ</div>
+              <div @click="goPage('faq')" class="menu-item">FAQ</div>
             </div>
             <!-- <div
               @click="goPage('about')"
@@ -135,21 +113,13 @@
               ABOUT US
             </div> -->
             <div class="desc d-flex align-items-center">
-              <div
-                @click="goPage('about')"
-                class="d-flex align-items-center"
-                style="margin-right: 24px"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              >
+              <div @click="goPage('about')" class="d-flex align-items-center"
+                style="margin-right: 24px;cursor: pointer;" data-bs-dismiss="offcanvas" aria-label="Close">
                 <img src="../assets/u-aboutUs.svg" style="margin-right: 4px" />
                 <span>ABOUT US</span>
               </div>
-              <div class="d-flex align-items-center">
-                <img
-                  src="../assets/u-contactUs.svg"
-                  style="margin-right: 4px"
-                />
+              <div @click="goPage('aboutUs')" class="d-flex align-items-center" style="cursor: pointer;">
+                <img src="../assets/u-contactUs.svg" style="margin-right: 4px" />
                 <span>CONTACT US</span>
               </div>
             </div>
@@ -195,20 +165,10 @@
             </div>
           </div>
           <!-- 用户头像 -->
-          <img
-            @click="handleShowUserInfo"
-            class="userImg"
-            v-if="userList.avatarUrl == ''"
-            src="../assets/header-avatar.svg"
-            alt=""
-          />
-          <img
-            @click="handleShowUserInfo"
-            class="userImg"
-            v-else
-            :src="userList.avatarUrl"
-            alt=""
-          />
+          <img @click="handleShowUserInfo" class="userImg" width="48" height="48" style="border-radius: 50%;"
+            v-if="userList.avatarUrl == ''" src="../assets/header-avatar.svg" alt="" />
+          <img @click="handleShowUserInfo" class="userImg" width="48" height="48" style="border-radius: 50%;" v-else
+            :src="userList.avatarUrl" alt="" />
 
           <!-- 个人信息弹窗  弹窗面板展示-->
           <Account
@@ -220,18 +180,10 @@
       </div>
 
       <!-- 用户头像 小屏显示 -->
-      <img
-        v-if="isLogin && userList.avatarUrl == ''"
-        @click="handleShowUserInfo"
-        src="../assets/header-avatar.svg"
-        class="d-block d-sm-none"
-      />
-      <img
-        v-if="isLogin && userList.avatarUrl !== ''"
-        @click="handleShowUserInfo"
-        :src="userList.avatarUrl"
-        class="d-block d-sm-none"
-      />
+      <img v-if="isLogin && userList.avatarUrl == ''" width="42" height="42" style="border-radius: 50%;"
+        @click="handleShowUserInfo" src="../assets/header-avatar.svg" class="d-block d-sm-none" />
+      <img v-if="isLogin && userList.avatarUrl !== ''" width="42" height="42" style="border-radius: 50%;"
+        @click="handleShowUserInfo" :src="userList.avatarUrl" class="d-block d-sm-none" />
 
       <!-- 个人信息弹窗 底部抽屉展示 -->
       <div
@@ -311,6 +263,14 @@
       </Modal>
     </div>
   </div>
+
+  <Modal v-model="marketBox" width="500px">
+    <div class="results-box">
+      <div>
+        <div class="result-title">Coming Soon</div>
+      </div>
+    </div>
+  </Modal>
 </template>
 
 <script setup>
@@ -321,20 +281,24 @@ import { useRouter } from "vue-router";
 import VueCookie from "vue-cookie";
 import { selectConnection, selectWallet, cutApart } from "@/utils/burn";
 import { cutApartNumber, initWalletUmi } from "../utils/burn";
-import {
-  playerInfo,
-  useChangePrize,
-  userLogin,
-  userPay,
-  userPayNow,
-} from "../utils/counter";
+import { playerInfo, useChangePrize, userLogin, userPay, userPayNow, userSol } from "../utils/counter";
 import axios from "@/utils/axios";
-import { PublicKey } from "@solana/web3.js";
+import { PublicKey } from '@solana/web3.js';
 import Modal from "@/components/Modal.vue";
-import Candy from "@/components/Candy.vue";
+
 
 const router = useRouter();
+const marketBox = ref(false)
+
 const goPage = (path) => {
+  if (path == 'faq') {
+    window.open('https://docs.tokyostupidgames.io/help/faq', "_blank")
+    return
+  }
+  if (path == 'market') {
+    marketBox.value = true
+    return
+  }
   router.push({ name: `${path}` });
   showPanel.value = false;
 };
@@ -431,7 +395,8 @@ const getWalletPrize = async () => {
   const connection = selectConnection(localStorage.getItem("local"));
   const res = await connection.getBalance(walletAddress);
   SolanaPrize.value = (res / 1000000000).toFixed(5);
-};
+  userSol().changeSol(SolanaPrize.value)
+}
 
 const bindDiscord = async (val) => {
   const params = {
@@ -596,6 +561,7 @@ const showWallet = ref(false);
         .menu-item {
           padding-bottom: 16px;
           padding-top: 16px;
+          cursor: pointer;
         }
 
         .border-bo {
@@ -755,6 +721,103 @@ const showWallet = ref(false);
     text-align: center;
   }
 }
+
+.results-box {
+  color: #fff;
+  text-align: center;
+
+  div {
+    padding: 60px 0;
+  }
+
+  .result-title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .result-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .result-center.change-tip {
+    padding-bottom: 20px;
+  }
+
+  .result-center span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .result-center span.change-tip {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .result-center span:nth-child(2) {
+    padding: 0 10px;
+  }
+
+  .result-img {
+    margin: 40px 0;
+    width: 120px;
+    height: 120px;
+  }
+
+  .result-img.change-tip {
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+
+  .result-tips {
+    margin-bottom: 40px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .blue-text {
+    color: #3052fa;
+    font-weight: 600;
+  }
+
+  .footer-btn__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn1 {
+      margin-right: 16px;
+      padding: 12px 24px;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 48px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(to right, #1f0c27, #1f0c27),
+        linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+    }
+
+    .btn2 {
+      padding: 12px 24px;
+      font-size: 20px;
+      display: inline-block;
+      border-radius: 48px;
+      border: 1px solid #3f3f3f;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      cursor: pointer;
+    }
+  }
+
+
+}
+
 
 @media (max-width: 576px) {
   .w-172 {

@@ -17,10 +17,8 @@
             <div class="row">
               <div class="col-12">
                 <a-form-item name="email">
-                  <a-input
-                    v-model:value="formState.email"
-                    placeholder="Email *"
-                  >
+                  <a-input :status="isEmail ? 'error' : ''" @change="changeInput('email')"
+                    v-model:value="formState.email" placeholder="Email *">
                   </a-input>
                 </a-form-item>
               </div>
@@ -32,43 +30,25 @@
             <div class="row">
               <div class="col-12">
                 <a-form-item name="country">
-                  <a-select
-                    v-model:value="formState.country"
-                    placeholder="Country/Region *"
-                    custom-class="custom-select"
-                    @select="changeSelect"
-                  >
-                    <a-select-option
-                      v-for="item in countries"
-                      :value="item.name"
-                      >{{ item.name }}</a-select-option
-                    >
+                  <a-select @change="changeInput('country')" :status="isCountry ? 'error' : ''" v-model:value="formState.country" placeholder="Country/Region *"
+                    custom-class="custom-select" @select="changeSelect">
+                    <a-select-option v-for="item in countries" :value="item.name">{{ item.name }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </div>
 
               <div class="col-6">
                 <a-form-item name="Name">
-                  <a-input
-                    v-model:value="formState.name"
-                    :placeholder="
-                      formState.addressType == 0 ? '例：山田 太郎 *' : 'Name *'
-                    "
-                  >
+                  <a-input v-model:value="formState.name" :status="isName ? 'error' : ''" @change="changeInput('name')"
+                    :placeholder="formState.addressType == 0 ? '例：山田 太郎 *' : 'Name *'">
                   </a-input>
                 </a-form-item>
               </div>
 
               <div class="col-6">
                 <a-form-item name="Phone">
-                  <a-input
-                    v-model:value="formState.phone"
-                    :placeholder="
-                      formState.addressType == 0
-                        ? '例：03-3333-3333 *'
-                        : 'Phone *'
-                    "
-                  >
+                  <a-input v-model:value="formState.phone" :status="isPhone ? 'error' : ''" @change="changeInput('phone')"
+                    :placeholder="formState.addressType == 0 ? '例：03-3333-3333 *' : 'Phone *'">
                   </a-input>
                 </a-form-item>
               </div>
@@ -87,45 +67,30 @@
 
               <div class="col-6">
                 <a-form-item name="Post Code">
-                  <a-input
-                    v-model:value="formState.postcode"
-                    :placeholder="
-                      formState.addressType == 0
-                        ? '例：170-0013 *'
-                        : 'Postal Code *'
-                    "
-                  >
+                  <a-input v-model:value="formState.postcode" :status="isPostcode ? 'error' : ''" @change="changeInput('postcode')"
+                    :placeholder="formState.addressType == 0 ? '例：170-0013 *' : 'Postal Code *'">
                   </a-input>
                 </a-form-item>
               </div>
 
               <div class="col-12" v-if="formState.addressType !== 0">
                 <a-form-item name="city">
-                  <a-input v-model:value="formState.city" placeholder="City *">
+                  <a-input v-model:value="formState.city" :status="isCity ? 'error' : ''" @change="changeInput('city')" placeholder="City *">
                   </a-input>
                 </a-form-item>
               </div>
 
               <div class="col-12" v-if="formState.addressType == 0">
                 <a-form-item name="prefecture">
-                  <a-input
-                    v-model:value="formState.prefecture"
-                    placeholder="例：都道府県(東京都) *"
-                  >
+                  <a-input v-model:value="formState.prefecture" :status="isPrefecture ? 'error' : ''" @change="changeInput('prefecture')" placeholder="例：都道府県(東京都) *">
                   </a-input>
                 </a-form-item>
               </div>
 
               <div class="col-12">
                 <a-form-item name="address">
-                  <a-input
-                    v-model:value="formState.address"
-                    :placeholder="
-                      formState.addressType == 0
-                        ? '例：豊島区東池袋1-34-5 *'
-                        : 'Address *'
-                    "
-                  >
+                  <a-input v-model:value="formState.address" :status="isAddress ? 'error' : ''" @change="changeInput('address')"
+                    :placeholder="formState.addressType == 0 ? '例：豊島区東池袋1-34-5 *' : 'Address *'">
                   </a-input>
                 </a-form-item>
               </div>
@@ -144,7 +109,7 @@
                 </a-form-item>
               </div>
 
-              <div class="form-title">Payment Method *</div>
+              <div class="form-title" :style="isCheckpay?'color:#ff4d4f;':''">Payment Method *</div>
 
               <div class="form-title__desc">
                 Which currency would you like to take to pay for your logistic?
@@ -152,13 +117,11 @@
 
               <div class="col-12 mt-2">
                 <a-form-item name="payment">
-                  <a-radio-group v-model:value="payment">
-                    <a-radio value="1">
+                  <a-radio-group @change="changeInput('payment')" v-model:value="payment">
+                    <a-radio value="usdc">
                       <img src="../../assets/payment1.png" alt="" />
                     </a-radio>
-                    <a-radio value="2"
-                      ><img src="../../assets/payment2.png" alt=""
-                    /></a-radio>
+                    <a-radio value="sol"><img src="../../assets/payment2.png" alt="" /></a-radio>
                   </a-radio-group>
                 </a-form-item>
               </div>
@@ -343,16 +306,75 @@ const width = computed(() => {
   return "500px";
 });
 
+const isEmail = ref(false)
+const isCountry = ref(false)
+const isName = ref(false)
+const isPhone = ref(false)
+const isPostcode = ref(false)
+const isRegioncode = ref(false)
+const isCity = ref(false)
+const isPrefecture = ref(false)
+const isAddress = ref(false)
+const isCheckpay = ref(false)
+
 const handleSubmit = async () => {
+  let re = /^\w+(?:\.\w+){0,1}@[a-zA-Z0-9]{2,14}(?:\.[a-z]{2,4}){1,2}$/;
+  console.log(payment.value);
+  
+  if (formState.email == "") {
+    isEmail.value = true
+    return
+  }
+  if (!re.test(formState.email)) {
+    isEmail.value = true
+    return
+  }
+  if (formState.country == "Country/Region") {
+    isCountry.value = true
+    return
+  }
+  if (formState.name == "") {
+    isName.value = true
+    return
+  }
+  if (formState.phone == "") {
+    isPhone.value = true
+    return
+  }
+  if (formState.postcode == "") {
+    isPostcode.value = true
+    return
+  }
+  if (formState.regionCode == "") {
+    isRegioncode.value = true
+    return
+  }
+  if (formState.city == "" && formState.addressType == 1) {
+    isCity.value = true
+    return
+  }
+  if (formState.prefecture == "" && formState.addressType == 0) {
+    isPrefecture.value = true
+    return
+  }
+  if (formState.address == "") {
+    isAddress.value = true
+    return
+  }
+  if (payment.value !== 'usdc' && payment.value !== 'sol') {
+    isCheckpay.value = true
+    return
+  }
+
   const res = await axios.post("/tsg/player/upShippingAddress", formState);
   if (res.data.code == 200) {
-    let getOrderType = "";
-    let getOrderList = [];
-    dataSource.value.forEach((item) => {
-      getOrderList.push(item.id);
-    });
-    if (payment.value == "1") {
-      getOrderType = "usdc";
+    let getOrderType = ''
+    let getOrderList = []
+    dataSource.value.forEach(item => {
+      getOrderList.push(item.id)
+    })
+    if (payment.value == 'usdc') {
+      getOrderType = 'usdc'
     } else {
       getOrderType = "sol";
     }
@@ -370,6 +392,29 @@ const handleSubmit = async () => {
     }
   }
 };
+
+const changeInput = (val) => {
+  if(val == 'email'){
+    isEmail.value = false
+  }else if (val == 'country'){
+    isCountry.value = false
+  }else if (val == 'name'){
+    isName.value = false
+  }else if (val == 'phone'){
+    isPhone.value = false
+  }else if (val == 'postcode'){
+    isPostcode.value = false
+  }else if (val == 'city'){
+    isCity.value = false
+  }else if (val == 'prefecture'){
+    isPrefecture.value = false
+  }else if (val == 'address'){
+    isAddress.value = false
+  }else if (val == 'payment'){
+    isCheckpay.value = false
+  }
+
+}
 
 const handleBack = () => {
   router.push("sell");

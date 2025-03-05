@@ -107,7 +107,7 @@ const goPage = () => {
       .avatar {
         width: 120px;
         height: 120px;
-
+        border-radius: 50%;
         margin-right: 24px;
       }
 
@@ -145,6 +145,7 @@ const goPage = () => {
         text-align: center;
         font-size: 20px;
         font-weight: 600;
+        cursor: pointer;
 
         .edit {
           margin-left: 24px;

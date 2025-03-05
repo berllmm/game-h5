@@ -55,7 +55,9 @@
             </div>
             <div class="footer">
               By logging in I agree with
-              <span style="color: #3052fa">Terms & Privacy Policy</span>
+              <span style="color: #3052fa">
+                <a href="https://docs.tokyostupidgames.io/legal/terms-of-use" target="_blank">Terms</a> & <a
+                  href="https://docs.tokyostupidgames.io/legal/privacy-policy" target="_blank">Privacy Policy</a></span>
             </div>
           </div>
         </div>
@@ -78,7 +80,7 @@
           <!-- by email -->
           <div class="email-form base-form">
             <div class="base-form__title">Login using email</div>
-            <input class="form-control email-input" type="text" placeholder="Enter your email "
+            <input class="form-control email-input" v-model="emial" type="text" placeholder="Enter your email "
               aria-label="default input example" />
 
             <div @click="handleNext" class="round-btn base-round-border">
@@ -86,7 +88,7 @@
             </div>
 
             <div class="flex-center">
-              <div class="google-btn">
+              <div class="google-btn" @click="loginGoogle()">
                 <img src="../assets/google.svg" alt="" />
                 Sign in with Google
               </div>
@@ -137,21 +139,34 @@
       <div v-show="showCodeModal">
         <div class="tips">Please enter the code we’ve sent to your email</div>
         <VerificationCodeInput :digits="digits" />
-        <div @click="handleSubmit" class="base-round-border m-40">Submit</div>
-        <div class="blue-text">Resend code</div>
+        <div @click="handleSubmit" style="cursor: pointer;" class="base-round-border m-40">Submit</div>
+        <div class="blue-text" @click="againEmail">{{ resendCode }}</div>
       </div>
     </div>
+
+    <Modal v-model="emailTip" width="400px">
+      <div class="results-box">
+        <div>
+          <img v-if="emailSuccess" src="../assets/result-success.svg" class="result-img" />
+          <img v-else src="../assets/result-err.svg" class="result-img" />
+          <div class="result-tips">
+            {{ emialText }}
+          </div>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { googleAuthCodeLogin } from "vue3-google-login";
 import axios from "@/utils/axios";
 import VerificationCodeInput from "@/components/VerificationCodeInput.vue";
 import { initWalletUmi } from "../utils/burn";
 import VueCookie from "vue-cookie";
-import { userLogin } from "../utils/counter";
+import { userDetailLogin, userLogin } from "../utils/counter";
+import Modal from "@/components/Modal.vue";
 
 // import bs58 from "bs58";
 import bs58 from 'bs58'
@@ -214,6 +229,10 @@ const handleSubmit = async () => {
     initWalletUmi()
     userLogins.changeIsLogin()
     handleClose();
+  } else {
+    emailSuccess.value = false
+    emialText.value = 'Code is error'
+    emailTip.value = true
   }
 };
 
@@ -347,11 +366,137 @@ const loginGoogle = async () => {
     handleClose()
   }
 }
+
+const emailTip = ref(false)
+const Countdown = ref(0)
+const CountFunction = ref(null)
+const resendCode = ref('Resend code')
+const emailSuccess = ref(true)
+const emialText = ref('')
+
+const againEmail = async () => {
+  if (Countdown.value > 0) {
+    return
+  }
+
+  const res = await axios.get("/tsg/login/emailLogin", {
+    params: {
+      email: emial.value,
+      code: 0,
+    },
+  });
+
+  if (res.data.code == 200) {
+    emailTip.value = true
+    emailSuccess.value = true
+    emialText.value = 'Resend successfully'
+    Countdown.value = 60
+    CountFunction.value = setInterval(() => {
+      Countdown.value--
+      if (Countdown.value <= 0) {
+        isButton.value = true
+        resendCode.value = `Resend code`
+        clearInterval(CountFunction.value)
+      } else {
+        resendCode.value = `re-send in ${Countdown.value} s`
+      }
+    }, 1000)
+  }
+}
+
+watch(
+  () => userDetailLogin().isLogin,
+  (newVal, oldVal) => {
+    if (newVal) {
+      showLogin.value = true
+      userDetailLogin().truePay()
+    }
+  }
+
+)
 </script>
 
 <style lang="scss" scoped>
 .loginbtn {
   cursor: pointer;
+}
+
+.results-box {
+  color: #fff;
+  text-align: center;
+
+  .result-title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .result-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .result-center span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .result-center span:nth-child(2) {
+    padding: 0 10px;
+  }
+
+  .result-img {
+    margin: 40px 0;
+    width: 120px;
+    height: 120px;
+  }
+
+  .result-tips {
+    margin-bottom: 40px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .blue-text {
+    color: #3052fa;
+    font-weight: 600;
+  }
+
+  .footer-btn__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn1 {
+      margin-right: 16px;
+      padding: 12px 24px;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 48px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(to right, #1f0c27, #1f0c27),
+        linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+    }
+
+    .btn2 {
+      padding: 12px 24px;
+      font-size: 20px;
+      display: inline-block;
+      border-radius: 48px;
+      border: 1px solid #3f3f3f;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      cursor: pointer;
+    }
+  }
+
+
 }
 
 // 大屏样式
@@ -367,10 +512,15 @@ const loginGoogle = async () => {
   .flex-end {
     display: flex;
     justify-content: flex-end;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   .modal-header {
     border: none;
+    padding: 0;
   }
 
   .title {
@@ -424,6 +574,8 @@ const loginGoogle = async () => {
       color: #717680;
       height: 48px;
       box-sizing: border-box;
+      font-size: 18px;
+      color: #fff;
 
       &::placeholder {
         color: #717680;
@@ -503,7 +655,6 @@ const loginGoogle = async () => {
     margin-bottom: 40px;
     color: #fff;
     font-weight: 600;
-    margin-top: 16px;
     font-size: 16px;
     text-align: center;
   }
@@ -688,13 +839,10 @@ const loginGoogle = async () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  max-width: 480px;
+  width: 600px;
   //   height: 548px;
   padding: 24px;
-
   z-index: 9999;
-
   border-radius: 32px;
   background: #1f0c27;
   border: 1px solid #3f3f3f;
@@ -733,6 +881,7 @@ const loginGoogle = async () => {
     font-size: 16px;
     color: #3052fa;
     text-align: center;
+    cursor: pointer;
   }
 }
 

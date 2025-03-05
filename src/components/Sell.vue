@@ -39,7 +39,7 @@
     <span>TOTAL</span>
     <span class="d-flex align-items-center px-2">
       <img src="../assets/count.svg" class="me-1" />
-      {{ cutApartNumber(allUSDC) }}
+      {{ cutApart(allUSDC) }}
     </span>
     <span class="d-flex align-items-center px-2">
       <img src="../assets/candy.svg" class="me-1" />
@@ -87,9 +87,9 @@
       <div>
         <div class="result-title">{{ tipTitle }}</div>
         <div class="result-center">
-          <img v-if="tipType" src="../assets/candy.svg" width="32" alt="">
+          <img v-if="!tipType" src="../assets/candy.svg" width="32" alt="">
           <span>{{ tipPrize }}</span>
-          <span v-if="!tipType">USDC</span>
+          <span v-if="tipType">USDC</span>
         </div>
         <div class="result-tips">{{ tipFoot }}</div>
       </div>
@@ -100,17 +100,17 @@
     </div>
   </Modal>
 
-  <Modal v-model="agianModal" width="600px">
+  <Modal v-model="agianModal" width="500px">
     <div class="results-box">
       <div>
         <div class="result-title">{{ tipTitle }}</div>
-        <div class="result-center">
-          <span>{{ agianText }}</span>
+        <img src="../assets/result-err.svg" class="result-img change-tip" />
+        <div class="result-center change-tip">
+          <span class="change-tip">{{ agianText }}</span>
         </div>
       </div>
       <div class="footer-btn__modal footer-btn__modal2">
-        <div @click="transferPrize" class="btn1">Confirm</div>
-        <div @click="closeAgainModal" class="btn2">Cancel</div>
+        <div @click="transferPrize" class="btn1">Continue</div>
       </div>
     </div>
   </Modal>
@@ -294,7 +294,7 @@ const agianText = ref('')
 
 const okTipModal = () => {
   console.log(tipType.value);
-  
+
   if (!tipType.value) {
     tipModal.value = false
     transferPrize()
@@ -457,9 +457,18 @@ const clearSell = () => {
     padding: 40px 0;
   }
 
+  .result-center.change-tip {
+    padding-bottom: 20px;
+  }
+
   .result-center span {
     font-size: 24px;
     font-weight: 700;
+  }
+
+  .result-center span.change-tip {
+    text-align: center;
+    font-size: 18px;
   }
 
   .result-center span:nth-child(2) {
@@ -470,6 +479,11 @@ const clearSell = () => {
     margin: 40px 0;
     width: 120px;
     height: 120px;
+  }
+
+  .result-img.change-tip {
+    margin-top: 40px;
+    margin-bottom: 0px;
   }
 
   .result-tips {

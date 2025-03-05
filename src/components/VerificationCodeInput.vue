@@ -45,8 +45,8 @@ const handleDelete = (index, event) => {
 }
 
 .digit-input {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 }
 
 .digit-input input {

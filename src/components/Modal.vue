@@ -6,12 +6,7 @@
         <div class="modal-content" :style="{ width }">
           <!-- 关闭按钮 -->
           <!-- <button class="close-button" @click="closeModal">×</button> -->
-          <img
-            src="../assets/close.svg"
-            class="close-button"
-            @click="closeModal"
-            alt=""
-          />
+          <img src="../assets/close.svg" class="close-button" @click="closeModal" alt="" />
           <!-- 插槽内容 -->
           <slot></slot>
         </div>
@@ -21,19 +16,11 @@
     <!-- 小屏显示底部抽屉 -->
     <div class="d-block d-md-none">
       <div v-if="modelValue" class="modal-overlay">
-        <div
-          v-if="modelValue"
-          class="drawer d-block d-sm-none"
-          :class="{ open: modelValue }"
-        >
+        <div v-if="modelValue" class="drawer d-block d-sm-none" :class="{ open: modelValue }">
           <div class="drawer-content small-box">
             <div class="drawer-header">
               <div class="modal-header flex-end">
-                <img
-                  @click="handleClose"
-                  src="../assets/simpleClose.svg"
-                  alt=""
-                />
+                <img @click="handleClose" src="../assets/simpleClose.svg" alt="" />
               </div>
             </div>
             <div class="drawer-body">
@@ -48,6 +35,8 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+
 // 定义 props
 const props = defineProps({
   modelValue: {
@@ -56,7 +45,7 @@ const props = defineProps({
   },
   width: {
     default: "90%",
-  },
+  }
 });
 
 // 定义 emits
@@ -84,7 +73,7 @@ const handleClose = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1060;
+  z-index: 999999;
 }
 
 /* 弹窗内容样式 */
@@ -132,6 +121,7 @@ const handleClose = () => {
     display: flex;
     justify-content: flex-end;
   }
+
   .modal-header {
     border: none;
   }

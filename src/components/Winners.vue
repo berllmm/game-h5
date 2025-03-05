@@ -28,22 +28,14 @@
           </template>
 
           <template v-if="column.key === 'rarityType'">
-            <div class="d-flex align-items-center">
-              <div>
-                <div class="item-desc">
-                  {{ record.rarity }}
-                </div>
-              </div>
+            <div class="align-items-center" style="text-align: center;">
+              {{ record.rarity }}
             </div>
           </template>
 
           <template v-if="column.key === 'price'">
-            <div class="d-flex align-items-center">
-              <div>
-                <div class="item-desc">
-                  {{ record.rarity }}
-                </div>
-              </div>
+            <div class="align-items-center" style="text-align: center;">
+              {{ cutApart(record.gachaCard?.usd) }} USDC
             </div>
           </template>
 
@@ -73,9 +65,9 @@
           </template>
 
           <template v-if="column.key === 'time'">
-            <span class="time-color">{{
-              formatTimestamp(record.createTime)
-            }}</span>
+            <div class="align-items-center" style="text-align: center;color: #8b94a3;">
+              {{ formatTimestamp(record.createTime) }}
+            </div>
           </template>
         </template>
       </a-table>
@@ -146,6 +138,7 @@ import morAvantar from "@/assets/avatar.svg";
 import item1 from "@/assets/item1.png";
 import item2 from "@/assets/item2.png";
 import item3 from "@/assets/item3.png";
+import { cutApart } from "../utils/burn";
 
 const { isLargeWindow } = useWindow();
 const columns = ref([
@@ -160,24 +153,28 @@ const columns = ref([
     dataIndex: "rarityType",
     key: "rarityType",
     width: "10%",
+    align: 'center'
   },
   {
     title: "PRICE",
     dataIndex: "price",
     key: "price",
-    width: "10%",
+    width: "18%",
+    align: 'center'
   },
   {
     title: "OWNER",
     key: "winner",
     dataIndex: "winner",
     width: "19%",
+    align: 'center'
   },
   {
     title: "TIME",
     key: "time",
     dataIndex: "time",
     width: "18%",
+    align: 'center'
   },
 ]);
 
@@ -230,8 +227,8 @@ const nextPage = () => {
 };
 
 const goPageText = () => {
-  if (page.value > size.value || page.value < 1) {
-    return (page.value = 0);
+  if (page.value > total.value || page.value < 1) {
+    return page.value = 0
   }
   winnerInit();
 };
@@ -508,7 +505,7 @@ const goPage = () => {
   margin: 0px 10px;
 }
 
-.pagebox > div:nth-child(1) {
+.pagebox>div:nth-child(1) {
   cursor: pointer;
 }
 
@@ -536,10 +533,15 @@ const goPage = () => {
 .nextpage button {
   margin-left: 5px;
   color: #fff;
-  padding: 2px 5px;
+  padding: 2px 15px;
+  border-radius: 24px;
   border: 1px solid #fff;
   background-color: transparent;
   cursor: pointer;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(to right, #1f0c27, #1f0c27), linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
 }
 
 .order-content-title {

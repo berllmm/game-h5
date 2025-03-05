@@ -95,3 +95,25 @@ export const userPayNow = defineStore('paynow', {
         }
     },
 });
+
+export const userDetailLogin = defineStore('nextLogin', {
+    state: () => ({
+        isLogin: false,
+    }),
+    actions: {
+        truePay() {
+            this.isLogin = !this.isLogin
+        }
+    },
+});
+
+export const userSol = defineStore('sol', {
+    state: () => ({
+        sol: '',
+    }),
+    actions: {
+        changeSol(val) {
+            this.sol = val
+        }
+    },
+});

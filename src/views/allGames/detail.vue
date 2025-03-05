@@ -55,7 +55,7 @@
             <div class="ticket-text">
               <div class="left">
                 <img src="../../assets/event-candy.svg" class="me-1" />
-                <span class="fw-bolder me-1">{{ detailsList.candy }}</span>
+                <span class="fw-bolder me-1">{{ cutApart(detailsList.candy) }}</span>
                 <span> /ticket</span>
               </div>
               <div class="right">
@@ -78,7 +78,7 @@
                 <div class="fw-bolder">Ticket x 1</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
-                  <span>100</span>
+                  <span>{{ cutApart(detailsList.candy * 1) }}</span>
                 </div>
               </div>
               <div
@@ -89,7 +89,7 @@
                 <div class="fw-bolder">Ticket x 10</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
-                  <span>1,000</span>
+                  <span>{{ cutApart(detailsList.candy * 10) }}</span>
                 </div>
               </div>
               <div
@@ -100,7 +100,7 @@
                 <div class="fw-bolder">Ticket x 100</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
-                  <span>10,000</span>
+                  <span>{{ cutApart(detailsList.candy * 100) }}</span>
                 </div>
               </div>
             </div>
@@ -125,6 +125,19 @@
       </div>
     </div>
   </Modal>
+
+  <Modal v-model="loginVisible" width="600px">
+    <div class="results-box">
+      <div>
+        <img src="../../assets/login_error.svg" class="result-img" />
+        <div class="result-title">Error</div>
+        <div class="result-tips">You must log in to continue.</div>
+      </div>
+      <div class="footer-btn__modal footer-btn__modal2">
+        <div @click="goLogin" class="btn1">Confirm</div>
+      </div>
+    </div>
+  </Modal>
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
@@ -136,8 +149,9 @@ import circle4 from "@/assets/circle4.png";
 import circle5 from "@/assets/circle5.png";
 import FullCardList from "./components/FullCardList.vue";
 import { useRoute, useRouter } from "vue-router";
-import { useChangePrize } from "../../utils/counter";
+import { useChangePrize, userDetailLogin } from "../../utils/counter";
 import Modal from "@/components/Modal.vue";
+import { cutApart } from "../../utils/burn";
 
 const route = useRoute();
 
@@ -177,8 +191,8 @@ onMounted(() => {
   getDetailsInit();
 });
 
-const activeImage = ref("");
-const detailsList = ref({});
+const activeImage = ref('')
+const detailsList = ref({})
 
 const getDetailsInit = async () => {
   const res = await axios.get("/tsg/publicinfo/gachaInfo", {
@@ -186,12 +200,9 @@ const getDetailsInit = async () => {
       gachaPoolId: route.query.id,
     },
   });
-
   if (res.data.code == 200) {
-    detailsList.value = res.data.data;
-
-    activeImage.value = detailsList.value.imageUrlList[0];
-
+    detailsList.value = res.data.data
+    activeImage.value = detailsList.value.imageUrlList[0]
     imgData.value = [
       {
         typeName: "SUPER SUPER RARE",
@@ -223,9 +234,7 @@ const getDetailsInit = async () => {
         typeImage: circle5,
         cardList: findPrize("LASTONE")?.cardInfoList,
       },
-    ];
-
-    console.log(imgData.value);
+    ]
   }
 };
 
@@ -233,7 +242,6 @@ const findPrize = (val) => {
   const index = detailsList.value.weightList.findIndex(
     (item) => item.rarity == val
   );
-
   return detailsList.value.weightList[index];
 };
 
@@ -263,9 +271,7 @@ const handleSwitchCurrentTicketValue = (value) => {
   }
 };
 
-const closeModal = () => {
-  tipVisible.value = false;
-};
+const loginVisible = ref(false)
 
 const router = useRouter();
 // 跳转游戏开始界面
@@ -284,11 +290,18 @@ const goPage = async (path) => {
     useChangePrize().changePrize();
 
     router.push(path);
+  } else if (res.data.code == 401) {
+    loginVisible.value = true
   } else {
-    checkTicketTip.value = `Less than ${value} cards in total`;
-    tipVisible.value = true;
+    checkTicketTip.value = `Less than ${currentTicketValue.value} cards in total`
+    tipVisible.value = true
   }
 };
+
+const goLogin = () => {
+  loginVisible.value = false
+  userDetailLogin().truePay()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -464,7 +477,7 @@ const goPage = async (path) => {
       }
 
       .active {
-        border-color: #fff;
+        border-color: red;
       }
 
       .play_btn {
@@ -540,7 +553,6 @@ const goPage = async (path) => {
     justify-content: center;
 
     .btn1 {
-      margin-right: 16px;
       padding: 12px 24px;
       font-weight: 600;
       color: #ffffff;
