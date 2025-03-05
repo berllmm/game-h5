@@ -1,13 +1,7 @@
 <template>
   <div>
-    <a-table
-      :dataSource="dataSource"
-      :columns="columns"
-      :bordered="false"
-      :pagination="false"
-      :customRow="customCell"
-      :customHeaderRow="customHeaderCell"
-    >
+    <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
+      :customHeaderRow="customHeaderCell" :scroll="{ x: 900 }">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'orderNo'">
           <span>{{ record.id }}</span>
@@ -27,62 +21,32 @@
           </div>
         </template>
         <template v-if="column.key === 'content'">
-          <span
-            @click="showDetail(record)"
-            style="color: #3052fa; cursor: pointer"
-            >Detail</span
-          >
+          <span @click="showDetail(record)" style="color: #3052fa; cursor: pointer">Detail</span>
         </template>
 
         <template v-if="column.key === 'status'">
-          <span v-if="record.historyType == 'shipping' && record.state == 0"
-            >Logistics in progress</span
-          >
-          <span v-if="record.historyType == 'shipping' && record.state == 1"
-            >Logistics done</span
-          >
+          <span v-if="record.historyType == 'shipping' && record.state == 0">Logistics in progress</span>
+          <span v-if="record.historyType == 'shipping' && record.state == 1">Logistics done</span>
         </template>
       </template>
     </a-table>
 
     <div class="pagebox" v-if="isPage">
       <div @click="prePage()">
-        <svg
-          t="1736405798737"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="4367"
-          id="mx_n_1736405798737"
-          width="24"
-          height="24"
-        >
+        <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="4367" id="mx_n_1736405798737" width="24" height="24">
           <path
             d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-            fill="#ffffff"
-            p-id="4368"
-          ></path>
+            fill="#ffffff" p-id="4368"></path>
         </svg>
       </div>
       <div>{{ page }} / {{ size }}</div>
       <div @click="nextPage()">
-        <svg
-          t="1736405798737"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="4367"
-          id="mx_n_1736405798737"
-          width="24"
-          height="24"
-        >
+        <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="4367" id="mx_n_1736405798737" width="24" height="24">
           <path
             d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-            fill="#ffffff"
-            p-id="4368"
-          ></path>
+            fill="#ffffff" p-id="4368"></path>
         </svg>
       </div>
       <div class="nextpage">
@@ -94,22 +58,11 @@
     <!-- 订单详情弹窗 -->
     <Modal v-model="showContentModal">
       <div class="order-content-title">Order No. {{ currentOrder.id }}</div>
-      <a-table
-        :dataSource="currentOrderList"
-        :columns="columns2"
-        :bordered="false"
-        :pagination="false"
-        :customRow="customCell"
-        :customHeaderRow="customHeaderCell"
-      >
+      <a-table :dataSource="currentOrderList" :columns="columns2" :bordered="false" :pagination="false"
+        :customRow="customCell" :customHeaderRow="customHeaderCell">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'item'">
-            <img
-              :src="record.image"
-              alt=""
-              width="60"
-              style="margin-right: 15px"
-            />
+            <img :src="record.image" alt="" width="60" style="margin-right: 15px" />
             <span class="item-desc">{{ record.name }}</span>
           </template>
           <template v-if="column.key === 'rarity'">
@@ -294,13 +247,13 @@ watch(
 </script>
 
 <style lang="scss">
-.ant-table-wrapper .ant-table-thead > tr > th {
+.ant-table-wrapper .ant-table-thead>tr>th {
   background: #1e1e1e !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
 }
 
-.ant-table-wrapper .ant-table-tbody > tr > td {
+.ant-table-wrapper .ant-table-tbody>tr>td {
   background: #1f0c27 !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
@@ -314,24 +267,24 @@ watch(
   margin-top: 15px;
 }
 
-.pagebox > div {
+.pagebox>div {
   margin: 0px 10px;
 }
 
-.pagebox > div:nth-child(1) {
+.pagebox>div:nth-child(1) {
   cursor: pointer;
 }
 
-.pagebox > div:nth-child(1) svg {
+.pagebox>div:nth-child(1) svg {
   transform: rotateY(180deg);
 }
 
-.pagebox > div:nth-child(3) {
+.pagebox>div:nth-child(3) {
   cursor: pointer;
 }
 
-.pagebox > div:nth-child(1):hover svg,
-.pagebox > div:nth-child(3):hover svg {
+.pagebox>div:nth-child(1):hover svg,
+.pagebox>div:nth-child(3):hover svg {
   fill: #ffff00;
 }
 

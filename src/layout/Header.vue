@@ -291,6 +291,7 @@ const router = useRouter();
 const marketBox = ref(false)
 
 const goPage = (path) => {
+  showPanel.value = false;
   if (path == 'faq') {
     window.open('https://docs.tokyostupidgames.io/help/faq', "_blank")
     return
@@ -299,8 +300,8 @@ const goPage = (path) => {
     marketBox.value = true
     return
   }
+  
   router.push({ name: `${path}` });
-  showPanel.value = false;
 };
 
 // 是否展示面板

@@ -17,7 +17,7 @@
             <div class="d-flex align-items-center">
               <img :src="record.gachaCard?.image" width="40" alt="" />
               <div style="margin-left: 15px">
-                <div class="item-desc d-none d-md-block">
+                <div class="item-desc d-md-block">
                   {{ record.gachaCard?.name }}
                 </div>
                 <div class="item-desc d-none d-md-block color-gray">
@@ -254,7 +254,7 @@ watch(
           title: "PRICE",
           dataIndex: "price",
           key: "price",
-          width: "10%",
+          width: "13%",
         },
         {
           title: "OWNER",
@@ -275,6 +275,7 @@ watch(
           title: "ITEM",
           dataIndex: "item",
           key: "item",
+          width:140
         },
         {
           title: "RARITY",

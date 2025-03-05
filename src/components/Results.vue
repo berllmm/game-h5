@@ -16,35 +16,35 @@
                 <template v-if="column.key === 'item'">
                   <div class="d-flex align-items-center">
                     <img :src="record.gachaCard?.image" alt="" width="60" style="margin-right: 15px;" />
-                    <span class="item-desc d-none d-md-block">{{
+                    <span class="item-desc d-md-block">{{
                       record.gachaCard?.name
                     }}</span>
                   </div>
                 </template>
                 <template v-if="column.key === 'rarity'">
-                  <div class="d-flex align-items-center">
-                    <span class="item-desc d-none d-md-block">{{
+                  <div class="align-items-center" style="text-align: center;">
+                    <span class="item-desc d-md-block">{{
                       record.gachaCard?.rarity
                     }}</span>
                   </div>
                 </template>
                 <template v-if="column.key === 'usdcPrice'">
-                  <div class="d-flex align-items-center">
-                    <span class="item-desc d-none d-md-block">{{
+                  <div class="align-items-center" style="text-align: center;">
+                    <span class="item-desc d-md-block">{{
                       record.gachaCard?.usd
                     }}</span>
                   </div>
                 </template>
                 <template v-if="column.key === 'candyPrice'">
-                  <div class="d-flex align-items-center">
-                    <span class="item-desc d-none d-md-block">{{
+                  <div class="align-items-center" style="text-align: center;">
+                    <span class="item-desc d-md-block">{{
                       record.gachaCard?.candy
                     }}</span>
                   </div>
                 </template>
                 <template v-if="column.key === 'quantity'">
-                  <div class="d-flex align-items-center">
-                    <span class="item-desc d-none d-md-block">1</span>
+                  <div class="align-items-center" style="text-align: center;">
+                    <span class="item-desc d-md-block">1</span>
                   </div>
                 </template>
               </template>
@@ -163,17 +163,20 @@
             title: "ITEM",
             dataIndex: "item",
             key: "item",
+            width:240
           },
           {
             title: "RARITY",
             dataIndex: "rarity",
             key: "rarity",
+            width:120
           },
   
           {
             title: "QUANTITY",
             key: "quantity",
             dataIndex: "quantity",
+            width:120
           },
         ];
       }

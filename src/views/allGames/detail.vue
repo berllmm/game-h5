@@ -3,18 +3,24 @@
     <div class="row">
       <!-- 图片信息 -->
       <div class="col-12 col-sm-6 col-md-6">
+
+        <div class="info-box" v-if="!isPC">
+          <div class="title">{{ detailsList.name }}</div>
+          <div class="user-box">
+            <div class="left">
+              <img src="../../assets/wwallet.png" class="avatar" />
+              <span>Tokyo Stupid Games</span>
+            </div>
+            <div class="right">{{ detailsList.gener }}</div>
+          </div>
+        </div>
         <div class="img-box">
           <img :src="activeImage" class="big-img" />
           <div class="small-list">
-            <div
-              v-for="(item, index) in detailsList.imageUrlList"
-              :key="index"
-              :class="
-                activeImage == item
-                  ? 'small-img__item active'
-                  : 'small-img__item'
-              "
-            >
+            <div v-for="(item, index) in detailsList.imageUrlList" :key="index" :class="activeImage == item
+              ? 'small-img__item active'
+              : 'small-img__item'
+              ">
               <img :src="item" @click="changeCurrentImage(item)" />
             </div>
           </div>
@@ -24,8 +30,8 @@
       <!-- 文字信息 + 按钮 -->
       <div class="col-12 col-sm-6 col-md-6">
         <div class="info-box">
-          <div class="title">{{ detailsList.name }}</div>
-          <div class="user-box">
+          <div class="title" v-if="isPC">{{ detailsList.name }}</div>
+          <div class="user-box" v-if="isPC">
             <div class="left">
               <img src="../../assets/wwallet.png" class="avatar" />
               <span>Tokyo Stupid Games</span>
@@ -42,15 +48,11 @@
               <span>{{ formatTimestamp(detailsList.endTime) }}</span>
             </div>
             <div class="time-bar">
-              <div
-                class="bar"
-                :style="`width:${
-                  100 -
-                  ((detailsList.totalCardCount - detailsList.drawCardCount) /
-                    detailsList.totalCardCount) *
-                    100
-                }%`"
-              ></div>
+              <div class="bar" :style="`width:${100 -
+                ((detailsList.totalCardCount - detailsList.drawCardCount) /
+                  detailsList.totalCardCount) *
+                100
+                }%`"></div>
             </div>
             <div class="ticket-text">
               <div class="left">
@@ -70,33 +72,24 @@
           <div class="select">
             <div class="select-title">SELECT TICKET AMOUNT</div>
             <div class="select-box">
-              <div
-                @click="handleSwitchCurrentTicketValue(1)"
-                class="select-item me-2"
-                :class="currentTicketValue === 1 ? 'active' : ''"
-              >
+              <div @click="handleSwitchCurrentTicketValue(1)" class="select-item me-2"
+                :class="currentTicketValue === 1 ? 'active' : ''">
                 <div class="fw-bolder">Ticket x 1</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
                   <span>{{ cutApart(detailsList.candy * 1) }}</span>
                 </div>
               </div>
-              <div
-                @click="handleSwitchCurrentTicketValue(10)"
-                class="select-item me-2"
-                :class="currentTicketValue === 10 ? 'active' : ''"
-              >
+              <div @click="handleSwitchCurrentTicketValue(10)" class="select-item me-2"
+                :class="currentTicketValue === 10 ? 'active' : ''">
                 <div class="fw-bolder">Ticket x 10</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
                   <span>{{ cutApart(detailsList.candy * 10) }}</span>
                 </div>
               </div>
-              <div
-                @click="handleSwitchCurrentTicketValue(100)"
-                class="select-item"
-                :class="currentTicketValue === 100 ? 'active' : ''"
-              >
+              <div @click="handleSwitchCurrentTicketValue(100)" class="select-item"
+                :class="currentTicketValue === 100 ? 'active' : ''">
                 <div class="fw-bolder">Ticket x 100</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
@@ -140,7 +133,7 @@
   </Modal>
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import axios from "@/utils/axios";
 import circle1 from "@/assets/circle1.png";
 import circle2 from "@/assets/circle2.png";
@@ -152,6 +145,22 @@ import { useRoute, useRouter } from "vue-router";
 import { useChangePrize, userDetailLogin } from "../../utils/counter";
 import Modal from "@/components/Modal.vue";
 import { cutApart } from "../../utils/burn";
+import useWindow from "@/hooks/useWindow";
+
+const { isLargeWindow } = useWindow();
+
+const isPC = ref(false)
+
+watch(
+  () => isLargeWindow,
+  (newVal, oldVal) => {
+    if (newVal) {
+      isPC.value = true
+    } else {
+      isPC.value = false
+    }
+  }
+)
 
 const route = useRoute();
 
@@ -427,14 +436,12 @@ const goLogin = () => {
           width: 20%;
           height: 100%;
           border-radius: 8px;
-          background-image: linear-gradient(
-            90deg,
-            #1e58fc,
-            #a427eb,
-            #d914e4,
-            #e10fa3,
-            #f10419
-          );
+          background-image: linear-gradient(90deg,
+              #1e58fc,
+              #a427eb,
+              #d914e4,
+              #e10fa3,
+              #f10419);
         }
       }
 
@@ -582,31 +589,49 @@ const goLogin = () => {
 
 @media (max-width: 576px) {
   .select-box {
-    display: block !important;
+    // display: block !important;
   }
 
   .select-item {
     margin-bottom: 8px;
   }
+
+  .detail .info-box .select .select-item {
+    padding: 16px 0;
+  }
+
+  .full .type-item .title-box {
+    margin: 24px 0;
+  }
+
   .detail {
     padding: 16px;
-    .small-list {
-      margin-top: 8px !important;
-      height: auto !important;
 
-      .small-img__item {
-        img {
-          width: 56px !important;
-          height: 56px !important;
+    .img-box {
+      .big-img {
+        height: 350px;
+      }
+
+      .small-list {
+        margin-top: 8px !important;
+        height: auto !important;
+
+        .small-img__item {
+          img {
+            width: 56px !important;
+            height: 56px !important;
+          }
         }
       }
-    }
-    .select-box {
-      display: flex !important;
-      font-size: 14px;
-    }
-    .info-box .select .select-item {
-      padding: 14px 10px;
+
+      .select-box {
+        display: flex !important;
+        font-size: 14px;
+      }
+
+      .info-box .select .select-item {
+        padding: 14px 10px;
+      }
     }
   }
 

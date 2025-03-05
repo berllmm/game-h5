@@ -35,7 +35,7 @@
 
       <div class="item-box">
         <div
-          @click="goDetailPage"
+          @click="goDetailPage(item.id)"
           :class="index == 2 ? 'item' : 'item me-4'"
           v-for="(item, index) in gameList"
           :key="index"

@@ -1,7 +1,7 @@
 <template>
   <div class="setting-content">
     <div class="base-title base-border">
-      <img src="../../assets/arrow-left.svg" class="back-icon" />
+      <img @click="goIn" src="../../assets/arrow-left.svg" class="back-icon" />
       Account Setting
     </div>
 
@@ -36,7 +36,7 @@
           class="wallets-item d-flex align-items-center justify-content-between">
           <div class="wallet-item-text">
             <img src="../../assets/header-wallet.svg" alt="" />
-            {{ item.walletName }}
+            <span style="white-space: normal;">{{ item.walletName }}</span>
           </div>
           <div class="wallet-item-btn" @click="closeDisconnect">Disconnect</div>
         </div>
@@ -129,6 +129,10 @@ const user = ref({})
 const userImage = ref('')
 const tipText = ref('')
 const router = useRouter()
+
+const goIn = () => {
+  router.back()
+}
 
 const infoInit = async () => {
   const result = await axios.post("/tsg/player/playerInfo");
@@ -652,6 +656,33 @@ const closeDisconnect = () => {
         }
       }
     }
+  }
+
+  .setting-content .wrap .right .wallets-item {
+    display: flex;
+  }
+
+  .setting-content .wrap .right .wallets-item>div {
+    width: 75%;
+  }
+
+  .setting-content .wrap .right .wallets-item .wallet-item-text span {
+    width: calc(100% - 48px);
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: left;
+  }
+
+  .setting-content .wrap .right .wallets-item .wallet-item-btn {
+    width: 23%;
+  }
+
+  .setting-content .wrap .right .wallets-item .wallet-item-text {
+    display: flex;
+  }
+
+  .setting-content .wrap .right .wallets-item .wallet-item-text span {
+    white-space: normal;
   }
 }
 

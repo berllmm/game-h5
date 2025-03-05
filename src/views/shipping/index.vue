@@ -148,21 +148,21 @@
                     width="60"
                     style="margin-right: 15px; border-radius: 6px"
                   />
-                  <span class="item-desc d-none d-md-block">{{
+                  <span class="item-desc d-md-block">{{
                     record.name
                   }}</span>
                 </div>
               </template>
               <template v-if="column.key === 'rarity'">
-                <div class="d-flex align-items-center">
-                  <span class="item-desc d-none d-md-block">{{
+                <div class="align-items-center" style="text-align: center;">
+                  <span class="item-desc d-md-block">{{
                     record.rarity
                   }}</span>
                 </div>
               </template>
               <template v-if="column.key === 'quantity'">
-                <div class="d-flex align-items-center">
-                  <span class="item-desc d-none d-md-block">1</span>
+                <div class="align-items-center" style="text-align: center;">
+                  <span class="item-desc d-md-block">1</span>
                 </div>
               </template>
             </template>
@@ -612,6 +612,7 @@ const changeSelect = (value) => {
     font-weight: 600;
 
     .btn1 {
+      width: 100%;
       margin-right: 16px;
       padding: 0 64px;
       font-weight: 600;
@@ -624,6 +625,7 @@ const changeSelect = (value) => {
     }
 
     .btn2 {
+      width: 100%;
       padding: 0 64px;
       height: 48px;
       line-height: 48px;

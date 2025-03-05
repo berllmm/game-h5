@@ -1,43 +1,56 @@
 <template>
   <!-- :row-selection="rowSelection" -->
   <div>
+    <!-- <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
+      :customHeaderRow="customHeaderCell"> -->
     <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-      :customHeaderRow="customHeaderCell">
+      :customHeaderRow="customHeaderCell" :scroll="{ x: 580 }">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'name'">
-          <img :src="record.gachaCard?.image" alt="" width="60" style="margin-right: 15px;" />
-          <span class="product-name"> {{ record.gachaCard?.name }}</span>
+          <div class="d-flex align-items-center">
+            <img :src="record.gachaCard?.image" alt="" width="60" style="margin-right: 15px;" />
+            <span class="product-name" style="white-space:normal;"> {{ record.gachaCard?.name }}</span>
+          </div>
         </template>
         <template v-if="column.key === 'rarity'">
-          <span class="product-name"> {{ record.gachaCard?.rarity }}</span>
+          <div class="align-items-center" style="text-align: center;">
+            <span class="item-desc d-md-block"> {{ record.gachaCard?.rarity }}</span>
+          </div>
         </template>
         <template v-if="column.key === 'time'">
-          <span class="product-name"> {{ backTime(record.createTime) }}</span>
+          <div class="align-items-center" style="text-align: center;">
+            <span class="item-desc d-md-block"> {{ backTime(record.createTime) }}</span>
+          </div>
         </template>
         <template v-if="column.key === 'type'">
-          <span class="product-name" v-if="record.historyType == 'burnSol' && record.state == 0">Buyback in
-            progress</span>
+          <div class="align-items-center" style="text-align: center;">
+            <span class="item-desc d-md-block" v-if="record.historyType == 'burnSol' && record.state == 0">Buyback in
+              progress</span>
 
-          <span class="product-name" v-if="record.historyType == 'burnSol' && record.state == 1">Buyback done</span>
+            <span class="item-desc d-md-block" v-if="record.historyType == 'burnSol' && record.state == 1">Buyback
+              done</span>
 
-          <span class="product-name" v-if="record.historyType == 'burnCandy' && record.state == 0">Candy in
-            progress</span>
+            <span class="item-desc d-md-block" v-if="record.historyType == 'burnCandy' && record.state == 0">Candy in
+              progress</span>
 
-          <span class="product-name" v-if="record.historyType == 'burnCandy' && record.state == 1">Candy exchange
-            successful</span>
+            <span class="item-desc d-md-block" v-if="record.historyType == 'burnCandy' && record.state == 1">Candy
+              exchange
+              successful</span>
 
-          <span class="product-name" v-if="record.historyType == 'shipping' && record.state == 0">Logistics in
-            progress</span>
+            <span class="item-desc d-md-block" v-if="record.historyType == 'shipping' && record.state == 0">Logistics in
+              progress</span>
 
-          <span class="product-name" v-if="record.historyType == 'shipping' && record.state == 1">Logistics done</span>
+            <span class="item-desc d-md-block" v-if="record.historyType == 'shipping' && record.state == 1">Logistics
+              done</span>
 
-          <span class="product-name" v-if="record.historyType == 'shippingWallet' && record.state == 0">Minting</span>
+            <span class="item-desc d-md-block"
+              v-if="record.historyType == 'shippingWallet' && record.state == 0">Minting</span>
 
-          <span class="product-name" v-if="record.historyType == 'shippingWallet' && record.state == 1">Mint
-            success</span>
+            <span class="item-desc d-md-block" v-if="record.historyType == 'shippingWallet' && record.state == 1">Mint
+              success</span>
 
-          <span class="product-name" v-if="record.historyType == 'gacha'">Gacha</span>
-
+            <span class="item-desc d-md-block" v-if="record.historyType == 'gacha'">Gacha</span>
+          </div>
         </template>
       </template>
     </a-table>
@@ -70,6 +83,7 @@
 import { customHeaderCell, customCell } from "@/utils";
 import axios from "@/utils/axios";
 import { ref, watch } from "vue";
+import useWindow from "@/hooks/useWindow";
 
 const props = defineProps({
   activeKey: String
@@ -171,6 +185,69 @@ const columns = [
   },
 ];
 
+const { isLargeWindow } = useWindow();
+
+watch(
+  isLargeWindow,
+  (newVal) => {
+    if (newVal) {
+      columns.value = [
+        {
+          title: "NAME",
+          dataIndex: "name",
+          key: "name",
+          width: "45%",
+        },
+        {
+          title: "RARITY",
+          dataIndex: "rarity",
+          key: "rarity",
+        },
+        {
+          title: "TIME",
+          dataIndex: "time",
+          key: "time",
+        },
+        {
+          title: "TYPE",
+          key: "type",
+          dataIndex: "type",
+        },
+      ];
+    } else {
+      columns.value = [
+        {
+          title: "NAME",
+          dataIndex: "name",
+          key: "name",
+          width: 280,
+        },
+        {
+          title: "RARITY",
+          dataIndex: "rarity",
+          key: "rarity",
+          width: 100
+        },
+        {
+          title: "TIME",
+          dataIndex: "time",
+          key: "time",
+          width: 100
+        },
+        {
+          title: "TYPE",
+          key: "type",
+          dataIndex: "type",
+          width: 120
+        },
+      ];
+    }
+  },
+  {
+    immediate: true,
+  }
+);
+
 const dataSource = ref([])
 </script>
 
@@ -229,9 +306,5 @@ const dataSource = ref([])
   cursor: pointer;
 }
 
-@media (max-width: 738px) {
-  .product-name {
-    display: none;
-  }
-}
+@media (max-width: 738px) {}
 </style>

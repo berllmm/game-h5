@@ -5,31 +5,31 @@
       <template v-if="column.key === 'item'">
         <div class="d-flex align-items-center">
           <img :src="record.image" alt="" width="60" style="margin-right: 15px;" />
-          <span class="item-desc d-none d-md-block">{{ record.name }}</span>
+          <span class="item-desc d-md-block">{{ record.name }}</span>
         </div>
       </template>
       <template v-if="column.key === 'usdcPrice'">
-        <div class="d-flex align-items-center">
-          <span class="item-desc d-none d-md-block">{{ record.usd }}</span>
+        <div class="align-items-center" style="text-align: center;">
+          <span class="item-desc d-md-block">{{ record.usd }}</span>
         </div>
       </template>
       <template v-if="column.key === 'candyPrice'">
-        <div class="d-flex align-items-center">
-          <span class="item-desc d-none d-md-block">{{ record.candy }}</span>
+        <div class="align-items-center" style="text-align: center;">
+          <span class="item-desc d-md-block">{{ record.candy }}</span>
         </div>
       </template>
       <template v-if="column.key === 'rarity'">
-        <div class="d-flex align-items-center">
-          <span class="item-desc d-none d-md-block">{{ record.rarity }}</span>
+        <div class="align-items-center" style="text-align: center;">
+          <span class="item-desc d-md-block">{{ record.rarity }}</span>
         </div>
       </template>
       <template v-if="column.key === 'quantity'">
-        <div class="d-flex align-items-center">
-          <span class="item-desc d-none d-md-block">1</span>
+        <div class="align-items-center" style="text-align: center;">
+          <span class="item-desc d-md-block">1</span>
         </div>
       </template>
 
-      <template v-if="column.key === 'action'">
+      <template v-if="column.key === 'action'" style="text-align: center;">
         <img class="closebtn" @click="closeItem(record.id)" src="../assets/delete.svg" alt="" />
       </template>
     </template>
@@ -50,7 +50,6 @@
   <div class="btn-groups">
     <div class="btn0">
       <div class="btn me-2" @click="exchangePrize('2')">SELL for USDC on SOLANA</div>
-      <div></div>
     </div>
     <div class="btn1">
       <div class="btn me-2" @click="tansformwallet">Transfer to your wallet</div>
@@ -239,17 +238,20 @@ watch(
           title: "ITEM",
           dataIndex: "item",
           key: "item",
+          width: 240
         },
 
         {
           title: "QUANTITY",
           key: "quantity",
           dataIndex: "quantity",
+          width:120
         },
         {
           title: "ACTION",
           key: "action",
           dataIndex: "action",
+          width:120
         },
       ];
     }
@@ -427,6 +429,7 @@ const clearSell = () => {
   font-weight: 400;
 
   .btn {
+    width: 100%;
     margin-bottom: 8px;
     border: 1px solid #3f3f3f;
     border-radius: 48px;
