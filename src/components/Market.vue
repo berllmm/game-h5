@@ -65,7 +65,7 @@
           <span class="market-desc"
             >2007 EX Power Keepers #1 Aggrpn -Holo(CGC 9)</span
           >
-          <div class="market-price">200 USDC</div>
+          <!-- <div class="market-price">200 USDC</div> -->
         </div>
 
         <div class="item me-4">
@@ -73,7 +73,7 @@
           <span class="market-desc"
             >2007 EX Power Keepers #1 Aggrpn -Holo(CGC 9)</span
           >
-          <div class="market-price">200 USDC</div>
+          <!-- <div class="market-price">200 USDC</div> -->
         </div>
 
         <div class="item me-4">
@@ -82,7 +82,7 @@
             >2007 EX Power Keepers #1 Aggrpn -Holo(CGC 9)</span
           >
 
-          <div class="market-price">200 USDC</div>
+          <!-- <div class="market-price">200 USDC</div> -->
         </div>
 
         <div class="item me-4">
@@ -90,7 +90,7 @@
           <span class="market-desc"
             >2007 EX Power Keepers #1 Aggrpn -Holo(CGC 9)</span
           >
-          <div class="market-price">200 USDC</div>
+          <!-- <div class="market-price">200 USDC</div> -->
         </div>
 
         <div class="item">
@@ -98,7 +98,7 @@
           <span class="market-desc"
             >2007 EX Power Keepers #1 Aggrpn -Holo(CGC 9)</span
           >
-          <div class="market-price">200 USDC</div>
+          <!-- <div class="market-price">200 USDC</div> -->
         </div>
       </div>
 
