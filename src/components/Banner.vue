@@ -44,13 +44,13 @@
     <!-- 在中等屏幕（≥576px ）上显示 -->
     <img
       @click="handlePrev"
-      class="btn-perv d-none d-sm-block"
+      class="btn-perv d-none d-sm-block cursor"
       src="../assets/banner-left.svg"
       alt=""
     />
     <img
       @click="handleNext"
-      class="btn-next d-none d-sm-block"
+      class="btn-next d-none d-sm-block cursor"
       src="../assets/banner-right.svg"
       alt=""
     />
@@ -200,7 +200,7 @@ const init = () => {
 
   carousel = new bootstrap.Carousel(myCarouselElement, {
     interval: 4000,
-    touch: false,
+    touch: true,
   });
 
   carousel.cycle();
@@ -220,11 +220,14 @@ const openPage = (index) => {
   if (index == 1) {
     window.open("https://docs.tokyostupidgames.io/games/gacha", "_blank");
   } else if (index == 2) {
-    window.open("https://docs.tokyostupidgames.io/rewards/candy-point", "_blank");
+    window.open(
+      "https://docs.tokyostupidgames.io/rewards/candy-point",
+      "_blank"
+    );
   } else if (index == 3) {
     window.open("https://docs.tokyostupidgames.io/token/what-is-tsg", "_blank");
   } else if (index == 4) {
-    window.open('https://docs.tokyostupidgames.io/prizes/burn', "_blank")
+    window.open("https://docs.tokyostupidgames.io/prizes/burn", "_blank");
   }
 };
 
@@ -251,13 +254,21 @@ onMounted(() => {
   position: absolute;
   right: 96px;
   bottom: 24px;
+  opacity: 0.8;
   cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
 }
 .btn-next {
   position: absolute;
   right: 24px;
   bottom: 24px;
   cursor: pointer;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
 }
 .carousel-indicators {
   text-align: center;

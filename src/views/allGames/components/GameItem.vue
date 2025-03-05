@@ -45,8 +45,8 @@ const props = defineProps({
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() 返回值范围是 0 到 11，所以加 1
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() 返回值范围是 0 到 11，所以加 1
+  const day = String(date.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
 }
@@ -63,12 +63,14 @@ const goPage = (uid) => {
 .game-item {
   border-radius: 24px;
   padding: 16px;
-  background-image: linear-gradient(to bottom,
-      rgba(30, 88, 252, 0.1) 0%,
-      rgba(164, 39, 235, 0.1) 20%,
-      rgba(217, 20, 228, 0.1) 40%,
-      rgba(225, 15, 163, 0.1) 60%,
-      rgba(241, 4, 25, 0.1) 100%);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(30, 88, 252, 0.1) 0%,
+    rgba(164, 39, 235, 0.1) 20%,
+    rgba(217, 20, 228, 0.1) 40%,
+    rgba(225, 15, 163, 0.1) 60%,
+    rgba(241, 4, 25, 0.1) 100%
+  );
 
   .game-img {
     width: 100%;
@@ -117,6 +119,22 @@ const goPage = (uid) => {
       box-sizing: border-box;
       background-image: linear-gradient(to right, #1f0c27, #1f0c27),
         linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .game-item-info {
+    .game-name {
+      margin-top: 16px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      height: 36px;
+      line-height: 18px;
+    }
+    .game-desc {
+      font-size: 10px;
     }
   }
 }

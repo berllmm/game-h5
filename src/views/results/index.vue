@@ -10,8 +10,12 @@
     <Modal v-model="showModal" width="400px">
       <div class="results-box">
         <div>
-          <div class="result-title">{{tip}}</div>
-          <img v-if="tipVisible" src="../../assets/result-success.svg" class="result-img" />
+          <div class="result-title">{{ tip }}</div>
+          <img
+            v-if="tipVisible"
+            src="../../assets/result-success.svg"
+            class="result-img"
+          />
           <img v-else src="../../assets/result-err.svg" class="result-img" />
           <div class="result-tips">
             {{ tipText }}
@@ -33,80 +37,78 @@ import axios from "@/utils/axios";
 import { useChangePrize } from "../../utils/counter";
 
 const router = useRouter();
-const tip = ref('')
-const showModal = ref(false)
-const tipText = ref('')
-const tipVisible = ref(false)
+const tip = ref("");
+const showModal = ref(false);
+const tipText = ref("");
+const tipVisible = ref(false);
 
 const closeModal = () => {
-  showModal.value = false
-}
+  showModal.value = false;
+};
 
 onMounted(() => {
-  getWinnerInit()
-})
+  getWinnerInit();
+});
 
-const userList = ref([])
+const userList = ref([]);
 
 const getWinnerInit = async () => {
-  const refList = JSON.parse(localStorage.getItem('redeem'))
+  const refList = JSON.parse(localStorage.getItem("redeem"));
 
-  const idList = []
-  refList.forEach(item => {
-    idList.push(item.id)
-  })
+  const idList = [];
+  refList.forEach((item) => {
+    idList.push(item.id);
+  });
 
-  const res = await axios.post('/tsg/player/getCardInPack', {
-    cardIdList: idList
-  })
+  const res = await axios.post("/tsg/player/getCardInPack", {
+    cardIdList: idList,
+  });
 
   if (res.data.code == 200) {
-    userList.value = res.data.data.list
-    localStorage.setItem('redeem', JSON.stringify(userList.value))
-    userList.value.forEach((item,index) => {
+    userList.value = res.data.data.list;
+    localStorage.setItem("redeem", JSON.stringify(userList.value));
+    userList.value.forEach((item, index) => {
       item.key = index;
     });
 
     if (userList.value.length == 0) {
-      router.push({ name: 'profile' });
+      router.push({ name: "profile" });
     }
   }
-}
+};
 
 const handleAgain = async () => {
-  if(userList.value.length > 0){
-    showModal.value = true
-    tipText.value = 'Please finish all NFT operations'
-    tipVisible.value = false
-    tip.value = 'Error'
-    return
+  if (userList.value.length > 0) {
+    showModal.value = true;
+    tipText.value = "Please finish all NFT operations";
+    tipVisible.value = false;
+    tip.value = "Error";
+    return;
   }
 
   const res = await axios.get("/tsg/player/gachaDraw", {
     params: {
-      gachaPoolId: localStorage.getItem('gachaId'),
-      count: localStorage.getItem('count'),
+      gachaPoolId: localStorage.getItem("gachaId"),
+      count: localStorage.getItem("count"),
     },
   });
   if (res.data.code == 200) {
     const code = res.data.data.gachaCardList;
-    localStorage.setItem('redeem', JSON.stringify(code))
-    useChangePrize().changePrize()
+    localStorage.setItem("redeem", JSON.stringify(code));
+    useChangePrize().changePrize();
 
     router.push({
       name: "play",
     });
   }
-
-
 };
 
 const goPage = () => {
-  if(userList.value.length > 0){
-    showModal.value = true
-    tipText.value = 'Please finish all NFT operations'
-    tipVisible.value = false
-    return
+  if (userList.value.length > 0) {
+    showModal.value = true;
+    tipText.value = "Please finish all NFT operations";
+    tipVisible.value = false;
+    return;
   }
 
   router.push({
@@ -173,6 +175,10 @@ const goPage = () => {
   color: #ffffff;
   font-size: 20px;
   font-weight: 600;
+  div {
+    width: 240px;
+    text-align: center;
+  }
 
   .btn1 {
     margin-right: 16px;
@@ -205,6 +211,11 @@ const goPage = () => {
 
     .btn1 {
       margin-bottom: 16px;
+      margin-right: 0;
+      font-size: 16px;
+    }
+    .btn2 {
+      font-size: 16px;
     }
   }
 }

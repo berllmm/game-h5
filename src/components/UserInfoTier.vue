@@ -2,18 +2,22 @@
   <div class="tier">
     <div class="desc">Your tier:</div>
     <div class="number-box">
-      <img src="../assets/header-candy.svg" alt="" />
+      <img src="../assets/candy.svg" alt="" />
       <span class="value">{{ cutApart(props.userInfo.vipExp) }}</span>
     </div>
 
     <div class="tips-box">
       <div class="title1">Tier benefit description</div>
       <div class="title2">
-        You need to accumulate {{ cutApart(nextPrize) }} more points to reach the next tier.
+        You need to accumulate {{ cutApart(nextPrize) }} more points to reach
+        the next tier.
       </div>
       <div class="process">
         <div class="process-line"></div>
-        <div class="process-bar" :style="{ width: props.userInfo.expChange }"></div>
+        <div
+          class="process-bar"
+          :style="{ width: props.userInfo.expChange }"
+        ></div>
         <img src="../assets/candy1-bg.png" alt="" />
         <img src="../assets/candy2-bg.png" alt="" />
         <img src="../assets/candy3-bg.png" alt="" />
@@ -29,44 +33,48 @@ import { cutApart } from "../utils/burn";
 import axios from "@/utils/axios";
 import currency from "currency.js";
 
-
 const props = defineProps({
   activeKey: String,
-  userInfo: Object
-})
+  userInfo: Object,
+});
 
-const nextPrize = ref(0)
+const nextPrize = ref(0);
 
 const tierInit = async () => {
   console.log(props.userInfo);
-  
+
   if (props.userInfo.vipExp < 3000000) {
-    const numNow = currency(props.userInfo.vipExp).divide(3000000).value
-    props.userInfo.expChange = currency(33.33).multiply(numNow).value + '%'
-    nextPrize.value = currency(3000000).subtract(props.userInfo.vipExp)
-  } else if (props.userInfo.vipExp > 3000000 && props.userInfo.vipExp < 15000000) {
-    const numNow = currency(props.userInfo.vipExp).divide(15000000).value
-    props.userInfo.expChange = currency(33.33).multiply(numNow).add(33.33).value + '%'
-    nextPrize.value = currency(15000000).subtract(props.userInfo.vipExp)
+    const numNow = currency(props.userInfo.vipExp).divide(3000000).value;
+    props.userInfo.expChange = currency(33.33).multiply(numNow).value + "%";
+    nextPrize.value = currency(3000000).subtract(props.userInfo.vipExp);
+  } else if (
+    props.userInfo.vipExp > 3000000 &&
+    props.userInfo.vipExp < 15000000
+  ) {
+    const numNow = currency(props.userInfo.vipExp).divide(15000000).value;
+    props.userInfo.expChange =
+      currency(33.33).multiply(numNow).add(33.33).value + "%";
+    nextPrize.value = currency(15000000).subtract(props.userInfo.vipExp);
   } else if (props.userInfo.vipExp >= 90000000) {
-    props.userInfo.expChange = '100%'
-    nextPrize.value = 0
+    props.userInfo.expChange = "100%";
+    nextPrize.value = 0;
   } else {
-    const numNow = currency(props.userInfo.vipExp).divide(90000000).value
-    props.userInfo.expChange = currency(33.33).multiply(numNow).add(66.66).value + '%'
-    nextPrize.value = currency(90000000).subtract(props.userInfo.vipExp)
+    const numNow = currency(props.userInfo.vipExp).divide(90000000).value;
+    props.userInfo.expChange =
+      currency(33.33).multiply(numNow).add(66.66).value + "%";
+    nextPrize.value = currency(90000000).subtract(props.userInfo.vipExp);
   }
-}
+};
 
 watch(
   () => props.activeKey,
   (newVal, oldVal) => {
     console.log(newVal);
-    if (newVal == '1') {
-      tierInit()
+    if (newVal == "1") {
+      tierInit();
     }
   }
-)
+);
 </script>
 
 <style lang="scss" scoped>
@@ -156,12 +164,14 @@ watch(
         left: 10%;
         top: 29.5%;
         // background: red;
-        background-image: linear-gradient(90deg,
-            #1e58fc,
-            #a427eb,
-            #d914e4,
-            #e10fa3,
-            #f10419);
+        background-image: linear-gradient(
+          90deg,
+          #1e58fc,
+          #a427eb,
+          #d914e4,
+          #e10fa3,
+          #f10419
+        );
         // background: red;
         border-radius: 8px;
         // height: 16px;

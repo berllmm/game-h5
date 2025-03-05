@@ -1,12 +1,22 @@
 <template>
   <div class="game-box">
     <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
+    <!-- 向右切换按钮 -->
+    <img
+      @click="handleScroll"
+      src="../assets/banner-right.svg"
+      class="cursor right-icon d-none d-sm-block"
+    />
     <div class="game d-none d-sm-block">
       <div class="title base-border">GACHA GAMES</div>
 
-      <div class="item-box">
-        <div @click="goDetailPage(item.id)" :class="index == 2 ? 'item' : 'item me-4'" v-for="(item, index) in gameList"
-          :key="index">
+      <div class="item-box" ref="scrollContainer">
+        <div
+          @click="goDetailPage(item.id)"
+          :class="index == 2 ? 'item' : 'item me-4'"
+          v-for="(item, index) in gameList"
+          :key="index"
+        >
           <img :src="item.imageUrlList[0]" alt="" />
           <span class="game-desc">{{ item.name }}</span>
         </div>
@@ -24,8 +34,12 @@
       <div class="title base-border">GACHA GAMES</div>
 
       <div class="item-box">
-        <div @click="goDetailPage" :class="index == 2 ? 'item' : 'item me-4'" v-for="(item, index) in gameList"
-          :key="index">
+        <div
+          @click="goDetailPage"
+          :class="index == 2 ? 'item' : 'item me-4'"
+          v-for="(item, index) in gameList"
+          :key="index"
+        >
           <img :src="item.imageUrlList[0]" alt="" />
           <span class="game-desc">{{ item.name }}</span>
         </div>
@@ -59,21 +73,36 @@ const goDetailPage = (uid) => {
 };
 
 onMounted(() => {
-  getGamesInit()
-})
+  getGamesInit();
+});
 
-const gameList = ref([])
+const gameList = ref([]);
 
 const getGamesInit = async () => {
   const res = await axios.get("/tsg/publicinfo/gachalist");
 
-  gameList.value = res.data.data.allPoolList.slice(0, 3)
-}
+  gameList.value = res.data.data.allPoolList.slice(0, 3);
+};
+
+const scrollContainer = ref();
+const handleScroll = () => {
+  scrollContainer.value.scrollBy({
+    left: 200,
+    behavior: "smooth", // 平滑滚动
+  });
+};
 </script>
 
 <style lang="scss" scoped>
 .game-box {
   margin: 76px 0 60px;
+  position: relative;
+  .right-icon {
+    position: absolute;
+    right: 18px;
+    top: 230px;
+    z-index: 9;
+  }
 }
 
 .game {
@@ -114,11 +143,13 @@ const getGamesInit = async () => {
       right: 0;
       bottom: 0;
       left: 0;
-      background: linear-gradient(30deg,
-          rgb(30, 88, 252) 0%,
-          #a427eb 35%,
-          #d914e4 50%,
-          #e10fa3 100%);
+      background: linear-gradient(
+        30deg,
+        rgb(30, 88, 252) 0%,
+        #a427eb 35%,
+        #d914e4 50%,
+        #e10fa3 100%
+      );
       opacity: 0.1;
       /* 只影响背景图像 */
     }
@@ -148,12 +179,14 @@ const getGamesInit = async () => {
     padding: 6px 10px;
     display: inline-block;
     border-radius: 20px;
-    border: 1px solid #fff;
+    // border: 1px solid #fff;
+    border: 1px solid #3f3f3f;
     cursor: pointer;
   }
 }
 
 .game-small {
+  padding: 16px;
   .title {
     display: inline-block;
     margin-bottom: 24px;

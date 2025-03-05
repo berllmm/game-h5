@@ -4,19 +4,34 @@
 
     <div class="table-info">
       <div class="row">
-        <div class="col-12" :class="showRightPanel ? 'col-sm-9 col-md-9' : 'col-sm-12 col-md-12'">
-          <a-table :row-selection="{
-            selectedRowKeys: state.selectedRowKeys,
-            onChange: onSelectChange,
-          }" :dataSource="userList" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-            :customHeaderRow="customHeaderCell" :scroll="{ y: 400 }">
+        <div
+          class="col-12"
+          :class="showRightPanel ? 'col-sm-9 col-md-9' : 'col-sm-12 col-md-12'"
+        >
+          <a-table
+            :row-selection="{
+              selectedRowKeys: state.selectedRowKeys,
+              onChange: onSelectChange,
+            }"
+            :dataSource="userList"
+            :columns="columns"
+            :bordered="false"
+            :pagination="false"
+            :customRow="customCell"
+            :customHeaderRow="customHeaderCell"
+            :scroll="{ y: 400 }"
+          >
             <template #bodyCell="{ column, record }">
               <template v-if="column.key === 'item'">
                 <div class="d-flex align-items-center">
-                  <img :src="record.image" alt="" width="60" style="margin-right: 15px;" />
-                  <span class="item-desc d-none d-md-block">{{
-                    record.name
-                  }}</span>
+                  <img
+                    :src="record.image"
+                    alt=""
+                    width="60"
+                    style="margin-right: 15px"
+                  />
+                  <!-- d-none d-md-block -->
+                  <span class="item-desc">{{ record.name }}</span>
                 </div>
               </template>
               <template v-if="column.key === 'rarity'">
@@ -46,7 +61,6 @@
                 </div>
               </template>
             </template>
-
           </a-table>
         </div>
 
@@ -63,7 +77,11 @@
           </div>
 
           <div class="item-list">
-            <div v-for="item in state.selectedRows" :key="item.key" class="item-box">
+            <div
+              v-for="item in state.selectedRows"
+              :key="item.key"
+              class="item-box"
+            >
               <div class="left">
                 <img :src="item.image" class="img" width="60" />
                 <div class="text-box">
@@ -83,7 +101,11 @@
                 </div>
               </div>
               <div class="right">
-                <img @click="handleDelete(item.key)" src="../assets/x.svg" alt="" />
+                <img
+                  @click="handleDelete(item.key)"
+                  src="../assets/x.svg"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -110,7 +132,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  userList: Object
+  userList: Object,
 });
 
 const columns = ref([]);
@@ -192,24 +214,22 @@ const showRightPanel = computed(() => {
 });
 // 切换选中
 const onSelectChange = (selectedRowKeys, selectedRows) => {
-  state.selectedRowKeys = selectedRowKeys
+  state.selectedRowKeys = selectedRowKeys;
   state.selectedRows = JSON.parse(JSON.stringify(selectedRows));
 };
 
 const handleDelete = (key) => {
-
   state.selectedRows = state.selectedRows.filter((item) => {
     return item.key !== key;
   });
   state.selectedRowKeys = state.selectedRowKeys.filter((item) => {
     return item !== key;
   });
-
 };
 
 const handleClear = () => {
   state.selectedRows = [];
-  state.selectedRowKeys = []
+  state.selectedRowKeys = [];
 };
 
 // 售卖/交换 弹窗
@@ -218,10 +238,10 @@ const handleShowSellModal = () => {
   showSellModal.value = true;
 };
 const goSell = () => {
-  useSell().changeList(state.selectedRows)
-  localStorage.setItem('sellList', JSON.stringify(state.selectedRows))
+  useSell().changeList(state.selectedRows);
+  localStorage.setItem("sellList", JSON.stringify(state.selectedRows));
   router.push({
-    name: "sell"
+    name: "sell",
   });
 };
 </script>
@@ -240,7 +260,9 @@ const goSell = () => {
   }
 
   .table-info {
-
+    table {
+      min-width: 400px;
+    }
     // 右侧面板样式
     .select-box {
       .select-title {
@@ -339,13 +361,13 @@ const goSell = () => {
 }
 </style>
 <style lang="scss">
-.ant-table-wrapper .ant-table-thead>tr>th {
+.ant-table-wrapper .ant-table-thead > tr > th {
   background: #1e1e1e !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
 }
 
-.ant-table-wrapper .ant-table-tbody>tr>td {
+.ant-table-wrapper .ant-table-tbody > tr > td {
   background: #1f0c27 !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
@@ -399,5 +421,11 @@ const goSell = () => {
   box-sizing: border-box;
   height: 24px;
   line-height: 24px;
+}
+
+@media (max-width: 576px) {
+  .ant-table-wrapper table {
+    min-width: 400px;
+  }
 }
 </style>

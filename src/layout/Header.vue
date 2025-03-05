@@ -3,10 +3,23 @@
     <!-- 左侧按钮 -->
     <div class="img-box w-172">
       <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
-      <img @click="handleShowPanel" src="../assets/menu.svg" class="d-none d-sm-block" alt="" ref="targetElement2" />
+      <img
+        @click="handleShowPanel"
+        src="../assets/menu.svg"
+        class="d-none d-sm-block"
+        alt=""
+        ref="targetElement2"
+      />
       <!-- 在小屏幕（<576px）上显示 -->
-      <img @click="handleShowPanel" src="../assets/menu.svg" class="d-block d-sm-none" alt="" data-bs-toggle="offcanvas"
-        href="#offcanvasExample" ref="targetElement3" />
+      <img
+        @click="handleShowPanel"
+        src="../assets/menu.svg"
+        class="d-block d-sm-none"
+        alt=""
+        data-bs-toggle="offcanvas"
+        href="#offcanvasExample"
+        ref="targetElement3"
+      />
 
       <!-- 在中等屏幕（≥576px 且 <992px）上显示 面板信息-->
       <Transition class="d-none d-sm-block" name="fade">
@@ -16,7 +29,11 @@
           <login v-if="!isLogin" />
 
           <div v-else class="user-box">
-            <img v-if="userList.avatarUrl == ''" src="../assets/avatar.svg" alt="" />
+            <img
+              v-if="userList.avatarUrl == ''"
+              src="../assets/avatar.svg"
+              alt=""
+            />
             <img v-else :src="userList.avatarUrl" alt="" />
             <div>
               <div class="userName">{{ userList.playerName }}</div>
@@ -37,7 +54,11 @@
             <div @click="goPage('home')" class="menu-item">FAQ</div>
           </div>
           <div class="desc d-flex align-items-center">
-            <div @click="goPage('about')" class="d-flex align-items-center" style="margin-right: 24px">
+            <div
+              @click="goPage('about')"
+              class="d-flex align-items-center"
+              style="margin-right: 24px"
+            >
               <img src="../assets/u-aboutUs.svg" style="margin-right: 4px" />
               <span>ABOUT US</span>
             </div>
@@ -50,10 +71,19 @@
       </Transition>
 
       <!-- 在小屏幕（<576px）上显示 面板信息-->
-      <div class="offcanvas offcanvas-start d-block d-sm-none left-panel w-100" tabindex="-1" id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel">
+      <div
+        class="offcanvas offcanvas-start d-block d-sm-none left-panel w-100"
+        tabindex="-1"
+        id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel"
+      >
         <div class="offcanvas-header flex-center">
-          <img @click="showPanel = false" src="../assets/close.svg" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <img
+            @click="showPanel = false"
+            src="../assets/close.svg"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          />
 
           <h5 class="offcanvas-title" id="offcanvasExampleLabel">
             TOKYO STUPID GAMES
@@ -69,7 +99,11 @@
             </div>
 
             <div v-else class="user-box">
-              <img v-if="userList.avatarUrl == ''" src="../assets/avatar.svg" alt="" />
+              <img
+                v-if="userList.avatarUrl == ''"
+                src="../assets/avatar.svg"
+                alt=""
+              />
               <img v-else :src="userList.avatarUrl" alt="" />
               <div>
                 <div class="userName">{{ userList.playerName }}</div>
@@ -77,7 +111,11 @@
               </div>
             </div>
 
-            <div class="menu-box" data-bs-toggle="offcanvas" href="#offcanvasExample">
+            <div
+              class="menu-box"
+              data-bs-toggle="offcanvas"
+              href="#offcanvasExample"
+            >
               <div @click="goPage('allGames')" class="menu-item border-bo">
                 GACHA GAMES
               </div>
@@ -97,13 +135,21 @@
               ABOUT US
             </div> -->
             <div class="desc d-flex align-items-center">
-              <div @click="goPage('about')" class="d-flex align-items-center" style="margin-right: 24px"
-                data-bs-dismiss="offcanvas" aria-label="Close">
+              <div
+                @click="goPage('about')"
+                class="d-flex align-items-center"
+                style="margin-right: 24px"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
                 <img src="../assets/u-aboutUs.svg" style="margin-right: 4px" />
                 <span>ABOUT US</span>
               </div>
               <div class="d-flex align-items-center">
-                <img src="../assets/u-contactUs.svg" style="margin-right: 4px" />
+                <img
+                  src="../assets/u-contactUs.svg"
+                  style="margin-right: 4px"
+                />
                 <span>CONTACT US</span>
               </div>
             </div>
@@ -123,53 +169,146 @@
         <!-- 个人账户信息 -->
         <div v-else class="userInfo">
           <!-- 钱包余额 -->
-          <div class="d-none d-lg-block">
+          <div @click="showWallet = true" class="d-none d-lg-block">
             <div class="userInfo-item">
-              <img src="../assets//header-wallet.svg" class="userInfo-item__img" />
-              <span class="userInfo-item__text">{{ cutApartNumber(SolanaPrize) }}</span>
+              <img
+                src="../assets//header-wallet.svg"
+                class="userInfo-item__img"
+              />
+              <span class="userInfo-item__text">{{
+                cutApartNumber(SolanaPrize)
+              }}</span>
               <img src="../assets/header-plus.svg" alt="" />
             </div>
           </div>
           <!-- candy数量 -->
-          <div class="d-none d-lg-block">
+          <div @click="showCandy = true" class="d-none d-lg-block">
             <div class="userInfo-item">
-              <img src="../assets//header-candy.svg" class="userInfo-item__img" />
-              <span class="userInfo-item__text">{{ cutApart(userList.candy) }}</span>
+              <img
+                src="../assets//header-candy.svg"
+                class="userInfo-item__img"
+              />
+              <span class="userInfo-item__text">{{
+                cutApart(userList.candy)
+              }}</span>
               <img src="../assets/header-plus.svg" alt="" />
             </div>
           </div>
           <!-- 用户头像 -->
-          <img @click="handleShowUserInfo" class="userImg" v-if="userList.avatarUrl == ''"
-            src="../assets/header-avatar.svg" alt="" />
-          <img @click="handleShowUserInfo" class="userImg" v-else :src="userList.avatarUrl" alt="" />
+          <img
+            @click="handleShowUserInfo"
+            class="userImg"
+            v-if="userList.avatarUrl == ''"
+            src="../assets/header-avatar.svg"
+            alt=""
+          />
+          <img
+            @click="handleShowUserInfo"
+            class="userImg"
+            v-else
+            :src="userList.avatarUrl"
+            alt=""
+          />
 
           <!-- 个人信息弹窗  弹窗面板展示-->
-          <Account v-if="showUserInfoModal" :playerList="userList" @closeAccount="handleClose" />
+          <Account
+            v-if="showUserInfoModal"
+            :playerList="userList"
+            @closeAccount="handleClose"
+          />
         </div>
       </div>
 
       <!-- 用户头像 小屏显示 -->
-      <img v-if="isLogin && userList.avatarUrl == ''" @click="handleShowUserInfo" src="../assets/header-avatar.svg"
-        class="d-block d-sm-none" />
-      <img v-if="isLogin && userList.avatarUrl !== ''" @click="handleShowUserInfo" :src="userList.avatarUrl"
-        class="d-block d-sm-none" />
+      <img
+        v-if="isLogin && userList.avatarUrl == ''"
+        @click="handleShowUserInfo"
+        src="../assets/header-avatar.svg"
+        class="d-block d-sm-none"
+      />
+      <img
+        v-if="isLogin && userList.avatarUrl !== ''"
+        @click="handleShowUserInfo"
+        :src="userList.avatarUrl"
+        class="d-block d-sm-none"
+      />
 
       <!-- 个人信息弹窗 底部抽屉展示 -->
-      <div v-if="showUserInfoModal" class="drawer d-block d-sm-none" :class="{ open: showUserInfoModal }">
+      <div
+        v-if="showUserInfoModal"
+        class="drawer d-block d-sm-none"
+        :class="{ open: showUserInfoModal }"
+      >
         <div class="drawer-content userInfo-box-small">
           <div class="drawer-header">
             <div class="modal-header flex-end">
-              <img @click="handleClose" src="../assets/simpleClose.svg" alt="" />
+              <img
+                @click="handleClose"
+                src="../assets/simpleClose.svg"
+                alt=""
+              />
             </div>
           </div>
           <div class="drawer-body">
-            <Account :playerList="userList" :SolanaPrize="SolanaPrize" @closeAccount="handleClose" />
+            <Account
+              :playerList="userList"
+              :SolanaPrize="SolanaPrize"
+              @closeAccount="handleClose"
+            />
           </div>
         </div>
       </div>
 
       <!-- 蒙层 -->
-      <div v-if="showUserInfoModal || showPanel" class="overlay" @click="handleClose"></div>
+      <div
+        v-if="showUserInfoModal || showPanel"
+        class="overlay"
+        @click="handleClose"
+      ></div>
+
+      <!-- wallets 列表 -->
+      <div>
+        <Modal v-model="showWallet" width="720px">
+          <div class="wallets">
+            <div class="title base-border">WALLETS</div>
+
+            <!-- 钱包1 -->
+            <div class="wallets-item wallets-item-border">
+              <div class="d-flex align-item-center justify-content-between">
+                <span class="fs-20">
+                  Wallet 1
+                  <span class="fs-16 bg">Current wallet</span>
+                </span>
+
+                <span class="fs-16 color-blue">
+                  <img src="../assets/disconnect.svg" />
+                  Disconnect Wallet
+                </span>
+              </div>
+
+              <div
+                class="money-item d-flex justify-content-between align-items-center"
+              >
+                <div
+                  class="left d-flex justify-content-between align-items-center"
+                >
+                  <img src="../assets/header-wallet.svg" alt="" />
+                  <div class="detail-box">
+                    <div>External Wallet</div>
+                    <div class="desc-info">1554....com</div>
+                  </div>
+                </div>
+                <div class="right">0.000 SOL</div>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      </div>
+
+      <!-- 钱包弹窗 -->
+      <Modal v-model="showCandy" width="500px">
+        <Candy />
+      </Modal>
     </div>
   </div>
 </template>
@@ -180,12 +319,19 @@ import login from "@/components/login.vue";
 import Account from "@/components/Account.vue";
 import { useRouter } from "vue-router";
 import VueCookie from "vue-cookie";
-import { selectConnection, selectWallet, cutApart } from '@/utils/burn'
+import { selectConnection, selectWallet, cutApart } from "@/utils/burn";
 import { cutApartNumber, initWalletUmi } from "../utils/burn";
-import { playerInfo, useChangePrize, userLogin, userPay, userPayNow } from "../utils/counter";
+import {
+  playerInfo,
+  useChangePrize,
+  userLogin,
+  userPay,
+  userPayNow,
+} from "../utils/counter";
 import axios from "@/utils/axios";
-import { PublicKey } from '@solana/web3.js';
-
+import { PublicKey } from "@solana/web3.js";
+import Modal from "@/components/Modal.vue";
+import Candy from "@/components/Candy.vue";
 
 const router = useRouter();
 const goPage = (path) => {
@@ -224,7 +370,7 @@ onMounted(() => {
 
   const token = VueCookie.get("token");
   if (token) {
-    getLoginInit()
+    getLoginInit();
   }
 });
 
@@ -245,19 +391,19 @@ const handleClose = () => {
   showPanel.value = false;
 };
 
-const code = ref('')
-const state = ref('')
+const code = ref("");
+const state = ref("");
 
 const getLoginInit = async () => {
-  if (localStorage.getItem('local') !== 'Wallet') {
-    const wallet = selectWallet(localStorage.getItem('local'))
-    await wallet.connect()
+  if (localStorage.getItem("local") !== "Wallet") {
+    const wallet = selectWallet(localStorage.getItem("local"));
+    await wallet.connect();
     // wallet.on('accountChanged', changeAddress)
   }
 
-  await initWalletUmi()
+  await initWalletUmi();
 
-  await getPrize()
+  await getPrize();
 
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.search);
@@ -274,18 +420,18 @@ const getLoginInit = async () => {
       await bindTwitter(code.value);
     }
   }
-  await getWalletPrize()
-}
+  await getWalletPrize();
+};
 
-const SolanaPrize = ref('')
+const SolanaPrize = ref("");
 
 const getWalletPrize = async () => {
-  const publicKey = userList.value.account
-  const walletAddress = new PublicKey(publicKey)
-  const connection = selectConnection(localStorage.getItem('local'))
+  const publicKey = userList.value.account;
+  const walletAddress = new PublicKey(publicKey);
+  const connection = selectConnection(localStorage.getItem("local"));
   const res = await connection.getBalance(walletAddress);
   SolanaPrize.value = (res / 1000000000).toFixed(5);
-}
+};
 
 const bindDiscord = async (val) => {
   const params = {
@@ -310,7 +456,7 @@ const bindTwitter = async (val) => {
   }
 };
 
-const isPay = ref(false)
+const isPay = ref(false);
 
 const reqWallet = async () => {
   const res = await axios.get("/tsg/pay/reqWalletPayState");
@@ -319,13 +465,13 @@ const reqWallet = async () => {
 
     if (isPay.value) {
       if (userPay().isPay) {
-        userPay().changePay()
+        userPay().changePay();
       }
-      userPayNow().truePay()
+      userPayNow().truePay();
       await getPrize();
-      await getWalletPrize()
+      await getWalletPrize();
     } else {
-      userPayNow().falsePay()
+      userPayNow().falsePay();
       setTimeout(() => {
         reqWallet();
       }, 3000);
@@ -333,63 +479,65 @@ const reqWallet = async () => {
   }
 };
 
-const userList = ref([])
+const userList = ref([]);
 
 const getPrize = async () => {
   const prizeRes = await axios.post("/tsg/player/playerInfo");
   if (prizeRes.data.code == 200) {
-    userList.value = prizeRes.data.data
-    playerInfo().changeList(userList.value)
+    userList.value = prizeRes.data.data;
+    playerInfo().changeList(userList.value);
     if (useChangePrize().prize) {
-      useChangePrize().changePrize()
+      useChangePrize().changePrize();
     }
   }
 };
 
 const closeLogin = () => {
   VueCookie.delete("token");
-  router.push({ path: '/' }).then(() => {
-    window.location.reload()
-  })
-
-}
+  router.push({ path: "/" }).then(() => {
+    window.location.reload();
+  });
+};
 
 const goHome = () => {
-  router.push({ path: "/" })
-}
+  router.push({ path: "/" });
+};
 
 watch(
   () => userLogin().isLogin,
   (newVal, oldVal) => {
     console.log(newVal);
-    isLogin.value = newVal
+    isLogin.value = newVal;
 
     if (isLogin.value) {
-      getLoginInit()
+      getLoginInit();
     } else {
-      closeLogin()
+      closeLogin();
     }
-
   }
-)
+);
 
 watch(
   () => useChangePrize().prize,
   (newVal, oldVal) => {
     if (newVal) {
-      getPrize()
+      getPrize();
     }
   }
-)
+);
 
 watch(
   () => userPay().isPay,
   (newVal, oldVal) => {
     if (newVal) {
-      reqWallet()
+      reqWallet();
     }
   }
-)
+);
+
+const showCandy = ref(false);
+
+const showWallet = ref(false);
 </script>
 
 <style lang="scss" scoped>

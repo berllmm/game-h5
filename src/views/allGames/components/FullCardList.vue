@@ -5,10 +5,14 @@
     <div v-for="(item, index) in props.imgData" :key="index" class="type-item">
       <div class="title-box" v-if="item.cardList.length > 0">
         <img :src="item.typeImage" class="item-type__image" />
-        <span>{{ item.typeName }}</span>
+        <span :class="'color-' + index">{{ item.typeName }}</span>
       </div>
       <div class="card-list">
-        <div v-for="(imgItem, imgIndex) in item.cardList" :key="imgIndex" class="p-1">
+        <div
+          v-for="(imgItem, imgIndex) in item.cardList"
+          :key="imgIndex"
+          class="p-1"
+        >
           <div class="img-box mb-3">
             <img :src="imgItem.imageUrl" class="card-list__img" />
           </div>
@@ -23,8 +27,8 @@ import { ref } from "vue";
 import card1 from "@/assets/game-card1-full.png";
 
 const props = defineProps({
-  imgData: Object
-})
+  imgData: Object,
+});
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +88,18 @@ const props = defineProps({
     }
   }
 }
+.color-0 {
+  color: #f9f2a1;
+}
+.color-1 {
+  color: #fdf3ed;
+}
+.color-2 {
+  color: #fe383b;
+}
+.color-3 {
+  color: #fff011;
+}
 
 @media (max-width: 576px) {
   .full {
@@ -92,6 +108,13 @@ const props = defineProps({
       font-weight: 600;
       font-size: 20px;
       color: #ffffff;
+    }
+    .type-item {
+      .card-list {
+        .img-box {
+          width: 147px;
+        }
+      }
     }
   }
 }

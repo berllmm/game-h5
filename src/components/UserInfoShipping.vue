@@ -1,7 +1,13 @@
 <template>
   <div>
-    <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-      :customHeaderRow="customHeaderCell">
+    <a-table
+      :dataSource="dataSource"
+      :columns="columns"
+      :bordered="false"
+      :pagination="false"
+      :customRow="customCell"
+      :customHeaderRow="customHeaderCell"
+    >
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'orderNo'">
           <span>{{ record.id }}</span>
@@ -10,43 +16,77 @@
         <template v-if="column.key === 'information'">
           <div>
             <span> Name:{{ record.shippingAddress?.name }} </span>
-            <span style="margin-left: 10px;"> Phone:{{ record.shippingAddress?.phone }} </span>
+            <span style="margin-left: 10px">
+              Phone:{{ record.shippingAddress?.phone }}
+            </span>
           </div>
           <div class="row">
-            <div class="col-12 text-truncate">Address:{{ record.shippingAddress?.address }}</div>
+            <div class="col-12 text-truncate">
+              Address:{{ record.shippingAddress?.address }}
+            </div>
           </div>
         </template>
         <template v-if="column.key === 'content'">
-          <span @click="showDetail(record)" style="color: #3052fa;cursor: pointer;">Detail</span>
+          <span
+            @click="showDetail(record)"
+            style="color: #3052fa; cursor: pointer"
+            >Detail</span
+          >
         </template>
 
         <template v-if="column.key === 'status'">
-          <span v-if="record.historyType == 'shipping' && record.state == 0">Logistics in progress</span>
-          <span v-if="record.historyType == 'shipping' && record.state == 1">Logistics done</span>
+          <span v-if="record.historyType == 'shipping' && record.state == 0"
+            >Logistics in progress</span
+          >
+          <span v-if="record.historyType == 'shipping' && record.state == 1"
+            >Logistics done</span
+          >
         </template>
       </template>
     </a-table>
 
     <div class="pagebox" v-if="isPage">
       <div @click="prePage()">
-        <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-          p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+        <svg
+          t="1736405798737"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="4367"
+          id="mx_n_1736405798737"
+          width="24"
+          height="24"
+        >
           <path
             d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-            fill="#ffffff" p-id="4368"></path>
+            fill="#ffffff"
+            p-id="4368"
+          ></path>
         </svg>
       </div>
       <div>{{ page }} / {{ size }}</div>
       <div @click="nextPage()">
-        <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-          p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+        <svg
+          t="1736405798737"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="4367"
+          id="mx_n_1736405798737"
+          width="24"
+          height="24"
+        >
           <path
             d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-            fill="#ffffff" p-id="4368"></path>
+            fill="#ffffff"
+            p-id="4368"
+          ></path>
         </svg>
       </div>
       <div class="nextpage">
-        <input type="text" v-model="pageText" @keydown.enter="goPageText">
+        <input type="text" v-model="pageText" @keydown.enter="goPageText" />
         <button @click="goPageText">GO</button>
       </div>
     </div>
@@ -54,11 +94,22 @@
     <!-- 订单详情弹窗 -->
     <Modal v-model="showContentModal">
       <div class="order-content-title">Order No. {{ currentOrder.id }}</div>
-      <a-table :dataSource="currentOrderList" :columns="columns2" :bordered="false" :pagination="false"
-        :customRow="customCell" :customHeaderRow="customHeaderCell">
+      <a-table
+        :dataSource="currentOrderList"
+        :columns="columns2"
+        :bordered="false"
+        :pagination="false"
+        :customRow="customCell"
+        :customHeaderRow="customHeaderCell"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'item'">
-            <img :src="record.image" alt="" width="60" style="margin-right: 15px;"/>
+            <img
+              :src="record.image"
+              alt=""
+              width="60"
+              style="margin-right: 15px"
+            />
             <span class="item-desc">{{ record.name }}</span>
           </template>
           <template v-if="column.key === 'rarity'">
@@ -79,8 +130,8 @@ import axios from "@/utils/axios";
 import { customHeaderCell, customCell } from "@/utils";
 
 const props = defineProps({
-  activeKey: String
-})
+  activeKey: String,
+});
 
 const columns = [
   {
@@ -103,27 +154,29 @@ const columns = [
     dataIndex: "content",
     key: "content",
     ellipsis: true,
+    align: "center",
   },
   {
     title: "STATUS",
     key: "status",
     dataIndex: "status",
     ellipsis: true,
+    align: "center",
   },
 ];
 
-const dataSource = ref([])
+const dataSource = ref([]);
 
 const showContentModal = ref(false);
-const currentOrder = ref([])
-const currentOrderList = ref([])
+const currentOrder = ref([]);
+const currentOrderList = ref([]);
 
 const showDetail = (record) => {
-  currentOrderList.value = []
-  currentOrder.value = record
+  currentOrderList.value = [];
+  currentOrder.value = record;
   console.log(record);
-  
-  currentOrderList.value.push(record.gachaCard)
+
+  currentOrderList.value.push(record.gachaCard);
   showContentModal.value = true;
 };
 
@@ -172,78 +225,82 @@ const dataSource2 = ref([
   },
 ]);
 
-const userTrueList = ref([])
-const isPage = ref(false)
-const size = ref(0)
-const page = ref(1)
-const pageNum = ref(10)
-const pageText = ref(10)
+const userTrueList = ref([]);
+const isPage = ref(false);
+const size = ref(0);
+const page = ref(1);
+const pageNum = ref(10);
+const pageText = ref(10);
 
 const shipingInit = async () => {
-  const shipRes = await axios.get('/tsg/player/cardHistory')
+  const shipRes = await axios.get("/tsg/player/cardHistory");
 
   if (shipRes.data.code == 200) {
-    userTrueList.value = shipRes.data.data.history.filter(item => item.historyType == 'shipping')
+    userTrueList.value = shipRes.data.data.history.filter(
+      (item) => item.historyType == "shipping"
+    );
 
     if (userTrueList.value.length < 10) {
-      isPage.value = false
-      dataSource.value = userTrueList.value
+      isPage.value = false;
+      dataSource.value = userTrueList.value;
     } else {
-      isPage.value = true
-      pageText.value = page.value
-      size.value = Math.ceil(userTrueList.value.length / pageNum.value)
-      dataSource.value = userTrueList.value.slice((page.value - 1) * pageNum.value, (pageNum.value * page.value))
+      isPage.value = true;
+      pageText.value = page.value;
+      size.value = Math.ceil(userTrueList.value.length / pageNum.value);
+      dataSource.value = userTrueList.value.slice(
+        (page.value - 1) * pageNum.value,
+        pageNum.value * page.value
+      );
     }
-
   }
-}
+};
 
 function removeFalsePayFreight(arr) {
-  return arr.filter(item => item.payFreight !== false);
+  return arr.filter((item) => item.payFreight !== false);
 }
 
 const prePage = () => {
   if (page.value <= 1) {
-    return
+    return;
   }
-  page.value--
-  shipingInit()
-}
+  page.value--;
+  shipingInit();
+};
 
 const nextPage = () => {
   if (page.value >= size.value) {
-    return
+    return;
   }
-  page.value++
-  shipingInit()
-}
+  page.value++;
+  shipingInit();
+};
 
 const goPageText = () => {
   if (pageText.value > size.value || pageText.value < 1) {
-    return pageText.value = 0
+    return (pageText.value = 0);
   }
-  page.value = pageText.value
-  shipingInit()
-}
+  page.value = pageText.value;
+  shipingInit();
+};
 
 watch(
   () => props.activeKey,
   (newVal, oldVal) => {
-    if (newVal == '4') {
-      shipingInit()
+    if (newVal == "4") {
+      shipingInit();
     }
   }
-)
+);
 </script>
 
 <style lang="scss">
-.ant-table-wrapper .ant-table-thead>tr>th {
+.ant-table-wrapper .ant-table-thead > tr > th {
   background: #1e1e1e !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
 }
 
-.ant-table-wrapper .ant-table-tbody>tr>td {
+.ant-table-wrapper .ant-table-tbody > tr > td {
   background: #1f0c27 !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
@@ -257,26 +314,24 @@ watch(
   margin-top: 15px;
 }
 
-.pagebox>div {
+.pagebox > div {
   margin: 0px 10px;
 }
 
-.pagebox>div:nth-child(1) {
-
-
+.pagebox > div:nth-child(1) {
   cursor: pointer;
 }
 
-.pagebox>div:nth-child(1) svg {
+.pagebox > div:nth-child(1) svg {
   transform: rotateY(180deg);
 }
 
-.pagebox>div:nth-child(3) {
+.pagebox > div:nth-child(3) {
   cursor: pointer;
 }
 
-.pagebox>div:nth-child(1):hover svg,
-.pagebox>div:nth-child(3):hover svg {
+.pagebox > div:nth-child(1):hover svg,
+.pagebox > div:nth-child(3):hover svg {
   fill: #ffff00;
 }
 

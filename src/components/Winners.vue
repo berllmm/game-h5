@@ -3,13 +3,20 @@
     <div class="winner">
       <div class="title base-border">LIVE WINNERS</div>
 
-      <a-table :dataSource="winnerList" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-        :customHeaderRow="customHeaderCell" :scroll="{ y: scrollYHeight }">
+      <a-table
+        :dataSource="winnerList"
+        :columns="columns"
+        :bordered="false"
+        :pagination="false"
+        :customRow="customCell"
+        :customHeaderRow="customHeaderCell"
+        :scroll="{ y: scrollYHeight }"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'item'">
             <div class="d-flex align-items-center">
               <img :src="record.gachaCard?.image" width="40" alt="" />
-              <div style="margin-left: 15px;">
+              <div style="margin-left: 15px">
                 <div class="item-desc d-none d-md-block">
                   {{ record.gachaCard?.name }}
                 </div>
@@ -42,10 +49,21 @@
 
           <template v-if="column.key === 'winner'">
             <div class="d-flex align-items-center">
-              <img v-if="record.playerAvatar == ''" :src="morAvantar" width="40" class="d-none d-md-block"
-                style="border-radius: 50%;overflow: hidden;margin-right: 15px" />
-              <img v-else :src="record.playerAvatar" width="40" height="40"
-                style="border-radius: 50%;overflow: hidden;margin-right: 15px" class="d-none d-md-block" />
+              <img
+                v-if="record.playerAvatar == ''"
+                :src="morAvantar"
+                width="40"
+                class="d-none d-md-block"
+                style="border-radius: 50%; overflow: hidden; margin-right: 15px"
+              />
+              <img
+                v-else
+                :src="record.playerAvatar"
+                width="40"
+                height="40"
+                style="border-radius: 50%; overflow: hidden; margin-right: 15px"
+                class="d-none d-md-block"
+              />
               <div>
                 <div class="item-desc">
                   {{ record.playerName }}
@@ -55,37 +73,61 @@
           </template>
 
           <template v-if="column.key === 'time'">
-            <span class="time-color">{{ formatTimestamp(record.createTime) }}</span>
+            <span class="time-color">{{
+              formatTimestamp(record.createTime)
+            }}</span>
           </template>
         </template>
       </a-table>
 
       <div v-if="showBottomBtn" class="right-btn">
         <div @click="goPage" class="round-btn">
-          See all <img src="../assets/link.svg" alt="" />
+          All items <img src="../assets/link.svg" alt="" />
         </div>
       </div>
 
       <div class="pagebox" v-if="!showBottomBtn">
         <div @click="prePage()">
-          <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+          <svg
+            t="1736405798737"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4367"
+            id="mx_n_1736405798737"
+            width="24"
+            height="24"
+          >
             <path
               d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-              fill="#ffffff" p-id="4368"></path>
+              fill="#ffffff"
+              p-id="4368"
+            ></path>
           </svg>
         </div>
         <div>{{ page }} / {{ total }}</div>
         <div @click="nextPage()">
-          <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+          <svg
+            t="1736405798737"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4367"
+            id="mx_n_1736405798737"
+            width="24"
+            height="24"
+          >
             <path
               d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-              fill="#ffffff" p-id="4368"></path>
+              fill="#ffffff"
+              p-id="4368"
+            ></path>
           </svg>
         </div>
         <div class="nextpage">
-          <input type="text" v-model="page" @keydown.enter="goPageText">
+          <input type="text" v-model="page" @keydown.enter="goPageText" />
           <button @click="goPageText">GO</button>
         </div>
       </div>
@@ -99,7 +141,7 @@ import { useRouter } from "vue-router";
 import useWindow from "@/hooks/useWindow";
 import { customHeaderCell, customCell } from "@/utils";
 import axios from "@/utils/axios";
-import morAvantar from "@/assets/avatar.svg"
+import morAvantar from "@/assets/avatar.svg";
 
 import item1 from "@/assets/item1.png";
 import item2 from "@/assets/item2.png";
@@ -126,7 +168,7 @@ const columns = ref([
     width: "10%",
   },
   {
-    title: "WINNER",
+    title: "OWNER",
     key: "winner",
     dataIndex: "winner",
     width: "19%",
@@ -140,59 +182,59 @@ const columns = ref([
 ]);
 
 onMounted(() => {
-  winnerInit()
-})
+  winnerInit();
+});
 
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() 返回值范围是 0 到 11，所以加 1
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() 返回值范围是 0 到 11，所以加 1
+  const day = String(date.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
 }
 
-const winnerList = ref([])
-const page = ref(1)
-const pageSize = ref(10)
-const total = ref(0)
+const winnerList = ref([]);
+const page = ref(1);
+const pageSize = ref(10);
+const total = ref(0);
 
 const winnerInit = async () => {
-  const res = await axios.get('/tsg/publicinfo/allDrawCardHistory', {
+  const res = await axios.get("/tsg/publicinfo/allDrawCardHistory", {
     params: {
       pageNum: page.value,
-      pageSize: pageSize.value
-    }
-  })
+      pageSize: pageSize.value,
+    },
+  });
 
   if (res.data.code == 200) {
-    winnerList.value = res.data.data.data
-    total.value = Math.ceil(res.data.data.total / pageSize.value)
+    winnerList.value = res.data.data.data;
+    total.value = Math.ceil(res.data.data.total / pageSize.value);
   }
-}
+};
 
 const prePage = () => {
   if (page.value <= 1) {
-    return
+    return;
   }
-  page.value--
-  winnerInit()
-}
+  page.value--;
+  winnerInit();
+};
 
 const nextPage = () => {
   if (page.value >= total.value) {
-    return
+    return;
   }
-  page.value++
-  winnerInit()
-}
+  page.value++;
+  winnerInit();
+};
 
 const goPageText = () => {
   if (page.value > size.value || page.value < 1) {
-    return page.value = 0
+    return (page.value = 0);
   }
-  winnerInit()
-}
+  winnerInit();
+};
 
 watch(
   isLargeWindow,
@@ -218,7 +260,7 @@ watch(
           width: "10%",
         },
         {
-          title: "WINNER",
+          title: "OWNER",
           key: "winner",
           dataIndex: "winner",
           width: "19%",
@@ -244,7 +286,7 @@ watch(
         },
 
         {
-          title: "WINNER",
+          title: "OWNER",
           key: "winner",
           dataIndex: "winner",
         },
@@ -449,7 +491,8 @@ const goPage = () => {
     padding: 6px 10px;
     display: inline-block;
     border-radius: 20px;
-    border: 1px solid #fff;
+    // border: 1px solid #fff;
+    border: 1px solid #3f3f3f;
     cursor: pointer;
   }
 }
@@ -461,26 +504,24 @@ const goPage = () => {
   margin-top: 15px;
 }
 
-.pagebox>div {
+.pagebox > div {
   margin: 0px 10px;
 }
 
-.pagebox>div:nth-child(1) {
-
-
+.pagebox > div:nth-child(1) {
   cursor: pointer;
 }
 
-.pagebox>div:nth-child(1) svg {
+.pagebox > div:nth-child(1) svg {
   transform: rotateY(180deg);
 }
 
-.pagebox>div:nth-child(3) {
+.pagebox > div:nth-child(3) {
   cursor: pointer;
 }
 
-.pagebox>div:nth-child(1):hover svg,
-.pagebox>div:nth-child(3):hover svg {
+.pagebox > div:nth-child(1):hover svg,
+.pagebox > div:nth-child(3):hover svg {
   fill: #ffff00;
 }
 
@@ -515,9 +556,13 @@ const goPage = () => {
 
 @media (max-width: 576px) {
   .winner {
+    padding: 16px;
     .title {
       font-size: 24px;
       margin-bottom: 24px;
+    }
+    .right-btn {
+      justify-content: center;
     }
   }
 }

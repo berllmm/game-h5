@@ -1,10 +1,16 @@
 <template>
   <div class="market-box">
     <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
+    <!-- 向右切换按钮 -->
+    <img
+      @click="handleScroll"
+      src="../assets/banner-right.svg"
+      class="cursor right-icon d-none d-sm-block"
+    />
     <div class="market d-none d-sm-block">
       <div class="title base-border">MARKETPLACE</div>
 
-      <div class="item-box">
+      <div class="item-box" ref="scrollContainer2">
         <div class="item me-4">
           <img src="../assets/market1.gif" alt="" />
           <span class="market-desc"
@@ -110,11 +116,28 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+const scrollContainer2 = ref();
+
+const handleScroll = () => {
+  scrollContainer2.value.scrollBy({
+    left: 200,
+    behavior: "smooth", // 平滑滚动
+  });
+};
+</script>
 
 <style lang="scss" scoped>
 .market-box {
   margin: 60px 0;
+  position: relative;
+  .right-icon {
+    position: absolute;
+    right: 18px;
+    top: 230px;
+    z-index: 9;
+  }
 }
 .market {
   margin: 0;
@@ -191,12 +214,14 @@
     padding: 6px 10px;
     display: inline-block;
     border-radius: 20px;
-    border: 1px solid #fff;
+    // border: 1px solid #fff;
+    border: 1px solid #3f3f3f;
     cursor: pointer;
   }
 }
 
 .market-small {
+  padding: 16px;
   .title {
     display: inline-block;
     margin-bottom: 24px;
@@ -204,8 +229,9 @@
     font-weight: 600;
   }
   .item {
+    margin-right: 15px !important;
     img {
-      width: 210px;
+      width: 120px;
     }
     .market-desc {
       font-size: 16px;

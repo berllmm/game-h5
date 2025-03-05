@@ -74,6 +74,11 @@
   color: #717680 !important;
 }
 
+.ant-input,
+.ant-select-selector {
+  border-color: #3f3f3f !important;
+}
+
 /* 模态框样式 */
 .modal {
   background-color: rgba(0, 0, 0, 0.5);
@@ -347,4 +352,8 @@ tbody td:last-child {
 /* 设置滚动条滑块在悬停时的样式 */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* 滑块的悬停背景颜色 */
+}
+
+.cursor {
+  cursor: pointer;
 }

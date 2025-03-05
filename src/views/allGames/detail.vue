@@ -6,8 +6,15 @@
         <div class="img-box">
           <img :src="activeImage" class="big-img" />
           <div class="small-list">
-            <div v-for="(item, index) in detailsList.imageUrlList" :key="index"
-              :class="activeImage == item ? 'small-img__item active' : 'small-img__item'">
+            <div
+              v-for="(item, index) in detailsList.imageUrlList"
+              :key="index"
+              :class="
+                activeImage == item
+                  ? 'small-img__item active'
+                  : 'small-img__item'
+              "
+            >
               <img :src="item" @click="changeCurrentImage(item)" />
             </div>
           </div>
@@ -35,9 +42,15 @@
               <span>{{ formatTimestamp(detailsList.endTime) }}</span>
             </div>
             <div class="time-bar">
-              <div class="bar" :style="`width:${(100 - ((detailsList.totalCardCount - detailsList.drawCardCount) /
-                detailsList.totalCardCount) *
-                100)}%`"></div>
+              <div
+                class="bar"
+                :style="`width:${
+                  100 -
+                  ((detailsList.totalCardCount - detailsList.drawCardCount) /
+                    detailsList.totalCardCount) *
+                    100
+                }%`"
+              ></div>
             </div>
             <div class="ticket-text">
               <div class="left">
@@ -47,7 +60,9 @@
               </div>
               <div class="right">
                 <img src="../../assets/event-ticket.svg" class="me-1" />
-                <span class="fw-bolder me-1">{{ detailsList.drawCardCount }}</span>
+                <span class="fw-bolder me-1">{{
+                  detailsList.drawCardCount
+                }}</span>
                 <span> /{{ detailsList.totalCardCount }}</span>
               </div>
             </div>
@@ -55,24 +70,33 @@
           <div class="select">
             <div class="select-title">SELECT TICKET AMOUNT</div>
             <div class="select-box">
-              <div @click="handleSwitchCurrentTicketValue(1)" class="select-item me-2"
-                :class="currentTicketValue === 1 ? 'active' : ''">
+              <div
+                @click="handleSwitchCurrentTicketValue(1)"
+                class="select-item me-2"
+                :class="currentTicketValue === 1 ? 'active' : ''"
+              >
                 <div class="fw-bolder">Ticket x 1</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
                   <span>100</span>
                 </div>
               </div>
-              <div @click="handleSwitchCurrentTicketValue(10)" class="select-item me-2"
-                :class="currentTicketValue === 10 ? 'active' : ''">
+              <div
+                @click="handleSwitchCurrentTicketValue(10)"
+                class="select-item me-2"
+                :class="currentTicketValue === 10 ? 'active' : ''"
+              >
                 <div class="fw-bolder">Ticket x 10</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
                   <span>1,000</span>
                 </div>
               </div>
-              <div @click="handleSwitchCurrentTicketValue(100)" class="select-item"
-                :class="currentTicketValue === 100 ? 'active' : ''">
+              <div
+                @click="handleSwitchCurrentTicketValue(100)"
+                class="select-item"
+                :class="currentTicketValue === 100 ? 'active' : ''"
+              >
                 <div class="fw-bolder">Ticket x 100</div>
                 <div>
                   <img src="../../assets/event-candy.svg" alt="" />
@@ -104,7 +128,7 @@
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
-import axios from '@/utils/axios'
+import axios from "@/utils/axios";
 import circle1 from "@/assets/circle1.png";
 import circle2 from "@/assets/circle2.png";
 import circle3 from "@/assets/circle3.png";
@@ -150,12 +174,11 @@ const changeCurrentImage = (img) => {
 };
 
 onMounted(() => {
-  getDetailsInit()
-})
+  getDetailsInit();
+});
 
-const activeImage = ref('')
-const detailsList = ref({})
-
+const activeImage = ref("");
+const detailsList = ref({});
 
 const getDetailsInit = async () => {
   const res = await axios.get("/tsg/publicinfo/gachaInfo", {
@@ -165,9 +188,9 @@ const getDetailsInit = async () => {
   });
 
   if (res.data.code == 200) {
-    detailsList.value = res.data.data
+    detailsList.value = res.data.data;
 
-    activeImage.value = detailsList.value.imageUrlList[0]
+    activeImage.value = detailsList.value.imageUrlList[0];
 
     imgData.value = [
       {
@@ -200,15 +223,13 @@ const getDetailsInit = async () => {
         typeImage: circle5,
         cardList: findPrize("LASTONE")?.cardInfoList,
       },
-    ]
+    ];
 
     console.log(imgData.value);
-    
   }
-}
+};
 
 const findPrize = (val) => {
-
   const index = detailsList.value.weightList.findIndex(
     (item) => item.rarity == val
   );
@@ -219,32 +240,32 @@ const findPrize = (val) => {
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() 返回值范围是 0 到 11，所以加 1
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() 返回值范围是 0 到 11，所以加 1
+  const day = String(date.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
 }
 
-const checkTicketTip = ref('')
-const tipVisible = ref(false)
+const checkTicketTip = ref("");
+const tipVisible = ref(false);
 // 当前选中的票数
 const currentTicketValue = ref(1);
 const handleSwitchCurrentTicketValue = (value) => {
-  const index = detailsList.value.drawNumList.findIndex(item => {
-    item == value
-  })
+  const index = detailsList.value.drawNumList.findIndex((item) => {
+    item == value;
+  });
 
   if (index == -1 && value < detailsList.value.drawCardCount) {
     currentTicketValue.value = value;
   } else if (index !== -1 || value > detailsList.value.drawCardCount) {
-    tipVisible.value = true
-    checkTicketTip.value = `Less than ${value} cards in total`
+    tipVisible.value = true;
+    checkTicketTip.value = `Less than ${value} cards in total`;
   }
 };
 
 const closeModal = () => {
-  tipVisible.value = false
-}
+  tipVisible.value = false;
+};
 
 const router = useRouter();
 // 跳转游戏开始界面
@@ -257,15 +278,15 @@ const goPage = async (path) => {
   });
   if (res.data.code == 200) {
     const code = res.data.data.gachaCardList;
-    localStorage.setItem('gachaId', detailsList.value.id)
-    localStorage.setItem('count', currentTicketValue.value)
-    localStorage.setItem('redeem', JSON.stringify(code))
-    useChangePrize().changePrize()
+    localStorage.setItem("gachaId", detailsList.value.id);
+    localStorage.setItem("count", currentTicketValue.value);
+    localStorage.setItem("redeem", JSON.stringify(code));
+    useChangePrize().changePrize();
 
     router.push(path);
   } else {
-    checkTicketTip.value = `Less than ${value} cards in total`
-    tipVisible.value = true
+    checkTicketTip.value = `Less than ${value} cards in total`;
+    tipVisible.value = true;
   }
 };
 </script>
@@ -295,17 +316,20 @@ const goPage = async (path) => {
       align-items: center;
 
       .small-img__item {
-        width: 19%;
+        // width: 19%;
+        width: 24.5%;
         height: 100%;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         background-color: #36253d;
         border-radius: 12px;
         color: #fff;
         cursor: pointer;
 
         &.active {
-          border: 1px solid #fff;
+          // border: 1px solid #fff;
+          border: 3px solid #3052fa;
         }
 
         // padding: 16px 20px;
@@ -390,12 +414,14 @@ const goPage = async (path) => {
           width: 20%;
           height: 100%;
           border-radius: 8px;
-          background-image: linear-gradient(90deg,
-              #1e58fc,
-              #a427eb,
-              #d914e4,
-              #e10fa3,
-              #f10419);
+          background-image: linear-gradient(
+            90deg,
+            #1e58fc,
+            #a427eb,
+            #d914e4,
+            #e10fa3,
+            #f10419
+          );
         }
       }
 
@@ -540,8 +566,6 @@ const goPage = async (path) => {
       cursor: pointer;
     }
   }
-
-
 }
 
 @media (max-width: 576px) {
@@ -551,6 +575,27 @@ const goPage = async (path) => {
 
   .select-item {
     margin-bottom: 8px;
+  }
+  .detail {
+    padding: 16px;
+    .small-list {
+      margin-top: 8px !important;
+      height: auto !important;
+
+      .small-img__item {
+        img {
+          width: 56px !important;
+          height: 56px !important;
+        }
+      }
+    }
+    .select-box {
+      display: flex !important;
+      font-size: 14px;
+    }
+    .info-box .select .select-item {
+      padding: 14px 10px;
+    }
   }
 
   .detail .info-box .title {

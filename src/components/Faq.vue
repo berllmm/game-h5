@@ -185,8 +185,10 @@ const handleChangeIndex = (index) => {
 }
 
 .faq-small {
-  margin: 0 32px;
-  padding: 40px;
+  // margin: 0 32px;
+  margin: 0;
+  // padding: 40px;
+  padding: 16px;
   //   height: 466px;
   background: rgba(45, 16, 57, 0.3);
   border: 1px solid #3f3f3f;
