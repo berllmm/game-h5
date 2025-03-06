@@ -5,12 +5,7 @@
     <div class="content-box">
       <div class="row">
         <div class="left col-12 col-md-6">
-          <a-form
-            :model="formState"
-            name="horizontal_login"
-            autocomplete="off"
-            class="content-box__form"
-          >
+          <a-form :model="formState" name="horizontal_login" autocomplete="off" class="content-box__form">
             <div class="form-title">CONTACT</div>
 
             <!-- email -->
@@ -30,8 +25,9 @@
             <div class="row">
               <div class="col-12">
                 <a-form-item name="country">
-                  <a-select @change="changeInput('country')" :status="isCountry ? 'error' : ''" v-model:value="formState.country" placeholder="Country/Region *"
-                    custom-class="custom-select" @select="changeSelect">
+                  <a-select @change="changeInput('country')" :status="isCountry ? 'error' : ''"
+                    v-model:value="formState.country" placeholder="Country/Region *" custom-class="custom-select"
+                    @select="changeSelect">
                     <a-select-option v-for="item in countries" :value="item.name">{{ item.name }}</a-select-option>
                   </a-select>
                 </a-form-item>
@@ -47,7 +43,8 @@
 
               <div class="col-6">
                 <a-form-item name="Phone">
-                  <a-input v-model:value="formState.phone" :status="isPhone ? 'error' : ''" @change="changeInput('phone')"
+                  <a-input v-model:value="formState.phone" :status="isPhone ? 'error' : ''"
+                    @change="changeInput('phone')"
                     :placeholder="formState.addressType == 0 ? '例：03-3333-3333 *' : 'Phone *'">
                   </a-input>
                 </a-form-item>
@@ -55,19 +52,16 @@
 
               <div class="col-6">
                 <a-form-item name="RegionCode">
-                  <a-input
-                    style="color: #fff"
-                    v-model:value="formState.regionCode"
-                    disabled
-                    placeholder="Region Code *"
-                  >
+                  <a-input style="color: #fff" v-model:value="formState.regionCode" disabled
+                    placeholder="Region Code *">
                   </a-input>
                 </a-form-item>
               </div>
 
               <div class="col-6">
                 <a-form-item name="Post Code">
-                  <a-input v-model:value="formState.postcode" :status="isPostcode ? 'error' : ''" @change="changeInput('postcode')"
+                  <a-input v-model:value="formState.postcode" :status="isPostcode ? 'error' : ''"
+                    @change="changeInput('postcode')"
                     :placeholder="formState.addressType == 0 ? '例：170-0013 *' : 'Postal Code *'">
                   </a-input>
                 </a-form-item>
@@ -75,21 +69,24 @@
 
               <div class="col-12" v-if="formState.addressType !== 0">
                 <a-form-item name="city">
-                  <a-input v-model:value="formState.city" :status="isCity ? 'error' : ''" @change="changeInput('city')" placeholder="City *">
+                  <a-input v-model:value="formState.city" :status="isCity ? 'error' : ''" @change="changeInput('city')"
+                    placeholder="City *">
                   </a-input>
                 </a-form-item>
               </div>
 
               <div class="col-12" v-if="formState.addressType == 0">
                 <a-form-item name="prefecture">
-                  <a-input v-model:value="formState.prefecture" :status="isPrefecture ? 'error' : ''" @change="changeInput('prefecture')" placeholder="例：都道府県(東京都) *">
+                  <a-input v-model:value="formState.prefecture" :status="isPrefecture ? 'error' : ''"
+                    @change="changeInput('prefecture')" placeholder="例：都道府県(東京都) *">
                   </a-input>
                 </a-form-item>
               </div>
 
               <div class="col-12">
                 <a-form-item name="address">
-                  <a-input v-model:value="formState.address" :status="isAddress ? 'error' : ''" @change="changeInput('address')"
+                  <a-input v-model:value="formState.address" :status="isAddress ? 'error' : ''"
+                    @change="changeInput('address')"
                     :placeholder="formState.addressType == 0 ? '例：豊島区東池袋1-34-5 *' : 'Address *'">
                   </a-input>
                 </a-form-item>
@@ -97,19 +94,15 @@
 
               <div class="col-12">
                 <a-form-item name="address2">
-                  <a-input
-                    v-model:value="formState.address2"
-                    :placeholder="
-                      formState.addressType == 0
-                        ? '例：いちご東池袋ビル9F'
-                        : 'Address2'
-                    "
-                  >
+                  <a-input v-model:value="formState.address2" :placeholder="formState.addressType == 0
+                      ? '例：いちご東池袋ビル9F'
+                      : 'Address2'
+                    ">
                   </a-input>
                 </a-form-item>
               </div>
 
-              <div class="form-title" :style="isCheckpay?'color:#ff4d4f;':''">Payment Method *</div>
+              <div class="form-title" :style="isCheckpay ? 'color:#ff4d4f;' : ''">Payment Method *</div>
 
               <div class="form-title__desc">
                 Which currency would you like to take to pay for your logistic?
@@ -130,24 +123,12 @@
         </div>
         <div class="right col-12 col-md-6">
           <div class="form-title">POSTAGE CONTENT</div>
-          <a-table
-            :dataSource="dataSource"
-            :columns="columns"
-            :bordered="false"
-            :pagination="false"
-            :customRow="customCell"
-            :customHeaderRow="customHeaderCell"
-            :scroll="{ y: 400 }"
-          >
+          <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false"
+            :customRow="customCell" :customHeaderRow="customHeaderCell" :scroll="{ y: 400 }">
             <template #bodyCell="{ column, record }">
               <template v-if="column.key === 'item'">
                 <div class="d-flex align-items-center">
-                  <img
-                    :src="record.image"
-                    alt=""
-                    width="60"
-                    style="margin-right: 15px; border-radius: 6px"
-                  />
+                  <img :src="record.image" alt="" width="60" style="margin-right: 15px; border-radius: 6px" />
                   <span class="item-desc d-md-block">{{
                     record.name
                   }}</span>
@@ -204,15 +185,14 @@
           </div>
           <div class="confirm-content-item">
             <span class="label">Shipping fee:</span>
-            <span class="value fw-bolder">{{ payFee.currencyNum }} USDC</span>
+            <span class="value fw-bolder" v-if="payFee.currencyCode == 'usdc'">{{ payFee.currencyNum }} USDC</span>
+            <span class="value fw-bolder" v-else>{{ payFee.currencyNum }} Sol</span>
           </div>
         </div>
 
         <div class="confirm-desc">
           After confirming the information,
-          <span class="fw-bolder" v-if="payFee.currencyCode == 'usdc'"
-            >{{ payFee.currencyNum }} USDC</span
-          >
+          <span class="fw-bolder" v-if="payFee.currencyCode == 'usdc'">{{ payFee.currencyNum }} USDC</span>
           <span class="fw-bolder" v-else>{{ payFee.currencyNum }} Sol</span>
           will be deducted from your wallet.
         </div>
@@ -320,7 +300,7 @@ const isCheckpay = ref(false)
 const handleSubmit = async () => {
   let re = /^\w+(?:\.\w+){0,1}@[a-zA-Z0-9]{2,14}(?:\.[a-z]{2,4}){1,2}$/;
   console.log(payment.value);
-  
+
   if (formState.email == "") {
     isEmail.value = true
     return
@@ -394,23 +374,23 @@ const handleSubmit = async () => {
 };
 
 const changeInput = (val) => {
-  if(val == 'email'){
+  if (val == 'email') {
     isEmail.value = false
-  }else if (val == 'country'){
+  } else if (val == 'country') {
     isCountry.value = false
-  }else if (val == 'name'){
+  } else if (val == 'name') {
     isName.value = false
-  }else if (val == 'phone'){
+  } else if (val == 'phone') {
     isPhone.value = false
-  }else if (val == 'postcode'){
+  } else if (val == 'postcode') {
     isPostcode.value = false
-  }else if (val == 'city'){
+  } else if (val == 'city') {
     isCity.value = false
-  }else if (val == 'prefecture'){
+  } else if (val == 'prefecture') {
     isPrefecture.value = false
-  }else if (val == 'address'){
+  } else if (val == 'address') {
     isAddress.value = false
-  }else if (val == 'payment'){
+  } else if (val == 'payment') {
     isCheckpay.value = false
   }
 
@@ -508,6 +488,10 @@ const handleConfirm = async () => {
 };
 
 const goPage = () => {
+  if (localStorage.getItem("redeem") == '') {
+    router.push({ path: "/user-info" });
+    return
+  }
   const resultList = JSON.parse(localStorage.getItem("redeem"));
   localStorage.setItem("sellList", "");
 

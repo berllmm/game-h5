@@ -15,7 +15,7 @@
             <img src="../assets/edit.svg" class="edit" />
           </div>
 
-          <img src="../assets/share.svg" class="share" />
+          <img @click="shareLink()" src="../assets/share.svg" class="share" />
         </div>
       </div>
       <div class="content">
@@ -68,6 +68,10 @@ onMounted(async () => {
 
   activeKey.value = '1'
 });
+
+const shareLink = () => {
+  window.open('https://x.com/intent/post?url=https%3A%2F%2Ftokyostupidgames.io%2Fuser%2Fshipping', "_blank")
+}
 
 const InfoInit = async () => {
   const prizeRes = await axios.post("/tsg/player/playerInfo");
@@ -153,6 +157,10 @@ const goPage = () => {
           height: 24px;
         }
       }
+
+      .share {
+        cursor: pointer;
+      }
     }
   }
 
@@ -230,6 +238,7 @@ const goPage = () => {
 
         .share {
           width: 40px;
+
         }
       }
     }

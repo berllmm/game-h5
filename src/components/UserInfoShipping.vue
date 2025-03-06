@@ -299,10 +299,15 @@ watch(
 .nextpage button {
   margin-left: 5px;
   color: #fff;
-  padding: 2px 5px;
+  padding: 2px 15px;
+  border-radius: 24px;
   border: 1px solid #fff;
   background-color: transparent;
   cursor: pointer;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(to right, #1f0c27, #1f0c27), linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
 }
 
 .order-content-title {

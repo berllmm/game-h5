@@ -3,8 +3,8 @@ import VueCookie from 'vue-cookie';
 
 // 创建 Axios 实例
 const instance = axios.create({
-    // baseURL: 'https://tokyostupidgames.io'
-    baseURL:'https://test-tsg.com'
+    baseURL: 'https://tokyostupidgames.io'
+    // baseURL:'https://test-tsg.com'
     // baseURL: 'http://192.168.1.234:19401'
 
 });

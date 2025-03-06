@@ -126,7 +126,7 @@
         <!-- 个人账户信息 -->
         <div v-else class="userInfo">
           <!-- 钱包余额 -->
-          <div @click="showWallet = true" class="d-none d-lg-block">
+          <div @click="showWallet = true" style="cursor: pointer;" class="d-none d-lg-block">
             <div class="userInfo-item" @click="">
               <img src="../assets//header-wallet.svg" class="userInfo-item__img" />
               <span class="userInfo-item__text">{{
@@ -136,7 +136,7 @@
             </div>
           </div>
           <!-- candy数量 -->
-          <div @click="showCandy = true" class="d-none d-lg-block">
+          <div @click="showCandy = true" style="cursor: pointer;" class="d-none d-lg-block">
             <div class="userInfo-item" @click="">
               <img src="../assets//header-candy.svg" class="userInfo-item__img" />
               <span class="userInfo-item__text">{{
