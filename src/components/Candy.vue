@@ -288,7 +288,7 @@ const getUserPay = async () => {
     isTSG.value = true;
 
     const connection = selectConnection(localStorage.getItem("local"));
-    const publicKey = userInfo.value.account;
+    const publicKey = userInfo.value.walletAddress;
     const walletAddress = new PublicKey(publicKey);
     const solanaRes = await connection.getBalance(walletAddress);
     const solPrize = (solanaRes / 1000000000).toFixed(5);
@@ -393,7 +393,7 @@ const walletConect = async () => {
 
     const wallet = selectWallet(localStorage.getItem("local"));
 
-    const fromAddress = new PublicKey(userInfo.value.account);
+    const fromAddress = new PublicKey(userInfo.value.walletAddress);
 
     if (contactList.value.type == "Sol") {
       const transaction = new Transaction({
@@ -466,7 +466,7 @@ const walletConect = async () => {
   position: relative;
 
   max-height: 60vh;
-  overflow: hidden;
+  overflow: auto;
 
   .bg {
     position: absolute;
@@ -534,8 +534,8 @@ const walletConect = async () => {
 
   .candy-list {
     margin-top: 24px;
-    // height: 300px;
-    max-height: 500px;
+    height: auto;
+    // max-height: 500px;
     overflow: auto;
 
     .candy-list__item {
@@ -555,6 +555,7 @@ const walletConect = async () => {
       .fs-16 {
         font-size: 16px;
         color: #606060;
+        text-align: left;
       }
 
       .right {

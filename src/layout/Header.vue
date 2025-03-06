@@ -349,7 +349,7 @@ const getLoginInit = async () => {
 const SolanaPrize = ref("");
 
 const getWalletPrize = async () => {
-  const publicKey = userList.value.account;
+  const publicKey = userList.value.walletAddress;
   const walletAddress = new PublicKey(publicKey);
   const connection = selectConnection(localStorage.getItem("local"));
   const res = await connection.getBalance(walletAddress);

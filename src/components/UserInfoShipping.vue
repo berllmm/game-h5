@@ -239,7 +239,7 @@ const goPageText = () => {
 watch(
   () => props.activeKey,
   (newVal, oldVal) => {
-    if (newVal == "4") {
+    if (newVal == "5") {
       shipingInit();
     }
   }

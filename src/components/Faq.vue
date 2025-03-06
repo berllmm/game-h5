@@ -44,52 +44,53 @@ import { ref } from "vue";
 const listData = ref([
   {
     id: 0,
-    questionValue: "WHAT ARE CANDY POINTS?",
+    questionValue: "What is an RWA NFT?",
     answerValue: `
-      <p>CANDY Points are the in-game currency (non-token) used within Tokyo Stupid Games. Users can acquire CANDY Points by purchasing them or by completing missions through the reward program. CANDY Points can be exchanged for game tickets, which are used to play games.</p>
-      <p>In the <span style="font-weight:bold;">GACHA game</span>, players can purchase tickets with CANDY Points, and use those tickets to spin the gacha and earn RWA NFTs. Additionally, the earned RWA NFTs can be burned, allowing players to convert them back into CANDY Points. This mechanism allows players to increase their points or acquire other valuable items based on their achievements and progress in the game.</p>
-      <p>CANDY Points are valued at 0.001 USD per point, and offer a higher redemption rate compared to SOL or USDC, making it more advantageous for players to enjoy the game.</p>
-      <p>In this way, CANDY Points serve as a vital currency for progressing through the game and are a means for players to acquire valuable items and rewards.</p>
+      <p>An RWA NFT (Real World Asset NFT) is an NFT linked to a physical item. In Tokyo Stupid Games, players can burn (destroy) their NFTs to obtain real-world items. Additionally, NFTs can be converted into CANDY points or exchanged for SOL to acquire rarer items.</p>
     `,
   },
   {
     id: 1,
-    questionValue: "What is the CANDY Points System?",
+    questionValue: "How to play Tokyo Stupid Games?",
     answerValue: `
-    <p>The CANDY Points System is a flexible and interactive feature that allows users to earn CANDY Points by completing in-game missions, participating in special tasks, and inviting friends.<p>
-    <p>These points can be used to play various games, including online gachas.<p>
-    <p>Designed for all types of players, from casual gamers to leaderboard contenders, this system ensures that everyone can enjoy and engage in their own way.<p>
+    <p>To play Tokyo Stupid Games, follow these steps:<p>
+    <p>1.<b>Purchase CANDY</b><p>
+    <p style="margin-left:15px;">CANDY can be bought from the Tokyo Stupid Games website and used for gameplay (e.g., gacha).<p>
+    <p>2.<b>Exchange CANDY for tickets</b><p>
+    <p style="margin-left:15px;">Use CANDY to acquire tickets and play games (e.g., gacha).<p>
+    <p style="margin-left:15px;">CANDY can also be earned through reward programs (by completing tasks or participating in campaigns).<p>
+    <p>3.<b>Play the game (gacha, etc.)</b><p>
+    <p style="margin-left:15px;">Choose the amount of CANDY to spend<p>
+    <p style="margin-left:15px;">Press the "Play" button<p>
+    <p style="margin-left:15px;"><b>Win an item!</b><p>
+    <p style="margin-left:15px;">Acquired items are added to the inventory<p>
+    <p style="margin-left:15px;">High-rarity NFTs can be exchanged for real-world items as RWA NFTs!<p>
     `,
   },
   {
     id: 2,
-    questionValue: "How to Earn CANDY Points",
+    questionValue: "What is the $TSG token?",
     answerValue: `
-    <b>Daily Missions</b>
-    <p>Earn CANDY Points through simple daily tasks such as logging in, completing mini-challenges, and engaging with the community.</p>
-    <b>Supreme Missions</b>
-    <p>For players seeking bigger rewards, Supreme Missions offer high-difficulty challenges with larger point payouts.</p>
-    <b>Referral Program</b>
-    <p>Invite your friends to join TSG and earn CANDY Points for both you and your referrals. The more friends you bring in, the more points you accumulate!</p>
+    <p>$TSG is the utility token within the Tokyo Stupid Games ecosystem. It is used for gameplay, marketplace transactions, purchasing exclusive items, participating in events, and maximizing value for players and collectors.</p>
+    <p>Unlike ordinary in-game currency, $TSG aims to build a sustainable economic system utilizing Web3 principles.</p>
+    <p>Use in GACHA – Spend $TSG to play gacha and win RWA NFTs or in-game items</p>
+    <p>Marketplace – Trade NFTs and items with other users</p>
+    <p>Exclusive perks & event participation – Access real-world events and special benefits</p>
+    <p>Liquidity & exchangeability – Convert to CANDY points or SOL</p>
+    <p>More details on the $TSG token:<a href="https://docs.tokyostupidgames.io/token" target="blank">https://docs.tokyostupidgames.io/token</p>
     `,
   },
   {
     id: 3,
-    questionValue: "How to Use CANDY Points",
+    questionValue: "Can I withdraw my collected items?",
     answerValue: `
-    <b>Gacha</b>
-    <p>Use your CANDY Points in TSG’s online gacha system!</p>
-    <p>Try your luck to win luxurious prizes, including Real-World Assets (RWAs) with tangible value. With each roll, you have a chance to score rare and exciting items.</p>
-    `,
-  },
-  {
-    id: 4,
-    questionValue: "Why the CANDY Points System Matters",
-    answerValue: `
-    <p>The introduction of the CANDY Points System is a significant step toward building a sustainable and value-driven ecosystem.</p>
-    <p>By providing multiple earning opportunities, we enhance the gaming experience while giving players the freedom to shape their own journey.</p>
-    <p>Additionally, there is potential for CANDY Points to be converted into TSG Tokens in the future, making this system even more valuable.</p>
-    <p>Not only are you earning rewards today, but you could also be positioning yourself for long-term gains.</p>
+    <p>Yes! All items are securely stored and can be withdrawn anytime worldwide (except in restricted regions). Your inventory is viewable on the Tokyo Stupid Games website, and you can exchange NFTs for real-world items through the burn process.</p>
+    <p></p>
+    <p>Burn Process:</p>
+    <p>1.Submit a burn request</p>
+    <p>2.Enter shipping details</p>
+    <p>3.Pay shipping fees</p>
+    <p>4.Receive tracking information after shipment is processed</p>
     `,
   },
 ]);
@@ -113,6 +114,11 @@ p {
   line-height: 24px;
   margin-bottom: 5px;
   color: #ffffff;
+  font-family: 'Figtree';
+}
+
+b {
+  font-family: 'Figtree';
 }
 </style>
 

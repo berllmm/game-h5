@@ -95,8 +95,8 @@
               <div class="col-12">
                 <a-form-item name="address2">
                   <a-input v-model:value="formState.address2" :placeholder="formState.addressType == 0
-                      ? '例：いちご東池袋ビル9F'
-                      : 'Address2'
+                    ? '例：いちご東池袋ビル9F'
+                    : 'Address2'
                     ">
                   </a-input>
                 </a-form-item>
@@ -433,7 +433,7 @@ const handleConfirm = async () => {
     const connection = selectConnection(localStorage.getItem("local"));
     const { blockhash } = await connection.getLatestBlockhash("finalized");
     const wallet = selectWallet(localStorage.getItem("local"));
-    const fromAddress = new PublicKey(playerInfo().user.account);
+    const fromAddress = new PublicKey(playerInfo().user.walletAddress);
     if (payFee.value.currencyCode == "sol") {
       const transaction = new Transaction({
         recentBlockhash: blockhash,
@@ -484,8 +484,43 @@ const handleConfirm = async () => {
   showModal.value = false;
   showResult.value = true;
 
-  goPage();
+  goPage()
 };
+
+const prizeList = ref([])
+
+const openShipping = async () => {
+  const addres = playerInfo().user.walletAddress
+
+  dataSource.value.forEach(item => {
+    prizeList.value.push({
+      transactionId: "",
+      type: 3,
+      chainType: "USD",
+      currencyType: "usd",
+      ratio: 0,
+      id: item.id,
+      gachaCardId: item.id,
+      value: item.usd,
+      targetWalletAddress: addres,
+      payFreight: item.payFreight,
+      gameOrderId: item.gameOrderId,
+    })
+  })
+
+  if (localStorage.getItem('local') == "Wallet") {
+    const res = await axios.post('/tsg/player/burnCardWeb2', {
+      refundList: prizeList.value,
+    })
+  } else {
+    for (let i = 0; i < prizeList.value.length; i++) {
+      const res = await axios.post("/tsg/player/burnCard", {
+        refundList: [prizeList.value[i]],
+      });
+    }
+  }
+  goPage();
+}
 
 const goPage = () => {
   if (localStorage.getItem("redeem") == '') {

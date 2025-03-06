@@ -199,7 +199,7 @@ const imageSrc = computed(() => {
 
 const walletAddress = computed(
   () => {
-    const list = props.playerList?.account.slice(0, 4) + '...' + props.playerList?.account.slice(-4)
+    const list = props.playerList?.walletAddress.slice(0, 4) + '...' + props.playerList?.walletAddress.slice(-4)
 
     return list
   }

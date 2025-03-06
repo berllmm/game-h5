@@ -141,7 +141,7 @@ const infoInit = async () => {
     walletList.value = []
     localStorage.setItem('oldName', user.value.playerName)
     walletList.value.push({
-      walletName: user.value.account
+      walletName: user.value.walletAddress
     })
     userImage.value = user.value.avatarUrl == '' ? moren : user.value.avatarUrl
     accountList.value = [

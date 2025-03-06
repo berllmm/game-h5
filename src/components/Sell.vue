@@ -338,7 +338,7 @@ const transferPrize = () => {
       gachaCardId: item.id,
       value: item.usd,
       candy: item.candy,
-      targetWalletAddress: playerInfo().user?.account,
+      targetWalletAddress: playerInfo().user?.walletAddress,
     }));
 
   goBurn(exchangeList)
@@ -379,7 +379,7 @@ const tansformwallet = async () => {
       gachaCardId: item.id,
       value: item.usd,
       candy: item.candy,
-      targetWalletAddress: playerInfo().user?.account,
+      targetWalletAddress: playerInfo().user?.walletAddress,
     }));
   if (exchangeList.length == 0) {
     return

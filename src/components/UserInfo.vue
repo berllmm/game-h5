@@ -33,13 +33,17 @@
           <div @click="handleSwitch('4')" class="tabs-item" :class="activeKey === '4' ? 'active' : ''">
             Shipping Inventory
           </div>
+          <div @click="handleSwitch('5')" class="tabs-item" :class="activeKey === '5' ? 'active' : ''">
+            Shipping History
+          </div>
         </div>
 
         <!-- tab内容 -->
         <UserInfoTier :activeKey="activeKey" :userInfo="userInfo" v-show="activeKey === '1'" />
         <UserInfoCollection :activeKey="activeKey" v-show="activeKey === '2'" />
         <UserInfoActivity :activeKey="activeKey" v-show="activeKey === '3'" />
-        <UserInfoShipping :activeKey="activeKey" v-show="activeKey === '4'" />
+        <UserInfoInventory :activeKey="activeKey" v-show="activeKey === '4'" />
+        <UserInfoShipping :activeKey="activeKey" v-show="activeKey === '5'" />
       </div>
     </div>
   </div>
@@ -51,6 +55,7 @@ import UserInfoTier from "@/components/UserInfoTier.vue";
 import UserInfoCollection from "@/components/UserInfoCollection.vue";
 import UserInfoActivity from "@/components/UserInfoActivity.vue";
 import UserInfoShipping from "@/components/UserInfoShipping.vue";
+import UserInfoInventory from "@/components/UserInfoInventory.vue";
 import { playerInfo } from "../utils/counter";
 import morAvantar from "@/assets/avatar.svg"
 import axios from "@/utils/axios";
