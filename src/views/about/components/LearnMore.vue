@@ -3,22 +3,38 @@
     <div class="col-12 col-sm-3 col-md-3 title">Learn more</div>
 
     <div class="col-12 col-sm-9 col-md-9 flex-right">
-      <div class="btn">Rewards</div>
+      <div class="btn" @click="goPage('Rewards')">Rewards</div>
 
-      <div class="btn">Road map</div>
+      <div class="btn" @click="goPage('map')">Road map</div>
 
-      <div class="btn">Token</div>
+      <div class="btn" @click="goPage('token')">Token</div>
 
-      <div class="btn">WhitePaper</div>
+      <div class="btn" @click="goPage('paper')">WhitePaper</div>
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter()
+
+const goPage = (val) => {
+  if (val == "Rewards") {
+    router.push({ path: "/missing" })
+  } else if (val == 'map') {
+    window.open('https://docs.tokyostupidgames.io/', "_blank")
+  } else if (val == 'token') {
+    window.open('https://docs.tokyostupidgames.io/token/tokenomics', "_blank")
+  } else if (val == 'paper') {
+    window.open('https://docs.tokyostupidgames.io/', "_blank")
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .more {
   margin-top: 60px;
   padding: 0 32px;
+
   .title {
     margin-bottom: 12px;
     font-style: normal;
@@ -58,6 +74,7 @@
     }
   }
 }
+
 .flex-right {
   text-align: right;
 }
@@ -67,11 +84,13 @@
   .flex-right {
     text-align: left;
   }
+
   .more {
     .title {
       font-size: 24px;
       line-height: 32px;
     }
+
     .btn {
       margin-right: 12px;
       display: inline-flex;

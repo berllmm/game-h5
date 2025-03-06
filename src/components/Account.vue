@@ -2,7 +2,7 @@
   <div class="userInfo-box">
     <div class="user-name">
       <!-- ../assets/avatar.svg -->
-      <img :src="imageSrc" width="80" height="80" style="border-radius: 50%;"/>
+      <img :src="imageSrc" width="80" height="80" style="border-radius: 50%;" />
       <span class="user-name__text">{{ props.playerList?.playerName }}</span>
       <img :src="expImage" alt="" />
     </div>
@@ -69,7 +69,7 @@
           <img src="../assets/arrow-right.svg" alt="" />
         </div>
       </div>
-      <div class="money-item d-flex justify-content-between align-items-center">
+      <div @click="goPage('discord')" class="money-item d-flex justify-content-between align-items-center">
         <div class="left d-flex justify-content-between align-items-center">
           <img src="../assets/header-warnning.svg" alt="" />
           <div class="detail-box">
@@ -119,29 +119,6 @@
             <div class="right">{{ cutApartNumber(solPrize) }} SOL</div>
           </div>
         </div>
-
-        <!-- 钱包2 -->
-        <!-- <div class="wallets-item">
-          <div class="d-flex align-item-center justify-content-between">
-            <span class="fs-20"> Wallet 2 </span>
-          </div>
-
-          <div class="money-item d-flex justify-content-between align-items-center">
-            <div class="left d-flex justify-content-between align-items-center">
-              <img src="../assets/header-wallet.svg" alt="" />
-              <div class="detail-box">
-                <div>Internal Wallet</div>
-                <div class="desc-info">xxx...</div>
-              </div>
-            </div>
-            <div class="right">1.0001 SOL</div>
-          </div>
-        </div> -->
-
-        <!-- <div @click="handleShowAddWalletModal" class="add-btn d-flex justify-content-center align-items-center">
-          <span> Add Wallet</span>
-          <img src="../assets/header-plus.svg" alt="" />
-        </div> -->
       </div>
     </Modal>
   </div>
@@ -254,6 +231,10 @@ const handleShowCandy = () => {
 
 const router = useRouter();
 const goPage = (name) => {
+  if (name == 'discord') {
+    window.open('https://discord.com/invite/tsg', "_blank")
+    return
+  }
   emits("closeAccount");
   router.push({ name });
 };

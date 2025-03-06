@@ -31,14 +31,14 @@
                 <template v-if="column.key === 'usdcPrice'">
                   <div class="align-items-center" style="text-align: center;">
                     <span class="item-desc d-md-block">{{
-                      record.gachaCard?.usd
+                      cutApart(record.gachaCard?.usd)
                     }}</span>
                   </div>
                 </template>
                 <template v-if="column.key === 'candyPrice'">
                   <div class="align-items-center" style="text-align: center;">
                     <span class="item-desc d-md-block">{{
-                      record.gachaCard?.candy
+                      cutApart(record.gachaCard?.candy)
                     }}</span>
                   </div>
                 </template>
@@ -104,6 +104,7 @@
   import { customHeaderCell, customCell } from "@/utils";
   import useWindow from "@/hooks/useWindow";
   import { useSell } from "../utils/counter";
+import { cutApart } from "../utils/burn";
   
   const router = useRouter();
   

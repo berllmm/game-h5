@@ -10,12 +10,12 @@
       </template>
       <template v-if="column.key === 'usdcPrice'">
         <div class="align-items-center" style="text-align: center;">
-          <span class="item-desc d-md-block">{{ record.usd }}</span>
+          <span class="item-desc d-md-block">{{ cutApart(record.usd) }}</span>
         </div>
       </template>
       <template v-if="column.key === 'candyPrice'">
         <div class="align-items-center" style="text-align: center;">
-          <span class="item-desc d-md-block">{{ record.candy }}</span>
+          <span class="item-desc d-md-block">{{ cutApart(record.candy) }}</span>
         </div>
       </template>
       <template v-if="column.key === 'rarity'">
@@ -87,7 +87,7 @@
         <div class="result-title">{{ tipTitle }}</div>
         <div class="result-center">
           <img v-if="!tipType" src="../assets/candy.svg" width="32" alt="">
-          <span>{{ tipPrize }}</span>
+          <span>{{ cutApart(tipPrize) }}</span>
           <span v-if="tipType">USDC</span>
         </div>
         <div class="result-tips">{{ tipFoot }}</div>
@@ -345,7 +345,11 @@ const transferPrize = () => {
   useChangePrize().changePrize()
   clearSell()
   showModal.value = true
-  tipText.value = 'Candy transfer successful'
+  if(tipType.value){
+    tipText.value = 'USDC transfer successful'
+  }else {
+    tipText.value = 'Candy transfer successful'
+  }
   tipVisible.value = true
   tip.value = 'Success'
 }

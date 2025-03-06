@@ -16,15 +16,15 @@
             of Tokyo.
           </div>
         </div>
-        <img src="../../../assets/Buton-1.png" class="launch-icon" />
+        <img src="../../../assets/Buton-1.png" @click="router.push({ path: '/all-games' })" class="launch-icon" />
 
         <div class="community">
           <span>Join the community</span>
 
           <div>
-            <img src="../../../assets/ic_round-play-arrow-1.png" alt="" />
-            <img src="../../../assets/ic_round-play-arrow-2.png" alt="" />
-            <img src="../../../assets/ic_round-play-arrow-3.png" alt="" />
+            <img @click="goPage('x')" src="../../../assets/ic_round-play-arrow-1.png" alt="" />
+            <img @click="goPage('discord')" src="../../../assets/ic_round-play-arrow-2.png" alt="" />
+            <img @click="goPage('telegram')" src="../../../assets/ic_round-play-arrow-3.png" alt="" />
           </div>
         </div>
       </div>
@@ -46,15 +46,15 @@
               ecosystem of Tokyo.
             </div>
           </div>
-          <img src="../../../assets/Buton-1.png" class="launch-icon" />
+          <img src="../../../assets/Buton-1.png" @click="router.push({ path: '/all-games' })" class="launch-icon" />
 
           <div class="community">
             <span>Join the community</span>
 
             <div>
-              <img src="../../../assets/ic_round-play-arrow-1.png" alt="" />
-              <img src="../../../assets/ic_round-play-arrow-2.png" alt="" />
-              <img src="../../../assets/ic_round-play-arrow-3.png" alt="" />
+              <img @click="goPage('x')" src="../../../assets/ic_round-play-arrow-1.png" alt="" />
+              <img @click="goPage('discord')" src="../../../assets/ic_round-play-arrow-2.png" alt="" />
+              <img @click="goPage('telegram')" src="../../../assets/ic_round-play-arrow-3.png" alt="" />
             </div>
           </div>
         </div>
@@ -67,7 +67,21 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+const goPage = (val) => {
+  if (val == 'x') {
+    window.open('https://x.com/TokyoStupidGame', "_blank")
+  } else if (val == 'discord') {
+    window.open('https://discord.com/invite/tsg', "_blank")
+  } else if (val == 'telegram') {
+    window.open('https://t.me/+PbSXDC3vLfowZmVl', "_blank")
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 // 区域1样式
@@ -76,12 +90,14 @@
 .small-info {
   position: relative;
   padding: 24px;
+
   .product {
     .logo {
       width: 100%;
       margin-bottom: 16px;
     }
   }
+
   .text-box {
     .title {
       margin-bottom: 10px;
@@ -93,6 +109,7 @@
 
       color: #ffffff;
     }
+
     .desc {
       margin-bottom: 32px;
       font-style: normal;
@@ -103,14 +120,18 @@
       color: #afafaf;
     }
   }
+
   .launch-icon {
     width: 156px;
+    cursor: pointer;
   }
+
   .community {
     display: flex;
     // justify-content: space-between;
     align-items: center;
     margin-top: 24px;
+
     span {
       font-style: normal;
       font-weight: 400;
@@ -118,16 +139,21 @@
       line-height: 21px;
       color: #ffffff;
     }
+
     div {
       margin-left: 24px;
+
       img {
         width: 24px;
+        cursor: pointer;
+
         &:nth-child(2) {
           margin: 0 12px;
         }
       }
     }
   }
+
   .icon1 {
     position: absolute;
     right: 16px;
@@ -149,8 +175,10 @@
 .info {
   margin-top: 60px;
   padding: 32px;
+
   .flex-box {
     display: flex;
+
     .left {
       flex: 1;
       display: flex;
@@ -158,6 +186,7 @@
       justify-content: space-between;
     }
   }
+
   .product {
     .logo {
       width: 35%;
@@ -170,6 +199,7 @@
       // height: 462px;
     }
   }
+
   .text-box {
     .title {
       margin-bottom: 10px;
@@ -181,6 +211,7 @@
 
       color: #ffffff;
     }
+
     .desc {
       margin-bottom: 32px;
       font-style: normal;
@@ -191,14 +222,18 @@
       color: #afafaf;
     }
   }
+
   .launch-icon {
     width: 207px;
+    cursor: pointer;
   }
+
   .community {
     display: flex;
     // justify-content: space-between;
     align-items: center;
     margin-top: 24px;
+
     span {
       font-style: normal;
       font-weight: 400;
@@ -206,16 +241,20 @@
       line-height: 26px;
       color: #ffffff;
     }
+
     div {
       margin-left: 32px;
+
       img {
         width: 32px;
+
         &:nth-child(2) {
           margin: 0 12px;
         }
       }
     }
   }
+
   .icon1 {
     position: absolute;
     right: 16px;

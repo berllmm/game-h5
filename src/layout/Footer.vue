@@ -15,9 +15,9 @@
       </div>
 
       <div class="softs">
-        <img src="../assets/footer-x.svg" class="me-2" />
-        <img src="../assets/footer-p.svg" class="me-2" />
-        <img src="../assets/footer-f.svg" alt="" />
+        <img @click="goPage('x')" src="../assets/footer-x.svg" class="me-2" />
+        <img @click="goPage('discord')" src="../assets/footer-p.svg" class="me-2" />
+        <img @click="goPage('telegram')" src="../assets/footer-f.svg" alt="" />
       </div>
     </div>
   </div>
@@ -46,6 +46,16 @@ const openPage = (val) => {
     window.open("https://docs.tokyostupidgames.io/legal/terms-of-use", "_blank");
   } else if (val == 'policy') {
     window.open("https://docs.tokyostupidgames.io/legal/privacy-policy", "_blank");
+  }
+}
+
+const goPage = (val) => {
+  if (val == 'x') {
+    window.open('https://x.com/TokyoStupidGame', "_blank")
+  } else if (val == 'discord') {
+    window.open('https://discord.com/invite/tsg', "_blank")
+  } else if (val == 'telegram') {
+    window.open('https://t.me/+PbSXDC3vLfowZmVl', "_blank")
   }
 }
 </script>
@@ -80,6 +90,10 @@ const openPage = (val) => {
 
 .mr-40 {
   margin-right: 40px;
+}
+
+.softs img {
+  cursor: pointer;
 }
 
 .links-box {

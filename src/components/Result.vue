@@ -28,14 +28,14 @@
               <template v-if="column.key === 'usdcPrice'">
                 <div class=" align-items-center" style="text-align: center;">
                   <span class="item-desc d-md-block">{{
-                    record.usd
+                    cutApart(record.usd)
                   }}</span>
                 </div>
               </template>
               <template v-if="column.key === 'candyPrice'">
                 <div class=" align-items-center" style="text-align: center;">
                   <span class="item-desc d-md-block">{{
-                    record.candy
+                    cutApart(record.candy)
                   }}</span>
                 </div>
               </template>
@@ -100,6 +100,7 @@ import { useRouter } from "vue-router";
 import { customHeaderCell, customCell } from "@/utils";
 import useWindow from "@/hooks/useWindow";
 import { useSell } from "../utils/counter";
+import { cutApart } from "../utils/burn";
 
 const router = useRouter();
 

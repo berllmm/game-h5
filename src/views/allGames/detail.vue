@@ -149,18 +149,7 @@ import useWindow from "@/hooks/useWindow";
 
 const { isLargeWindow } = useWindow();
 
-const isPC = ref(false)
-
-watch(
-  () => isLargeWindow,
-  (newVal, oldVal) => {
-    if (newVal) {
-      isPC.value = true
-    } else {
-      isPC.value = false
-    }
-  }
-)
+const isPC = ref(true)
 
 const route = useRoute();
 
@@ -197,6 +186,10 @@ const changeCurrentImage = (img) => {
 };
 
 onMounted(() => {
+  console.log(isLargeWindow);
+
+  isPC.value = isLargeWindow.value
+
   getDetailsInit();
 });
 

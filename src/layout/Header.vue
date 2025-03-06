@@ -52,19 +52,10 @@
       </Transition>
 
       <!-- 在小屏幕（<576px）上显示 面板信息-->
-      <div
-        class="offcanvas offcanvas-start d-block d-sm-none left-panel w-100"
-        tabindex="-1"
-        id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel"
-      >
+      <div class="offcanvas offcanvas-start d-block d-sm-none left-panel w-100" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header flex-center">
-          <img
-            @click="showPanel = false"
-            src="../assets/close.svg"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          />
+          <img @click="showPanel = false" src="../assets/close.svg" data-bs-dismiss="offcanvas" aria-label="Close" />
 
           <h5 class="offcanvas-title" id="offcanvasExampleLabel">
             TOKYO STUPID GAMES
@@ -89,11 +80,7 @@
               </div>
             </div>
 
-            <div
-              class="menu-box"
-              data-bs-toggle="offcanvas"
-              href="#offcanvasExample"
-            >
+            <div class="menu-box" data-bs-toggle="offcanvas" href="#offcanvasExample">
               <div @click="goPage('allGames')" class="menu-item border-bo">
                 GACHA GAMES
               </div>
@@ -140,11 +127,8 @@
         <div v-else class="userInfo">
           <!-- 钱包余额 -->
           <div @click="showWallet = true" class="d-none d-lg-block">
-            <div class="userInfo-item">
-              <img
-                src="../assets//header-wallet.svg"
-                class="userInfo-item__img"
-              />
+            <div class="userInfo-item" @click="">
+              <img src="../assets//header-wallet.svg" class="userInfo-item__img" />
               <span class="userInfo-item__text">{{
                 cutApartNumber(SolanaPrize)
               }}</span>
@@ -153,11 +137,8 @@
           </div>
           <!-- candy数量 -->
           <div @click="showCandy = true" class="d-none d-lg-block">
-            <div class="userInfo-item">
-              <img
-                src="../assets//header-candy.svg"
-                class="userInfo-item__img"
-              />
+            <div class="userInfo-item" @click="">
+              <img src="../assets//header-candy.svg" class="userInfo-item__img" />
               <span class="userInfo-item__text">{{
                 cutApart(userList.candy)
               }}</span>
@@ -171,11 +152,7 @@
             :src="userList.avatarUrl" alt="" />
 
           <!-- 个人信息弹窗  弹窗面板展示-->
-          <Account
-            v-if="showUserInfoModal"
-            :playerList="userList"
-            @closeAccount="handleClose"
-          />
+          <Account v-if="showUserInfoModal" :playerList="userList" @closeAccount="handleClose" />
         </div>
       </div>
 
@@ -186,37 +163,21 @@
         @click="handleShowUserInfo" :src="userList.avatarUrl" class="d-block d-sm-none" />
 
       <!-- 个人信息弹窗 底部抽屉展示 -->
-      <div
-        v-if="showUserInfoModal"
-        class="drawer d-block d-sm-none"
-        :class="{ open: showUserInfoModal }"
-      >
+      <div v-if="showUserInfoModal" class="drawer d-block d-sm-none" :class="{ open: showUserInfoModal }">
         <div class="drawer-content userInfo-box-small">
           <div class="drawer-header">
             <div class="modal-header flex-end">
-              <img
-                @click="handleClose"
-                src="../assets/simpleClose.svg"
-                alt=""
-              />
+              <img @click="handleClose" src="../assets/simpleClose.svg" alt="" />
             </div>
           </div>
           <div class="drawer-body">
-            <Account
-              :playerList="userList"
-              :SolanaPrize="SolanaPrize"
-              @closeAccount="handleClose"
-            />
+            <Account :playerList="userList" :SolanaPrize="SolanaPrize" @closeAccount="handleClose" />
           </div>
         </div>
       </div>
 
       <!-- 蒙层 -->
-      <div
-        v-if="showUserInfoModal || showPanel"
-        class="overlay"
-        @click="handleClose"
-      ></div>
+      <div v-if="showUserInfoModal || showPanel" class="overlay" @click="handleClose"></div>
 
       <!-- wallets 列表 -->
       <div>
@@ -232,18 +193,14 @@
                   <span class="fs-16 bg">Current wallet</span>
                 </span>
 
-                <span class="fs-16 color-blue">
+                <span class="fs-16 color-blue" @click="closeLogin">
                   <img src="../assets/disconnect.svg" />
                   Disconnect Wallet
                 </span>
               </div>
 
-              <div
-                class="money-item d-flex justify-content-between align-items-center"
-              >
-                <div
-                  class="left d-flex justify-content-between align-items-center"
-                >
+              <div class="money-item d-flex justify-content-between align-items-center">
+                <div class="left d-flex justify-content-between align-items-center">
                   <img src="../assets/header-wallet.svg" alt="" />
                   <div class="detail-box">
                     <div>External Wallet</div>
@@ -279,6 +236,7 @@ import login from "@/components/login.vue";
 import Account from "@/components/Account.vue";
 import { useRouter } from "vue-router";
 import VueCookie from "vue-cookie";
+import Candy from "@/components/Candy.vue";
 import { selectConnection, selectWallet, cutApart } from "@/utils/burn";
 import { cutApartNumber, initWalletUmi } from "../utils/burn";
 import { playerInfo, useChangePrize, userLogin, userPay, userPayNow, userSol } from "../utils/counter";
@@ -300,7 +258,7 @@ const goPage = (path) => {
     marketBox.value = true
     return
   }
-  
+
   router.push({ name: `${path}` });
 };
 
@@ -735,88 +693,6 @@ const showWallet = ref(false);
     font-size: 24px;
     font-weight: 600;
   }
-
-  .result-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 0;
-  }
-
-  .result-center.change-tip {
-    padding-bottom: 20px;
-  }
-
-  .result-center span {
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  .result-center span.change-tip {
-    text-align: center;
-    font-size: 18px;
-  }
-
-  .result-center span:nth-child(2) {
-    padding: 0 10px;
-  }
-
-  .result-img {
-    margin: 40px 0;
-    width: 120px;
-    height: 120px;
-  }
-
-  .result-img.change-tip {
-    margin-top: 40px;
-    margin-bottom: 0px;
-  }
-
-  .result-tips {
-    margin-bottom: 40px;
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  .blue-text {
-    color: #3052fa;
-    font-weight: 600;
-  }
-
-  .footer-btn__modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .btn1 {
-      margin-right: 16px;
-      padding: 12px 24px;
-      font-weight: 600;
-      color: #ffffff;
-      font-size: 20px;
-      display: inline-block;
-      cursor: pointer;
-      border: 1px solid transparent;
-      border-radius: 48px;
-      background-clip: padding-box, border-box;
-      background-origin: padding-box, border-box;
-      background-image: linear-gradient(to right, #1f0c27, #1f0c27),
-        linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
-    }
-
-    .btn2 {
-      padding: 12px 24px;
-      font-size: 20px;
-      display: inline-block;
-      border-radius: 48px;
-      border: 1px solid #3f3f3f;
-      background-clip: padding-box, border-box;
-      background-origin: padding-box, border-box;
-      cursor: pointer;
-    }
-  }
-
-
 }
 
 

@@ -557,7 +557,6 @@ watch(
     flex: 1;
 
     &__title {
-      font-family: "IBM Plex Sans";
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
@@ -622,7 +621,6 @@ watch(
   }
 
   .footer {
-    font-family: "IBM Plex Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -683,7 +681,6 @@ watch(
     flex: 1;
 
     &__title {
-      font-family: "IBM Plex Sans";
       font-style: normal;
       font-weight: 400;
       font-size: 12px;
@@ -743,7 +740,6 @@ watch(
 
   .footer {
     margin-top: 40px;
-    font-family: "IBM Plex Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -839,8 +835,8 @@ watch(
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  //   height: 548px;
+  width: 490px;
+    height: 430px;
   padding: 24px;
   z-index: 9999;
   border-radius: 32px;
@@ -848,7 +844,7 @@ watch(
   border: 1px solid #3f3f3f;
 
   .modal-title {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     font-size: 24px;
 
     font-weight: 600;
@@ -875,17 +871,17 @@ watch(
   }
 
   .blue-text {
-    font-family: "IBM Plex Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     color: #3052fa;
     text-align: center;
     cursor: pointer;
+    line-height: 70px;
   }
 }
 
 .m-40 {
-  margin: 40px;
+  margin: 40px 0px 0px 0px;
 }
 </style>
