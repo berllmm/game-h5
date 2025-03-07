@@ -1,28 +1,66 @@
 <template>
   <div class="result">
-    <div v-if="showTitle" class="title base-border">RESULTS</div>
+    <div v-if="showTitle" class="title base-border d-none d-sm-block">
+      RESULTS
+    </div>
 
     <div class="table-info">
+      <div class="right-box d-flex justify-content-end">
+        <span
+          >Sort by
+          <span class="dropdown color-blue">
+            <a
+              class="dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Newest
+            </a>
+
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">.. </a></li>
+              <li><a class="dropdown-item" href="#">...</a></li>
+            </ul>
+          </span>
+        </span>
+      </div>
       <div class="row">
-        <div class="col-12" :class="showRightPanel ? 'col-sm-9 col-md-9' : 'col-sm-12 col-md-12'">
-          <a-table :row-selection="{
-            selectedRowKeys: state.selectedRowKeys,
-            onChange: onSelectChange,
-          }" :dataSource="userList" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-            :customHeaderRow="customHeaderCell" :scroll="{ y: 400 }">
+        <div
+          class="col-12"
+          :class="showRightPanel ? 'col-sm-9 col-md-9' : 'col-sm-12 col-md-12'"
+        >
+          <a-table
+            :row-selection="{
+              selectedRowKeys: state.selectedRowKeys,
+              onChange: onSelectChange,
+            }"
+            :dataSource="userList"
+            :columns="columns"
+            :bordered="false"
+            :pagination="false"
+            :customRow="customCell"
+            :customHeaderRow="customHeaderCell"
+            :scroll="{ y: 400 }"
+          >
             <template #bodyCell="{ column, record }">
               <template v-if="column.key === 'item'">
                 <div class="d-flex align-items-center">
-                  <img :src="record.image" alt="" width="60" style="margin-right: 15px" />
+                  <img
+                    :src="record.image"
+                    alt=""
+                    width="60"
+                    style="margin-right: 15px"
+                  />
                   <!-- d-none d-md-block -->
                   <span class="item-desc" style="text-align: left;">{{ record.name }}</span>
                 </div>
               </template>
               <template v-if="column.key === 'rarity'">
-                <div class=" align-items-center" style="text-align: center;">
-                  <span class="item-desc d-md-block">{{
-                    record.rarity
-                  }}</span>
+                <div class="align-items-center" style="text-align: center">
+                  <span class="item-desc d-md-block">{{ record.rarity }}</span>
                 </div>
               </template>
               <template v-if="column.key === 'usdcPrice'">
@@ -40,7 +78,7 @@
                 </div>
               </template>
               <template v-if="column.key === 'quantity'">
-                <div class=" align-items-center" style="text-align: center;">
+                <div class="align-items-center" style="text-align: center">
                   <span class="item-desc d-md-block">1</span>
                 </div>
               </template>
@@ -61,7 +99,11 @@
           </div>
 
           <div class="item-list">
-            <div v-for="item in state.selectedRows" :key="item.key" class="item-box">
+            <div
+              v-for="item in state.selectedRows"
+              :key="item.key"
+              class="item-box"
+            >
               <div class="left">
                 <img :src="item.image" class="img" width="60" />
                 <div class="text-box">
@@ -81,7 +123,11 @@
                 </div>
               </div>
               <div class="right">
-                <img @click="handleDelete(item.key)" src="../assets/x.svg" alt="" />
+                <img
+                  @click="handleDelete(item.key)"
+                  src="../assets/x.svg"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -251,6 +297,15 @@ const goSell = () => {
     table {
       min-width: 400px;
     }
+    .right-box {
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: #fff;
+      .color-blue {
+        color: #3052fa;
+        font-weight: 600;
+      }
+    }
 
     // 右侧面板样式
     .select-box {
@@ -343,21 +398,25 @@ const goSell = () => {
   .result {
     // height: 80vh;
     overflow: auto;
+    padding: 0 16px;
 
     .select-box {
       margin-top: 20px;
     }
   }
+  :deep(.dropdown-menu) {
+    inset: 0px 58px auto auto !important;
+  }
 }
 </style>
 <style lang="scss">
-.ant-table-wrapper .ant-table-thead>tr>th {
+.ant-table-wrapper .ant-table-thead > tr > th {
   background: #1e1e1e !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
 }
 
-.ant-table-wrapper .ant-table-tbody>tr>td {
+.ant-table-wrapper .ant-table-tbody > tr > td {
   background: #1f0c27 !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;

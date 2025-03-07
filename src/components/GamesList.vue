@@ -100,7 +100,8 @@ const handleScroll = () => {
   .right-icon {
     position: absolute;
     right: 18px;
-    top: 230px;
+    // top: 230px;
+    top: 290px;
     z-index: 9;
   }
 }

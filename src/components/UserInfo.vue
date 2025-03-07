@@ -210,9 +210,16 @@ const goPage = () => {
       display: block;
 
       .header-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
         .avatar {
           width: 60px;
           height: 60px;
+          margin-right: 0;
+          margin-bottom: 24px;
         }
 
         .detailInfo {
@@ -227,6 +234,8 @@ const goPage = () => {
       }
 
       .header-right {
+        margin-top: 32px;
+        justify-content: center;
         .round-btn {
           margin-right: 12px;
           padding: 0 12px;

@@ -1,5 +1,6 @@
 <template>
   <div class="result-box modal-border">
+    <BaseHeader title="Result" :showBackIcon="false" />
     <Result :userList="userList" />
 
     <div class="footer-btns">
@@ -32,6 +33,7 @@
 import { useRouter } from "vue-router";
 import Modal from "@/components/Modal.vue";
 import Result from "@/components/Result.vue";
+import BaseHeader from "@/components/BaseHeader.vue";
 import { onMounted, ref } from "vue";
 import axios from "@/utils/axios";
 import { useChangePrize } from "../../utils/counter";
@@ -123,6 +125,7 @@ const goPage = () => {
 <style lang="scss" scoped>
 .result-box {
   margin: 60px 110px;
+  position: relative;
 }
 
 // 弹窗2 样式
@@ -159,7 +162,14 @@ const goPage = () => {
 
 @media (max-width: 576px) {
   .result-box {
-    margin: 12px 24px;
+    // margin: 12px 24px;
+    margin: 0;
+  }
+  .modal-border {
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    height: 100vh;
   }
 }
 </style>

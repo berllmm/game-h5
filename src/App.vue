@@ -9,10 +9,9 @@ const route = useRoute();
 const { windowWidth } = useWindow();
 
 const hideHeader = computed(() => {
-  return (
-    (route.path === "/missing" || route.path === "/account-setting") &&
-    windowWidth.value < 576
-  );
+  // 不需要header和footer的页面列表
+  const routerLIst = ["/missing", "/account-setting", "/result", "/user-info"];
+  return routerLIst.includes(route.path) && windowWidth.value < 576;
 });
 </script>
 
@@ -75,7 +74,7 @@ const hideHeader = computed(() => {
     padding: 0;
   }
   .container {
-    padding: 0 24px;
+    // padding: 0 24px;
   }
 }
 // special-container
