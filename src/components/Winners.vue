@@ -243,30 +243,35 @@ watch(
           dataIndex: "item",
           key: "item",
           width: "42%",
+          align: "center",
         },
         {
           title: "RARITY",
           dataIndex: "rarityType",
           key: "rarityType",
           width: "10%",
+          align: "center",
         },
         {
           title: "PRICE",
           dataIndex: "price",
           key: "price",
           width: "13%",
+          align: "center",
         },
         {
           title: "OWNER",
           key: "winner",
           dataIndex: "winner",
           width: "19%",
+          align: "center",
         },
         {
           title: "TIME",
           key: "time",
           dataIndex: "time",
           width: "18%",
+          align: "center",
         },
       ];
     } else {
@@ -275,18 +280,21 @@ watch(
           title: "ITEM",
           dataIndex: "item",
           key: "item",
+          align: "center",
           width:140
         },
         {
           title: "RARITY",
           dataIndex: "rarityType",
           key: "rarityType",
+          align: "center",
         },
 
         {
           title: "OWNER",
           key: "winner",
           dataIndex: "winner",
+          align: "center",
         },
       ];
     }

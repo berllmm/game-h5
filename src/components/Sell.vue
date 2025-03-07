@@ -5,7 +5,7 @@
       <template v-if="column.key === 'item'">
         <div class="d-flex align-items-center">
           <img :src="record.image" alt="" width="60" style="margin-right: 15px;" />
-          <span class="item-desc d-md-block">{{ record.name }}</span>
+          <span class="item-desc d-md-block" style="text-align: left;">{{ record.name }}</span>
         </div>
       </template>
       <template v-if="column.key === 'usdcPrice'">
@@ -204,32 +204,38 @@ watch(
           dataIndex: "item",
           key: "item",
           width: "30%",
+          align: "center",
         },
 
         {
           title: "USDC PRICE",
           dataIndex: "usdcPrice",
           key: "usdcPrice",
+          align: "center",
         },
         {
           title: "CANDY PRICE",
           key: "candyPrice",
           dataIndex: "candyPrice",
+          align: "center",
         },
         {
           title: "RARITY",
           dataIndex: "rarity",
           key: "rarity",
+          align: "center",
         },
         {
           title: "QUANTITY",
           key: "quantity",
           dataIndex: "quantity",
+          align: "center",
         },
         {
           title: "ACTION",
           key: "action",
           dataIndex: "action",
+          align: "center",
         },
       ];
     } else {
@@ -238,6 +244,7 @@ watch(
           title: "ITEM",
           dataIndex: "item",
           key: "item",
+          align: "center",
           width: 240
         },
 
@@ -245,12 +252,14 @@ watch(
           title: "QUANTITY",
           key: "quantity",
           dataIndex: "quantity",
+          align: "center",
           width:120
         },
         {
           title: "ACTION",
           key: "action",
           dataIndex: "action",
+          align: "center",
           width:120
         },
       ];

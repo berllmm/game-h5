@@ -15,7 +15,7 @@
                 <div class="d-flex align-items-center">
                   <img :src="record.image" alt="" width="60" style="margin-right: 15px" />
                   <!-- d-none d-md-block -->
-                  <span class="item-desc">{{ record.name }}</span>
+                  <span class="item-desc" style="text-align: left;">{{ record.name }}</span>
                 </div>
               </template>
               <template v-if="column.key === 'rarity'">
@@ -127,11 +127,13 @@ watch(
           key: "item",
           // ellipsis: true,
           width: "30%",
+          align: "center",
         },
         {
           title: "RARITY",
           dataIndex: "rarity",
           key: "rarity",
+          align: "center",
           // ellipsis: true,
           // width: 110,
         },
@@ -139,18 +141,21 @@ watch(
           title: "USDC PRICE",
           dataIndex: "usdcPrice",
           key: "usdcPrice",
+          align: "center",
           // width: 110,
         },
         {
           title: "CANDY PRICE",
           key: "candyPrice",
           dataIndex: "candyPrice",
+          align: "center",
           // width: 130,
         },
         {
           title: "QUANTITY",
           key: "quantity",
           dataIndex: "quantity",
+          align: "center",
           // width: 110,
         },
       ];
@@ -160,12 +165,14 @@ watch(
           title: "ITEM",
           dataIndex: "item",
           key: "item",
-          width: 240
+          width: 240,
+          align: "center",
         },
         {
           title: "RARITY",
           dataIndex: "rarity",
           key: "rarity",
+          align: "center",
           width: 120
         },
 
@@ -173,6 +180,7 @@ watch(
           title: "QUANTITY",
           key: "quantity",
           dataIndex: "quantity",
+          align: "center",
           width: 120
         },
       ];

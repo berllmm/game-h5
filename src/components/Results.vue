@@ -131,6 +131,7 @@ import { cutApart } from "../utils/burn";
             key: "item",
             // ellipsis: true,
             width: "45%",
+            align: "center",
           },
           {
             title: "RARITY",
@@ -138,24 +139,28 @@ import { cutApart } from "../utils/burn";
             key: "rarity",
             // ellipsis: true,
             // width: 110,
+            align: "center",
           },
           {
             title: "USDC PRICE",
             dataIndex: "usdcPrice",
             key: "usdcPrice",
             // width: 110,
+            align: "center",
           },
           {
             title: "CANDY PRICE",
             key: "candyPrice",
             dataIndex: "candyPrice",
             // width: 130,
+            align: "center",
           },
           {
             title: "QUANTITY",
             key: "quantity",
             dataIndex: "quantity",
             // width: 110,
+            align: "center",
           },
         ];
       } else {
@@ -164,20 +169,23 @@ import { cutApart } from "../utils/burn";
             title: "ITEM",
             dataIndex: "item",
             key: "item",
-            width:240
+            width:240,
+            align: "center",
           },
           {
             title: "RARITY",
             dataIndex: "rarity",
             key: "rarity",
-            width:120
+            width:120,
+            align: "center",
           },
   
           {
             title: "QUANTITY",
             key: "quantity",
             dataIndex: "quantity",
-            width:120
+            width:120,
+            align: "center",
           },
         ];
       }

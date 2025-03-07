@@ -129,7 +129,7 @@
               <template v-if="column.key === 'item'">
                 <div class="d-flex align-items-center">
                   <img :src="record.image" alt="" width="60" style="margin-right: 15px; border-radius: 6px" />
-                  <span class="item-desc d-md-block">{{
+                  <span class="item-desc d-md-block" style="text-align: left;">{{
                     record.name
                   }}</span>
                 </div>
@@ -550,17 +550,20 @@ const columns = ref([
     title: "ITEM",
     dataIndex: "item",
     key: "item",
+    align: "center",
   },
   {
     title: "RARITY",
     dataIndex: "rarity",
     key: "rarity",
     align: "center",
+    align: "center",
   },
   {
     title: "QUANTITY",
     key: "quantity",
     dataIndex: "quantity",
+    align: "center",
     align: "center",
   },
 ]);

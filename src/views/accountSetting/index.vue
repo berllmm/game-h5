@@ -8,7 +8,12 @@
     <div class="wrap">
       <div class="left">
         <div class="user-box">
-          <img :src="userImage" class="avatar-icon" />
+          <div class="avatar-box">
+            <img :src="userImage" class="avatar-icon" />
+            <div class="progress-box" v-if="isProgress">
+              <a-progress type="circle" :percent="progressNumber" :size="160" />
+            </div>
+          </div>
           <div class="user-updata">
             <label for="profile-image" class="file-upload-btn">Update profile image</label>
             <input type="file" id="profile-image" name="profile-image" @change="handleFileChange" accept="image/*">
@@ -303,6 +308,9 @@ const getTelegram = () => {
   );
 }
 
+const progressNumber = ref(0)
+const isProgress = ref(false)
+
 const handleFileChange = async (event) => {
   console.log(event);
 
@@ -314,7 +322,13 @@ const handleFileChange = async (event) => {
       user.value.avatarUrl = e.target.result;
     };
     reader.readAsDataURL(file);
-    const { fileUrl, filePath } = await uploadManager.upload({ data: file });
+    const { fileUrl, filePath } = await uploadManager.upload({
+      data: file, onProgress: ({ progress }) => {
+        isProgress.value = true
+        progressNumber.value = progress
+      }
+    });
+    isProgress.value = false
     userImage.value = fileUrl;
     user.value.avatarUrl = fileUrl
   } else {
@@ -385,12 +399,30 @@ const closeDisconnect = () => {
       .user-box {
         padding-bottom: 40px;
 
-        .avatar-icon {
+        .avatar-box {
+          position: relative;
           width: 160px;
           height: 160px;
-          margin-bottom: 24px;
           border-radius: 50%;
           overflow: hidden;
+          margin: 0 auto 24px;
+
+          .avatar-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .progress-box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .4);
+          }
         }
 
         .edit-box {
@@ -558,7 +590,7 @@ const closeDisconnect = () => {
     justify-content: center;
 
     .btn1 {
-      margin-right: 16px;
+      // margin-right: 16px;
       padding: 12px 24px;
       font-weight: 600;
       color: #ffffff;
@@ -629,12 +661,30 @@ const closeDisconnect = () => {
           align-items: center;
           justify-content: center;
 
-          .avatar-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 24px;
+          .avatar-box {
+            position: relative;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             overflow: hidden;
+            margin: 0 auto 24px;
+
+            .avatar-icon {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+
+            .progress-box {
+              position: absolute;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, .4);
+            }
           }
         }
       }
@@ -657,34 +707,35 @@ const closeDisconnect = () => {
       }
     }
   }
-
-  .setting-content .wrap .right .wallets-item {
-    display: flex;
-  }
-
-  .setting-content .wrap .right .wallets-item>div {
-    width: 75%;
-  }
-
-  .setting-content .wrap .right .wallets-item .wallet-item-text span {
-    width: calc(100% - 48px);
-    white-space: normal;
-    word-wrap: break-word;
-    text-align: left;
-  }
-
-  .setting-content .wrap .right .wallets-item .wallet-item-btn {
-    width: 23%;
-  }
-
-  .setting-content .wrap .right .wallets-item .wallet-item-text {
-    display: flex;
-  }
-
-  .setting-content .wrap .right .wallets-item .wallet-item-text span {
-    white-space: normal;
-  }
 }
+
+.setting-content .wrap .right .wallets-item {
+  display: flex;
+}
+
+.setting-content .wrap .right .wallets-item>div {
+  width: 75%;
+}
+
+.setting-content .wrap .right .wallets-item .wallet-item-text span {
+  width: calc(100% - 48px);
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.setting-content .wrap .right .wallets-item .wallet-item-btn {
+  width: 23%;
+}
+
+.setting-content .wrap .right .wallets-item .wallet-item-text {
+  display: flex;
+}
+
+.setting-content .wrap .right .wallets-item .wallet-item-text span {
+  white-space: normal;
+}
+
 
 :deep(.ant-upload-list) {
   display: none;

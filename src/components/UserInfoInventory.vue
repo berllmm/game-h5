@@ -180,16 +180,19 @@ const columns = [
     key: "name",
     ellipsis: true,
     width: "45%",
+    align: "center",
   },
   {
     title: "RARITY",
     dataIndex: "rarity",
     key: "rarity",
+    align: "center",
   },
   {
     title: "STATE",
     key: "type",
     dataIndex: "type",
+    align: "center",
   },
 ];
 

@@ -81,8 +81,8 @@ const shareLink = () => {
 const InfoInit = async () => {
   const prizeRes = await axios.post("/tsg/player/playerInfo");
   if (prizeRes.data.code == 200) {
-
-    userInfo.value = playerInfo().user
+    userInfo.value = prizeRes.data.data
+    playerInfo().changeList(userInfo.value)
   }
 }
 
@@ -251,9 +251,25 @@ const goPage = () => {
     .content {
       .tabs {
         font-size: 14px;
+        display: flex;
+        width: 100%;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          width: 0;
+          height: 0;
+        }
 
         &-item {
           padding: 6px 18px;
+          flex-grow: 0;
+          flex-shrink: 0;
+          min-height: 70px;
+
+          &:nth-child(4),
+          &:nth-child(5) {
+            width: 160px;
+          }
         }
       }
     }

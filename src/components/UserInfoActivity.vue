@@ -167,21 +167,25 @@ const columns = [
     key: "name",
     ellipsis: true,
     width: "45%",
+    align: "center",
   },
   {
     title: "RARITY",
     dataIndex: "rarity",
     key: "rarity",
+    align: "center",
   },
   {
     title: "TIME",
     dataIndex: "time",
     key: "time",
+    align: "center",
   },
   {
     title: "TYPE",
     key: "type",
     dataIndex: "type",
+    align: "center",
   },
 ];
 
@@ -197,21 +201,25 @@ watch(
           dataIndex: "name",
           key: "name",
           width: "45%",
+          align: "center",
         },
         {
           title: "RARITY",
           dataIndex: "rarity",
           key: "rarity",
+          align: "center",
         },
         {
           title: "TIME",
           dataIndex: "time",
           key: "time",
+          align: "center",
         },
         {
           title: "TYPE",
           key: "type",
           dataIndex: "type",
+          align: "center",
         },
       ];
     } else {
@@ -220,24 +228,28 @@ watch(
           title: "NAME",
           dataIndex: "name",
           key: "name",
+          align: "center",
           width: 280,
         },
         {
           title: "RARITY",
           dataIndex: "rarity",
           key: "rarity",
+          align: "center",
           width: 100
         },
         {
           title: "TIME",
           dataIndex: "time",
           key: "time",
+          align: "center",
           width: 100
         },
         {
           title: "TYPE",
           key: "type",
           dataIndex: "type",
+          align: "center",
           width: 120
         },
       ];

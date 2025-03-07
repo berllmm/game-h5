@@ -93,6 +93,7 @@ const columns = [
     key: "orderNo",
     ellipsis: true,
     // width: "60%",
+    align: "center",
   },
   {
     title: "SHIPPING INFORMATION",
