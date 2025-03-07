@@ -278,6 +278,7 @@ const loginVisible = ref(false)
 const router = useRouter();
 // 跳转游戏开始界面
 const goPage = async (path) => {
+  
   const res = await axios.get("/tsg/player/gachaDraw", {
     params: {
       gachaPoolId: detailsList.value.id,
@@ -295,7 +296,12 @@ const goPage = async (path) => {
   } else if (res.data.code == 401) {
     loginVisible.value = true
   } else {
-    checkTicketTip.value = `Less than ${currentTicketValue.value} cards in total`
+    if(currentTicketValue.value > (detailsList.totalCardCount - detailsList.drawCardCount)) {
+      checkTicketTip.value = `Less than ${currentTicketValue.value} cards in total`
+      tipVisible.value = true
+      return
+    }
+    checkTicketTip.value = `Your Candy balance is low, please top up.`
     tipVisible.value = true
   }
 };
