@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-      :customHeaderRow="customHeaderCell" :scroll="{ x: 900 }">
+      :customHeaderRow="customHeaderCell" :scroll="{ x: 900, y: 400 }">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'orderNo'">
           <span>{{ record.id }}</span>

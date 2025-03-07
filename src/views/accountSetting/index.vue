@@ -11,7 +11,7 @@
           <div class="avatar-box">
             <img :src="userImage" class="avatar-icon" />
             <div class="progress-box" v-if="isProgress">
-              <a-progress type="circle" :percent="progressNumber" :size="160" />
+              <a-progress type="circle" style="color: #fff;" :percent="progressNumber" :size="160" />
             </div>
           </div>
           <div class="user-updata">

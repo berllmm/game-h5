@@ -14,7 +14,7 @@
           class="p-1"
         >
           <div class="img-box mb-3">
-            <img :src="imgItem.imageUrl" class="card-list__img" />
+            <img :src="imgItem.image" class="card-list__img" />
           </div>
         </div>
       </div>

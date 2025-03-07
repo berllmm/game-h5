@@ -16,7 +16,6 @@ import BaseHeader from "@/components/BaseHeader.vue";
   border-radius: 32px;
   padding: 40px;
   position: relative;
-  height: 100vh;
 }
 
 @media (max-width: 576px) {

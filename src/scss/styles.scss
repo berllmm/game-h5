@@ -357,3 +357,7 @@ tbody td:last-child {
 .cursor {
   cursor: pointer;
 }
+
+:where(.css-dev-only-do-not-override-1p3hq3p).ant-progress.ant-progress-circle .ant-progress-text {
+  color: #fff;
+}
