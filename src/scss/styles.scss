@@ -34,6 +34,15 @@
   background: #1f0c27;
 }
 
+@media (max-width: 576px) {
+  .modal-border {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background: #1f0c27;
+  }
+}
+
 // 渐变border
 .base-round-border {
   text-align: center;

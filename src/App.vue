@@ -10,7 +10,7 @@ const { windowWidth } = useWindow();
 
 const hideHeader = computed(() => {
   // 不需要header和footer的页面列表
-  const routerLIst = ["/missing", "/account-setting", "/result", "/user-info"];
+  const routerLIst = ["/missing", "/account-setting", "/result", "/user-info",'/sell'];
   return routerLIst.includes(route.path) && windowWidth.value < 576;
 });
 </script>
