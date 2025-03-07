@@ -277,7 +277,8 @@ const goPage = () => {
 
           &:nth-child(4),
           &:nth-child(5) {
-            width: 160px;
+            // width: 160px;
+            width: 180px;
           }
         }
       }
