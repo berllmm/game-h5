@@ -10,7 +10,8 @@ import Sell from "@/components/Sell.vue";
 
 <style lang="scss" scoped>
 .sell {
-  margin: 60px 110px;
+  // margin: 60px 110px;
+  margin: 60px 0;
   color: #fff;
   text-align: center;
   .title {

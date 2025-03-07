@@ -328,6 +328,14 @@ tbody td:last-child {
   }
 }
 
+// reset checkbox
+.ant-checkbox .ant-checkbox-inner {
+  background-color: #1f0c27;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #1677ff;
+}
+
 // 浏览器滚动条样式
 /* 设置滚动条的宽度和高度 */
 ::-webkit-scrollbar {

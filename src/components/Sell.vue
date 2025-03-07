@@ -36,13 +36,13 @@
   </a-table>
 
   <div class="total-count">
-    <span>TOTAL</span>
-    <span class="d-flex align-items-center px-2">
-      <img src="../assets/count.svg" class="me-1" />
+    <span style="margin-right: 70px;">TOTAL</span>
+    <span class="d-flex align-items-center" style="margin-right: 56px;">
+      <img src="../assets/count.svg" style="margin: 0 8px" />
       {{ cutApart(allUSDC) }}
     </span>
-    <span class="d-flex align-items-center px-2">
-      <img src="../assets/candy.svg" class="me-1" />
+    <span class="d-flex align-items-center">
+      <img src="../assets/candy.svg"  style="margin: 0 8px"/>
       {{ cutApart(allCandy) }}
     </span>
   </div>
@@ -53,15 +53,15 @@
     </div>
     <div class="btn1">
       <div class="btn me-2" @click="tansformwallet">Transfer to your wallet</div>
-      <div>Withdraw the NFTS</div>
+      <div>Withdraw the NFTs</div>
     </div>
     <div class="btn2">
       <div class="btn me-2" @click="exchangePrize('1')">EXCHANGE for Candy</div>
-      <div>Lost the NFTS</div>
+      <div>Lost the NFTs</div>
     </div>
     <div class="btn3">
       <div @click="goPage" class="btn">SHIP to address</div>
-      <div>Burn the NFTS</div>
+      <div>Burn the NFTs</div>
     </div>
   </div>
 

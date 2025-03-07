@@ -4,7 +4,7 @@
     <!-- <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
       :customHeaderRow="customHeaderCell"> -->
     <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-      :customHeaderRow="customHeaderCell" :scroll="{ x: 580 }">
+      :customHeaderRow="customHeaderCell" :scroll="{ x: 580 ,y:400}">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'name'">
           <div class="d-flex align-items-center">
