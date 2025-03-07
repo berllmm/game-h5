@@ -34,6 +34,15 @@
   background: #1f0c27;
 }
 
+@media (max-width: 576px) {
+  .modal-border {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background: #1f0c27;
+  }
+}
+
 // 渐变border
 .base-round-border {
   text-align: center;
@@ -326,6 +335,14 @@ tbody td:last-child {
   tbody td:last-child {
     border-right: 1px solid #000 !important;
   }
+}
+
+// reset checkbox
+.ant-checkbox .ant-checkbox-inner {
+  background-color: #1f0c27;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #1677ff;
 }
 
 // 浏览器滚动条样式

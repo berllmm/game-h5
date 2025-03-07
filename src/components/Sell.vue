@@ -1,67 +1,69 @@
 <template>
-  <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
-    :customHeaderRow="customHeaderCell" :scroll="{ y: 400 }">
-    <template #bodyCell="{ column, record }">
-      <template v-if="column.key === 'item'">
-        <div class="d-flex align-items-center">
-          <img :src="record.image" alt="" width="60" style="margin-right: 15px;" />
-          <span class="item-desc d-md-block" style="text-align: left;">{{ record.name }}</span>
-        </div>
-      </template>
-      <template v-if="column.key === 'usdcPrice'">
-        <div class="align-items-center" style="text-align: center;">
-          <span class="item-desc d-md-block">{{ cutApart(record.usd) }}</span>
-        </div>
-      </template>
-      <template v-if="column.key === 'candyPrice'">
-        <div class="align-items-center" style="text-align: center;">
-          <span class="item-desc d-md-block">{{ cutApart(record.candy) }}</span>
-        </div>
-      </template>
-      <template v-if="column.key === 'rarity'">
-        <div class="align-items-center" style="text-align: center;">
-          <span class="item-desc d-md-block">{{ record.rarity }}</span>
-        </div>
-      </template>
-      <template v-if="column.key === 'quantity'">
-        <div class="align-items-center" style="text-align: center;">
-          <span class="item-desc d-md-block">1</span>
-        </div>
-      </template>
+  <div class="sell-content">
+    <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
+      :customHeaderRow="customHeaderCell" :scroll="{ y: 400 }">
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'item'">
+          <div class="d-flex align-items-center">
+            <img :src="record.image" alt="" width="60" style="margin-right: 15px;" />
+            <span class="item-desc d-md-block" style="text-align: left;">{{ record.name }}</span>
+          </div>
+        </template>
+        <template v-if="column.key === 'usdcPrice'">
+          <div class="align-items-center" style="text-align: center;">
+            <span class="item-desc d-md-block">{{ cutApart(record.usd) }}</span>
+          </div>
+        </template>
+        <template v-if="column.key === 'candyPrice'">
+          <div class="align-items-center" style="text-align: center;">
+            <span class="item-desc d-md-block">{{ cutApart(record.candy) }}</span>
+          </div>
+        </template>
+        <template v-if="column.key === 'rarity'">
+          <div class="align-items-center" style="text-align: center;">
+            <span class="item-desc d-md-block">{{ record.rarity }}</span>
+          </div>
+        </template>
+        <template v-if="column.key === 'quantity'">
+          <div class="align-items-center" style="text-align: center;">
+            <span class="item-desc d-md-block">1</span>
+          </div>
+        </template>
 
-      <template v-if="column.key === 'action'" style="text-align: center;">
-        <img class="closebtn" @click="closeItem(record.id)" src="../assets/delete.svg" alt="" />
+        <template v-if="column.key === 'action'" style="text-align: center;">
+          <img class="closebtn" @click="closeItem(record.id)" src="../assets/delete.svg" alt="" />
+        </template>
       </template>
-    </template>
-  </a-table>
+    </a-table>
 
-  <div class="total-count">
-    <span>TOTAL</span>
-    <span class="d-flex align-items-center px-2">
-      <img src="../assets/count.svg" class="me-1" />
-      {{ cutApart(allUSDC) }}
-    </span>
-    <span class="d-flex align-items-center px-2">
-      <img src="../assets/candy.svg" class="me-1" />
-      {{ cutApart(allCandy) }}
-    </span>
-  </div>
+    <div class="total-count">
+      <span style="margin-right: 70px;">TOTAL</span>
+      <span class="d-flex align-items-center" style="margin-right: 56px;">
+        <img src="../assets/count.svg" style="margin: 0 8px" />
+        {{ cutApart(allUSDC) }}
+      </span>
+      <span class="d-flex align-items-center">
+        <img src="../assets/candy.svg"  style="margin: 0 8px"/>
+        {{ cutApart(allCandy) }}
+      </span>
+    </div>
 
-  <div class="btn-groups">
-    <div class="btn0">
-      <div class="btn me-2" @click="exchangePrize('2')">SELL for USDC on SOLANA</div>
-    </div>
-    <div class="btn1">
-      <div class="btn me-2" @click="tansformwallet">Transfer to your wallet</div>
-      <div>Withdraw the NFTS</div>
-    </div>
-    <div class="btn2">
-      <div class="btn me-2" @click="exchangePrize('1')">EXCHANGE for Candy</div>
-      <div>Lost the NFTS</div>
-    </div>
-    <div class="btn3">
-      <div @click="goPage" class="btn">SHIP to address</div>
-      <div>Burn the NFTS</div>
+    <div class="btn-groups">
+      <div class="btn0">
+        <div class="btn me-2" @click="exchangePrize('2')">SELL for USDC on SOLANA</div>
+      </div>
+      <div class="btn1">
+        <div class="btn me-2" @click="tansformwallet">Transfer to your wallet</div>
+        <div>Withdraw the NFTs</div>
+      </div>
+      <div class="btn2">
+        <div class="btn me-2" @click="exchangePrize('1')">EXCHANGE for Candy</div>
+        <div>Lost the NFTs</div>
+      </div>
+      <div class="btn3">
+        <div @click="goPage" class="btn">SHIP to address</div>
+        <div>Burn the NFTs</div>
+      </div>
     </div>
   </div>
 
@@ -564,6 +566,10 @@ const clearSell = () => {
     .btn3 {
       margin-bottom: 16px;
     }
+  }
+
+  .sell-content {
+    padding: 0 16px;
   }
 }
 </style>

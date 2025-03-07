@@ -1,5 +1,7 @@
 <template>
-  <Result :userList="userList" :showTitle="false" />
+  <div class="account-result-box">
+    <Result :userList="userList" :showTitle="false" />
+  </div>
 </template>
 
 <script setup>
@@ -37,4 +39,10 @@ watch(
 )
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@media (max-width: 576px) {
+  .account-result-box {
+    padding: 0 16px;
+  }
+}
+</style>

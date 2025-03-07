@@ -2,7 +2,7 @@
   <div class="market-box">
     <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
     <!-- 向右切换按钮 -->
-    <img @click="handleScroll" src="../assets/banner-right.svg" class="cursor right-icon d-none d-sm-block" />
+    <!-- <img @click="handleScroll" src="../assets/banner-right.svg" class="cursor right-icon d-none d-sm-block" /> -->
     <div class="market d-none d-sm-block">
       <div class="title base-border">MARKETPLACE</div>
 
@@ -98,14 +98,14 @@
 <script setup>
 import { ref } from "vue";
 import Modal from "@/components/Modal.vue";
-const scrollContainer2 = ref();
+// const scrollContainer2 = ref();
 
-const handleScroll = () => {
-  scrollContainer2.value.scrollBy({
-    left: 200,
-    behavior: "smooth", // 平滑滚动
-  });
-};
+// const handleScroll = () => {
+//   scrollContainer2.value.scrollBy({
+//     left: 200,
+//     behavior: "smooth", // 平滑滚动
+//   });
+// };
 
 const marketBox = ref(false)
 

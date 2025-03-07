@@ -42,6 +42,14 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src:url('./assets/fonts/IBMPlexSans-Medium.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 p,
 span,
 i,
@@ -56,6 +64,7 @@ tr,
 td,
 input,
 textarea {
-  font-family: 'Figtree', "Figtree-bold";
+  /* font-family: 'Figtree', "Figtree-bold"; */
+  font-family: 'IBM Plex Sans';
   user-select: none;
 }

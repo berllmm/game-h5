@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ship-box">
     <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
       :customHeaderRow="customHeaderCell" :scroll="{ x: 900, y: 400 }">
       <template #bodyCell="{ column, record }">
@@ -330,6 +330,9 @@ watch(
 
   .item-desc {
     display: none;
+  }
+  .ship-box {
+    padding: 0 16px;
   }
 }
 </style>

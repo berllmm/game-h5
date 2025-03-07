@@ -1,6 +1,6 @@
 <template>
   <!-- :row-selection="rowSelection" -->
-  <div>
+  <div class="activity-box">
     <!-- <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
       :customHeaderRow="customHeaderCell"> -->
     <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
@@ -323,5 +323,9 @@ const dataSource = ref([])
   background-image: linear-gradient(to right, #1f0c27, #1f0c27), linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
 }
 
-@media (max-width: 738px) {}
+@media (max-width: 576px) {
+  .activity-box {
+    padding: 0 16px;
+  }
+}
 </style>

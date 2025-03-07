@@ -124,7 +124,8 @@ const goPage = () => {
 
 <style lang="scss" scoped>
 .result-box {
-  margin: 60px 110px;
+  // margin: 60px 110px;
+  margin: 60px 0;
   position: relative;
 }
 

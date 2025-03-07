@@ -64,12 +64,12 @@ const goPage = (uid) => {
   border-radius: 24px;
   padding: 16px;
   background-image: linear-gradient(
-    to bottom,
-    rgba(30, 88, 252, 0.1) 0%,
-    rgba(164, 39, 235, 0.1) 20%,
-    rgba(217, 20, 228, 0.1) 40%,
-    rgba(225, 15, 163, 0.1) 60%,
-    rgba(241, 4, 25, 0.1) 100%
+    to right,
+    rgba(30, 88, 252, 0.25) 0%,
+    rgba(164, 39, 235, 0.25) 20%,
+    rgba(217, 20, 228, 0.25) 40%,
+    rgba(225, 15, 163, 0.25) 60%,
+    rgba(241, 4, 25, 0.25) 100%
   );
 
   .game-img {

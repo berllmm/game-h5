@@ -1,7 +1,9 @@
 <template>
   <div class="result">
-    <div v-if="showTitle" class="title base-border d-none d-sm-block">
-      RESULTS
+    <div class="d-none d-sm-block">
+      <div v-if="showTitle" class="title base-border">
+        RESULTS
+      </div>
     </div>
 
     <div class="table-info">
@@ -286,7 +288,7 @@ const goSell = () => {
 
   .title {
     margin-bottom: 20px;
-    display: inline-block;
+    display: inline-block ;
     color: #fff;
     font-size: 32px;
     line-height: 40px;
