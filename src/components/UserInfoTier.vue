@@ -41,8 +41,6 @@ const props = defineProps({
 const nextPrize = ref(0);
 
 const tierInit = async () => {
-  console.log(props.userInfo);
-
   if (props.userInfo.vipExp < 3000000) {
     const numNow = currency(props.userInfo.vipExp).divide(3000000).value;
     props.userInfo.expChange = currency(33.33).multiply(numNow).value + "%";
@@ -69,7 +67,6 @@ const tierInit = async () => {
 watch(
   () => props.activeKey,
   (newVal, oldVal) => {
-    console.log(newVal);
     if (newVal == "1") {
       tierInit();
     }

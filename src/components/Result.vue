@@ -22,9 +22,9 @@
             </a>
 
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">.. </a></li>
-              <li><a class="dropdown-item" href="#">...</a></li>
+              <li @click="changeCollection('RARITY')"><a class="dropdown-item" href="#">RARITY</a></li>
+              <li @click="changeCollection('USDC PRICE')"><a class="dropdown-item" href="#">USDC PRICE</a></li>
+              <li @click="changeCollection('CANDY PRICE')"><a class="dropdown-item" href="#">CANDY PRICE</a></li>
             </ul>
           </span>
         </span>
@@ -267,6 +267,30 @@ const handleClear = () => {
   state.selectedRows = [];
   state.selectedRowKeys = [];
 };
+
+const rarityOrder = ref({
+  'SSR': 1,
+  'LASTONE': 2,
+  'SR': 3,
+  'R': 4,
+  'L': 5,
+  'NR': 6
+})
+
+const changeCollection = (val) => {
+  console.log(props.userList);
+  
+  if (val == 'RARITY') {
+    props.userList.sort((a, b) => {
+      return rarityOrder[a.rarity] - rarityOrder[b.rarity];
+    });
+  } else if (val == 'USDC PRICE') {
+    props.userList.sort((a, b) => b.usd - a.usd);
+  } else if (val == 'CANDY PRICE') {
+    props.userList.sort((a, b) => b.candy - a.candy);
+  }
+}
+
 
 // 售卖/交换 弹窗
 const showSellModal = ref(false);

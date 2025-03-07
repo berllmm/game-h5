@@ -23,9 +23,6 @@
                                     <p>{{ item.content }}</p>
                                 </div>
                             </div>
-                            <!-- <div class="title-img">
-                                <img :src="userImage" alt="">
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -55,6 +52,10 @@ const messageText = ref([])
 const userImage = ref('')
 const getInterval = ref(null)
 const userText = ref('')
+const firstText = ref({
+    content: "Hi, there, this is Customer Support team, how can I help you today?",
+    type: 1
+})
 
 const goChat = async () => {
     userImage.value = playerInfo().user.avatarUrl
@@ -66,7 +67,7 @@ const goChat = async () => {
     const res = await axios.get('/tsg/player/chatMessage')
 
     if (res.data.code == 200) {
-        messageText.value = res.data.data.msgList
+        messageText.value = [firstText.value,...res.data.data.msgList]
 
         await nextTick()
 
@@ -307,11 +308,16 @@ const sendMessage = (event) => {
 
 @media screen and (max-width:768px) {
     .user-info-content {
+        height:64vh;
         padding: 10px 15px;
     }
 
     .made-texts>div {
         padding: 10px;
+    }
+
+    .made-texts {
+        height:calc(100% - 48px)
     }
 
     .title-left>div.title-box {

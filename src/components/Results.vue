@@ -4,55 +4,32 @@
 
     <div class="table-info">
       <div class="right-box d-flex justify-content-end">
-        <span
-          >Sort by
+        <span>Sort by
           <span class="dropdown color-blue">
-            <a
-              class="dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Newest
             </a>
-
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">.. </a></li>
-              <li><a class="dropdown-item" href="#">...</a></li>
+              <li @click="changeCollection('RARITY')"><a class="dropdown-item" href="#">RARITY</a></li>
+              <li @click="changeCollection('USDC PRICE')"><a class="dropdown-item" href="#">USDC PRICE</a></li>
+              <li @click="changeCollection('CANDY PRICE')"><a class="dropdown-item" href="#">CANDY PRICE</a></li>
             </ul>
           </span>
         </span>
       </div>
       <div class="row">
-        <div
-          class="col-12"
-          :class="showRightPanel ? 'col-sm-9 col-md-9' : 'col-sm-12 col-md-12'"
-        >
+        <div class="col-12" :class="showRightPanel ? 'col-sm-9 col-md-9' : 'col-sm-12 col-md-12'">
           <!-- <a-table :row-selection="{
               selectedRowKeys: state.selectedRowKeys,
               onChange: onSelectChange,
             }" :dataSource="userList" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
               :customHeaderRow="customHeaderCell" :scroll="{ y: 400 }"> -->
-          <a-table
-            :dataSource="userList"
-            :columns="columns"
-            :bordered="false"
-            :pagination="false"
-            :customRow="customCell"
-            :customHeaderRow="customHeaderCell"
-            :scroll="{ y: 400 }"
-          >
+          <a-table :dataSource="userList" :columns="columns" :bordered="false" :pagination="false"
+            :customRow="customCell" :customHeaderRow="customHeaderCell" :scroll="{ y: 400 }">
             <template #bodyCell="{ column, record }">
               <template v-if="column.key === 'item'">
                 <div class="d-flex align-items-center">
-                  <img
-                    :src="record.gachaCard?.image"
-                    alt=""
-                    width="60"
-                    style="margin-right: 15px"
-                  />
+                  <img :src="record.gachaCard?.image" alt="" width="60" style="margin-right: 15px" />
                   <span class="item-desc d-md-block">{{
                     record.gachaCard?.name
                   }}</span>
@@ -101,11 +78,7 @@
           </div>
 
           <div class="item-list">
-            <div
-              v-for="item in state.selectedRows"
-              :key="item.key"
-              class="item-box"
-            >
+            <div v-for="item in state.selectedRows" :key="item.key" class="item-box">
               <div class="left">
                 <img :src="item.image" class="img" width="60" />
                 <div class="text-box">
@@ -125,11 +98,7 @@
                 </div>
               </div>
               <div class="right">
-                <img
-                  @click="handleDelete(item.key)"
-                  src="../assets/x.svg"
-                  alt=""
-                />
+                <img @click="handleDelete(item.key)" src="../assets/x.svg" alt="" />
               </div>
             </div>
           </div>
@@ -268,6 +237,27 @@ const handleClear = () => {
   state.selectedRowKeys = [];
 };
 
+const rarityOrder = ref({
+  'SSR': 1,
+  'LASTONE': 2,
+  'SR': 3,
+  'R': 4,
+  'L': 5,
+  'NR': 6
+})
+
+const changeCollection = (val) => {
+  if (val == 'RARITY') {
+    props.userList.sort((a, b) => {
+      return rarityOrder[a.gachaCard?.rarity] - rarityOrder[b.gachaCard?.rarity];
+    });
+  } else if (val == 'USDC PRICE') {
+    props.userList.sort((a, b) => b.gachaCard?.usd - a.gachaCard?.usd);
+  } else if (val == 'CANDY PRICE') {
+    props.userList.sort((a, b) => b.gachaCard?.candy - a.gachaCard?.candy);
+  }
+}
+
 // 售卖/交换 弹窗
 const showSellModal = ref(false);
 const handleShowSellModal = () => {
@@ -296,16 +286,19 @@ const goSell = () => {
   }
 
   .table-info {
+
     // 右侧面板样式
     .right-box {
       margin-bottom: 24px;
       font-size: 14px;
       color: #fff;
+
       .color-blue {
         color: #3052fa;
         font-weight: 600;
       }
     }
+
     .select-box {
       .select-title {
         display: flex;
@@ -399,6 +392,7 @@ const goSell = () => {
     .select-box {
       margin-top: 20px;
     }
+
     :deep(.dropdown-menu) {
       inset: 0px 58px auto auto !important;
     }
@@ -406,13 +400,13 @@ const goSell = () => {
 }
 </style>
 <style lang="scss">
-.ant-table-wrapper .ant-table-thead > tr > th {
+.ant-table-wrapper .ant-table-thead>tr>th {
   background: #1e1e1e !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;
 }
 
-.ant-table-wrapper .ant-table-tbody > tr > td {
+.ant-table-wrapper .ant-table-tbody>tr>td {
   background: #1f0c27 !important;
   color: #fff;
   border-bottom: 1px solid #3f3f3f;

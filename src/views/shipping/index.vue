@@ -523,12 +523,9 @@ const openShipping = async () => {
 }
 
 const goPage = () => {
-  if (localStorage.getItem("redeem") == '') {
-    router.push({ path: "/user-info" });
-    return
-  }
+  clearSell()
+
   const resultList = JSON.parse(localStorage.getItem("redeem"));
-  localStorage.setItem("sellList", "");
 
   if (resultList.length == 0) {
     // 去背包
@@ -537,6 +534,14 @@ const goPage = () => {
     router.push({ path: "/result" });
   }
 };
+
+const clearSell = () => {
+  const refList = JSON.parse(localStorage.getItem('redeem'))
+  const newReflist = new Set(dataSource.value.map(item => item.id))
+  const raming = refList.filter(item => !newReflist.has(item.id))
+  localStorage.setItem('redeem', JSON.stringify(raming))
+  localStorage.setItem('sellList', '')
+}
 
 const closeResultModal = () => {
   showModal.value = false;

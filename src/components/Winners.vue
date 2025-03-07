@@ -20,9 +20,9 @@
                 <div class="item-desc d-md-block">
                   {{ record.gachaCard?.name }}
                 </div>
-                <div class="item-desc d-none d-md-block color-gray">
+                <!-- <div class="item-desc d-none d-md-block color-gray">
                   {{ record.rarity }}
-                </div>
+                </div> -->
               </div>
             </div>
           </template>
