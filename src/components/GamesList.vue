@@ -126,7 +126,7 @@ const handleScroll = () => {
   .item-box {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     overflow: auto;
   }
 

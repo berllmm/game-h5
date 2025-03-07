@@ -18,11 +18,8 @@
         </div>
       </div>
       <div class="candy-list">
-        <div
-          v-for="(item, index) in candyNumList"
-          :key="index"
-          class="candy-list__item d-flex align-items-center justify-content-between"
-        >
+        <div v-for="(item, index) in candyNumList" :key="index"
+          class="candy-list__item d-flex align-items-center justify-content-between">
           <div class="left d-flex align-items-center">
             <img src="../assets/candy.svg" class="candy-icon" />
             <div>
@@ -56,36 +53,19 @@
                   <i v-if="contactList.type == 'TSG'" class="tsgimg"></i>
                 </div>
                 <span>{{ contactList.type }}</span>
-                <div
-                  :class="
-                    isDropdownOpen ? 'selected-tag active' : 'selected-tag'
-                  "
-                >
-                  <svg
-                    t="1736418704184"
-                    class="icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="5394"
-                    width="22"
-                    height="22"
-                  >
+                <div :class="isDropdownOpen ? 'selected-tag active' : 'selected-tag'
+                  ">
+                  <svg t="1736418704184" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="5394" width="22" height="22">
                     <path
                       d="M512 784c-8.5 0-16.6-3.4-22.6-9.4l-480-480c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L512 706.7l457.4-457.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-480 480c-6.1 6-14.2 9.4-22.7 9.4z"
-                      fill="#ffffff"
-                      p-id="5395"
-                    ></path>
+                      fill="#ffffff" p-id="5395"></path>
                   </svg>
                 </div>
               </div>
               <ul v-if="isDropdownOpen" class="dropdown-list">
-                <li
-                  v-for="(country, index) in selectList"
-                  :key="index"
-                  @click="selectCountry(country)"
-                  class="dropdown-item"
-                >
+                <li v-for="(country, index) in selectList" :key="index" @click="selectCountry(country)"
+                  class="dropdown-item">
                   <div class="selected-img">
                     <i v-if="country.type == 'Sol'" class="solimg"></i>
                     <i v-if="country.type == 'USDC'" class="usdcimg"></i>
@@ -106,18 +86,12 @@
             <p>You don't have enough TSG in your wallet, please top up.</p>
           </div>
           <div class="wallet-tipbox">
-            <span class="wallet-tip" v-if="isTip == 1"
-              >You get {{ cutApart(candyType.candyNum) }} CANDY for
-              {{ cutApartNumber(candyOrder.currencyNum) }} Sol</span
-            >
-            <span class="wallet-tip" v-if="isTip == 2"
-              >You get {{ cutApart(candyType.candyNum) }} CANDY for
-              {{ cutApartNumber(candyOrder.currencyNum) }} USDC</span
-            >
-            <span class="wallet-tip" v-if="isTip == 3"
-              >You get {{ cutApart(candyType.candyNum) }} CANDY for
-              {{ cutApartNumber(candyOrder.currencyNum) }} TSG</span
-            >
+            <span class="wallet-tip" v-if="isTip == 1">You get {{ cutApart(candyType.candyNum) }} CANDY for
+              {{ cutApartNumber(candyOrder.currencyNum) }} Sol</span>
+            <span class="wallet-tip" v-if="isTip == 2">You get {{ cutApart(candyType.candyNum) }} CANDY for
+              {{ cutApartNumber(candyOrder.currencyNum) }} USDC</span>
+            <span class="wallet-tip" v-if="isTip == 3">You get {{ cutApart(candyType.candyNum) }} CANDY for
+              {{ cutApartNumber(candyOrder.currencyNum) }} TSG</span>
           </div>
           <div class="wallet-updata">
             <p>Quote updates in {{ updataTime }}s</p>
@@ -264,6 +238,7 @@ const selectCountry = (country) => {
 
 const getUserPay = async () => {
   spinning.value = true;
+  clearInterval(updataChange.value);
   if (contactList.value.type == "Sol") {
     isTip.value = 1;
   } else if (contactList.value.type == "USDC") {
@@ -342,6 +317,7 @@ const getUserPay = async () => {
       }
     }
     spinning.value = false;
+
     updataChange.value = setInterval(() => {
       updataTime.value--;
       if (updataTime.value == 0) {
@@ -617,14 +593,14 @@ const walletConect = async () => {
   box-sizing: border-box;
 }
 
-.wallet-tag > span {
+.wallet-tag>span {
   color: #fff;
   font-size: 20px;
   line-height: 63px;
   user-select: none;
 }
 
-.wallet-tag > div {
+.wallet-tag>div {
   position: relative;
   display: flex;
   align-items: center;
@@ -633,11 +609,11 @@ const walletConect = async () => {
   height: 100%;
 }
 
-.wallet-tag.wallet-select > div {
+.wallet-tag.wallet-select>div {
   width: 35%;
 }
 
-.wallet-tag > div > img {
+.wallet-tag>div>img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -659,14 +635,14 @@ const walletConect = async () => {
   background-color: transparent;
 }
 
-.wallet-candy > div > img {
+.wallet-candy>div>img {
   width: 41px;
   height: 41px;
   border-radius: 50%;
   object-fit: contain;
 }
 
-.wallet-tag > div > span {
+.wallet-tag>div>span {
   display: inline-block;
   width: 45px;
   font-size: 15px;
@@ -746,7 +722,7 @@ div.wallet-tipbox {
   padding-top: 15px;
 }
 
-.wallet-moon > button {
+.wallet-moon>button {
   width: 100%;
   height: 54px;
   color: #141414;
@@ -901,7 +877,7 @@ div.wallet-tipbox {
     left: 0;
   }
 
-  .wallet-tag.wallet-select > div {
+  .wallet-tag.wallet-select>div {
     width: 40%;
   }
 

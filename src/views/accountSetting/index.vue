@@ -87,7 +87,7 @@ import * as Bytescale from "@bytescale/sdk";
 import img1 from "@/assets/ic_round-play-arrow-1.png";
 import img2 from "@/assets/ic_round-play-arrow-2.png";
 import img3 from "@/assets/ic_round-play-arrow-3.png";
-import { playerInfo } from "../../utils/counter";
+import { playerInfo, useChangePrize } from "../../utils/counter";
 import axios from "@/utils/axios";
 import moren from '../../assets/avatar.svg'
 import Modal from "@/components/Modal.vue";
@@ -356,6 +356,7 @@ const apply = async () => {
     return;
   }
   infoInit()
+  useChangePrize().changePrize()
   showModal.value = true
   tipVisible.value = true
   tipText.value = 'successful'
@@ -730,6 +731,7 @@ const closeDisconnect = () => {
 
 .setting-content .wrap .right .wallets-item .wallet-item-text {
   display: flex;
+  align-items: center;
 }
 
 .setting-content .wrap .right .wallets-item .wallet-item-text span {
