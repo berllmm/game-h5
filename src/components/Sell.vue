@@ -83,7 +83,7 @@
     </div>
   </Modal>
 
-  <Modal v-model="tipModal" width="600px">
+  <Modal v-model="tipModal" width="720px">
     <div class="results-box">
       <div>
         <div class="result-title">{{ tipTitle }}</div>
@@ -101,7 +101,7 @@
     </div>
   </Modal>
 
-  <Modal v-model="agianModal" width="500px">
+  <Modal v-model="agianModal" width="400px">
     <div class="results-box">
       <div>
         <div class="result-title">{{ tipTitle }}</div>

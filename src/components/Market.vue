@@ -86,7 +86,7 @@
     </div>
   </div>
 
-  <Modal v-model="marketBox" width="500px">
+  <Modal v-model="marketBox" width="400px">
     <div class="results-box">
       <div>
         <div class="result-title">Coming Soon</div>
@@ -246,6 +246,11 @@ const goPage = () => {
 
     .market-desc {
       font-size: 16px;
+      display:inline-block;
+      white-space: nowrap;
+      width: 120px;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 

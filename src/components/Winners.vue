@@ -3,26 +3,16 @@
     <div class="winner">
       <div class="title base-border">Live Winners</div>
 
-      <a-table
-        :dataSource="winnerList"
-        :columns="columns"
-        :bordered="false"
-        :pagination="false"
-        :customRow="customCell"
-        :customHeaderRow="customHeaderCell"
-        :scroll="{ y: scrollYHeight }"
-      >
+      <a-table :dataSource="winnerList" :columns="columns" :bordered="false" :pagination="false" :customRow="customCell"
+        :customHeaderRow="customHeaderCell" :scroll="{ y: scrollYHeight }">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'item'">
             <div class="d-flex align-items-center">
               <img :src="record.gachaCard?.image" width="40" alt="" />
-              <div style="margin-left: 15px">
-                <div class="item-desc d-md-block">
+              <div>
+                <div class="item-desc d-md-block inlinetext">
                   {{ record.gachaCard?.name }}
                 </div>
-                <!-- <div class="item-desc d-none d-md-block color-gray">
-                  {{ record.rarity }}
-                </div> -->
               </div>
             </div>
           </template>
@@ -41,23 +31,12 @@
 
           <template v-if="column.key === 'winner'">
             <div class="d-flex align-items-center">
-              <img
-                v-if="record.playerAvatar == ''"
-                :src="morAvantar"
-                width="40"
-                class="d-none d-md-block"
-                style="border-radius: 50%; overflow: hidden; margin-right: 15px"
-              />
-              <img
-                v-else
-                :src="record.playerAvatar"
-                width="40"
-                height="40"
-                style="border-radius: 50%; overflow: hidden; margin-right: 15px"
-                class="d-none d-md-block"
-              />
+              <img v-if="record.playerAvatar == ''" :src="morAvantar" width="40" class="d-none d-md-block"
+                style="border-radius: 50%; overflow: hidden; margin-right: 15px" />
+              <img v-else :src="record.playerAvatar" width="40" height="40"
+                style="border-radius: 50%; overflow: hidden; margin-right: 15px" class="d-none d-md-block" />
               <div>
-                <div class="item-desc">
+                <div class="item-desc inlineWin">
                   {{ record.playerName }}
                 </div>
               </div>
@@ -80,42 +59,20 @@
 
       <div class="pagebox" v-if="!showBottomBtn">
         <div @click="prePage()">
-          <svg
-            t="1736405798737"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="4367"
-            id="mx_n_1736405798737"
-            width="24"
-            height="24"
-          >
+          <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="4367" id="mx_n_1736405798737" width="24" height="24">
             <path
               d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-              fill="#ffffff"
-              p-id="4368"
-            ></path>
+              fill="#ffffff" p-id="4368"></path>
           </svg>
         </div>
         <div>{{ page }} / {{ total }}</div>
         <div @click="nextPage()">
-          <svg
-            t="1736405798737"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="4367"
-            id="mx_n_1736405798737"
-            width="24"
-            height="24"
-          >
+          <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="4367" id="mx_n_1736405798737" width="24" height="24">
             <path
               d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-              fill="#ffffff"
-              p-id="4368"
-            ></path>
+              fill="#ffffff" p-id="4368"></path>
           </svg>
         </div>
         <div class="nextpage">
@@ -281,7 +238,7 @@ watch(
           dataIndex: "item",
           key: "item",
           align: "center",
-          width:140
+          width: 140
         },
         {
           title: "RARITY",
@@ -510,7 +467,7 @@ const goPage = () => {
   margin-top: 15px;
 }
 
-.pagebox > div {
+.pagebox>div {
   margin: 0px 10px;
 }
 
@@ -518,16 +475,16 @@ const goPage = () => {
   cursor: pointer;
 }
 
-.pagebox > div:nth-child(1) svg {
+.pagebox>div:nth-child(1) svg {
   transform: rotateY(180deg);
 }
 
-.pagebox > div:nth-child(3) {
+.pagebox>div:nth-child(3) {
   cursor: pointer;
 }
 
-.pagebox > div:nth-child(1):hover svg,
-.pagebox > div:nth-child(3):hover svg {
+.pagebox>div:nth-child(1):hover svg,
+.pagebox>div:nth-child(3):hover svg {
   fill: #ffff00;
 }
 
@@ -565,15 +522,40 @@ const goPage = () => {
   color: #ffffff;
 }
 
+.winner {
+  .inlinetext {
+    padding-left: 15px;
+  }
+}
+
 @media (max-width: 576px) {
   .winner {
     padding: 16px;
+
     .title {
       font-size: 24px;
       margin-bottom: 24px;
     }
+
     .right-btn {
       justify-content: center;
+    }
+
+    .inlinetext {
+      display: inline-block;
+      white-space: nowrap;
+      width: 80px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding-left: 5px;
+    }
+
+    .inlineWin {
+      display: inline-block;
+      white-space: nowrap;
+      width: 80px;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 }

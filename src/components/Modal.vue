@@ -6,7 +6,7 @@
         <div class="modal-content" :style="{ width }">
           <!-- 关闭按钮 -->
           <!-- <button class="close-button" @click="closeModal">×</button> -->
-          <img src="../assets/close.svg" class="close-button" @click="closeModal" alt="" />
+          <img src="../assets/simpleClose.svg" class="close-button" @click="closeModal" alt="" />
           <!-- 插槽内容 -->
           <slot></slot>
         </div>

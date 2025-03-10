@@ -55,7 +55,7 @@
       <div class="offcanvas offcanvas-start d-block d-sm-none left-panel w-100" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header flex-center">
-          <img @click="showPanel = false" src="../assets/close.svg" data-bs-dismiss="offcanvas" aria-label="Close" />
+          <img @click="handleShowPanel" src="../assets/close.svg" data-bs-dismiss="offcanvas" aria-label="Close" />
 
           <h5 class="offcanvas-title" id="offcanvasExampleLabel">
             TOKYO STUPID GAMES
@@ -221,7 +221,7 @@
     </div>
   </div>
 
-  <Modal v-model="marketBox" width="500px">
+  <Modal v-model="marketBox" width="400px">
     <div class="results-box">
       <div>
         <div class="result-title">Coming Soon</div>

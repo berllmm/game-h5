@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <Modal v-model="showCandy" width="500px">
+    <Modal v-model="showCandy" width="720px">
       <a-spin :spinning="spinning">
         <div class="wallet-box">
           <p class="wallet-title">BUY</p>

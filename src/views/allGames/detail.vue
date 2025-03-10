@@ -105,7 +105,7 @@
   </div>
   <FullCardList :imgData="imgData" />
 
-  <Modal v-model="tipVisible" width="600px">
+  <Modal v-model="tipVisible" width="400px">
     <div class="results-box">
       <div>
         <img src="../../assets/tip_error.svg" class="result-img" />
@@ -117,7 +117,7 @@
     </div>
   </Modal>
 
-  <Modal v-model="loginVisible" width="600px">
+  <Modal v-model="loginVisible" width="400px">
     <div class="results-box">
       <div>
         <img src="../../assets/login_error.svg" class="result-img" />
