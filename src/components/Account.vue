@@ -4,7 +4,7 @@
       <!-- ../assets/avatar.svg -->
       <img :src="imageSrc" width="80" height="80" style="border-radius: 50%;" />
       <span class="user-name__text">{{ props.playerList?.playerName }}</span>
-      <img :src="expImage" alt="" />
+      <img @click="goUser()" style="cursor:pointer;" :src="expImage" alt="" />
     </div>
 
     <div class="first-modal">
@@ -204,6 +204,11 @@ const walletAddress = computed(
     return list
   }
 )
+
+const goUser = () => {
+  emits("closeAccount");
+  router.push({path:'/user-info'})
+}
 
 // 是否展示钱包列表
 const showWallet = ref(false);
