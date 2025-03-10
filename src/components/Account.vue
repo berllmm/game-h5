@@ -190,7 +190,6 @@ onMounted(() => {
   } else {
     expImage.value = diamond
   }
-
 })
 
 const imageSrc = computed(() => {

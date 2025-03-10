@@ -169,23 +169,23 @@ import banner_4 from "@/assets/banner_4.png";
 const bannerList = ref([
   {
     url: banner_2,
-    title: "GACHA GAME IS LIVE",
+    title: "Gacha Game Is Live",
     id: Math.random(),
   },
   {
     url: banner_3,
-    title: "EARN YOUR CANDY POINTS",
+    title: "Earn Your Candy Points",
     id: Math.random(),
   },
 
   {
     url: banner_1,
-    title: "GET READTY FOR $TSG TOKEN!",
+    title: "Get Readty For $TSG Token!",
     id: Math.random(),
   },
   {
     url: banner_4,
-    title: "BURN MECHANISM",
+    title: "Burn Mechanism",
     id: Math.random(),
   },
 ]);

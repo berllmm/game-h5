@@ -129,7 +129,7 @@ b {
 
 .faq {
   margin: 0;
-  padding: 40px;
+  padding: 25px;
   //   height: 466px;
   background: rgba(45, 16, 57, 0.3);
   border: 1px solid #3f3f3f;
@@ -139,7 +139,7 @@ b {
 
   .title {
     display: inline-block;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     font-size: 40px;
     font-weight: 600;
 
@@ -153,8 +153,8 @@ b {
 
   .item {
     // margin-bottom: 16px;
-    padding-bottom: 16px;
-    padding-top: 16px;
+    padding-bottom: 15px;
+    padding-top: 15px;
     font-size: 24px;
 
     .flex {

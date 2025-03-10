@@ -4,7 +4,7 @@
     <!-- 向右切换按钮 -->
     <!-- <img @click="handleScroll" src="../assets/banner-right.svg" class="cursor right-icon d-none d-sm-block" /> -->
     <div class="market d-none d-sm-block">
-      <div class="title base-border">MARKETPLACE</div>
+      <div class="title base-border">Marketplace</div>
 
       <div class="item-box" ref="scrollContainer2">
         <div class="item me-4">
@@ -116,7 +116,7 @@ const goPage = () => {
 
 <style lang="scss" scoped>
 .market-box {
-  margin: 60px 0;
+  margin: 25px 0;
   position: relative;
 
   .right-icon {
@@ -143,7 +143,7 @@ const goPage = () => {
 
 .market {
   margin: 0;
-  padding: 40px;
+  padding: 25px;
   //   height: 466px;
   background: rgba(45, 16, 57, 0.3);
   border: 1px solid #3f3f3f;
@@ -153,7 +153,7 @@ const goPage = () => {
 
   .title {
     display: inline-block;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     font-size: 40px;
     font-weight: 600;
   }
@@ -210,7 +210,7 @@ const goPage = () => {
   }
 
   .right-btn {
-    padding-top: 40px;
+    padding-top: 25px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

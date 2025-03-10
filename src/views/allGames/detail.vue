@@ -70,7 +70,7 @@
             </div>
           </div>
           <div class="select">
-            <div class="select-title">SELECT TICKET AMOUNT</div>
+            <div class="select-title">Select Ticket Amount</div>
             <div class="select-box">
               <div @click="handleSwitchCurrentTicketValue(1)" class="select-item me-2"
                 :class="currentTicketValue === 1 ? 'active' : ''">
@@ -97,9 +97,7 @@
                 </div>
               </div>
             </div>
-            <div @click="goPage('play')" class="play_btn border-item">
-              PURCHASING TICKET & PLAY
-            </div>
+            <div @click="goPage('play')" class="play_btn border-item">Purchase Ticket to Play</div>
           </div>
         </div>
       </div>
@@ -123,11 +121,11 @@
     <div class="results-box">
       <div>
         <img src="../../assets/login_error.svg" class="result-img" />
-        <div class="result-title">Error</div>
+        <!-- <div class="result-title">Error</div> -->
         <div class="result-tips">You must log in to continue.</div>
       </div>
       <div class="footer-btn__modal footer-btn__modal2">
-        <div @click="goLogin" class="btn1">Confirm</div>
+        <div @click="goLogin" class="btn1">Login</div>
       </div>
     </div>
   </Modal>
@@ -382,7 +380,7 @@ const goLogin = () => {
       font-size: 20px;
       line-height: 26px;
       /* identical to box height */
-      text-transform: uppercase;
+      // text-transform: uppercase;
 
       color: #ffffff;
     }

@@ -44,6 +44,17 @@ export function cutApartNumber(val) {
     return rust
 }
 
+export function cutApartNumberTwo(val) {
+    let rust = currency(val, { precision: 2 }).format(
+        {
+            symbol: '',
+            decimal: '.',
+            separator: ','
+        })
+
+    return rust
+}
+
 export function initWalletUmi() {
     const wallet = selectWallet(localStorage.getItem('local'))
     const umiWallet = useUmiWallet()

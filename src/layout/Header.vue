@@ -28,24 +28,24 @@
 
           <div class="menu-box">
             <div @click="goPage('allGames')" class="menu-item border-bo">
-              GACHA GAMES
+              Gacha Games
             </div>
             <div @click="goPage('market')" class="menu-item border-bo">
-              MARKETPLACE
+              Marketplace
             </div>
             <div @click="goPage('liveWinners')" class="menu-item border-bo">
-              LIVE WINNERS HISTORY
+              Live Winners History
             </div>
             <div @click="goPage('faq')" class="menu-item">FAQ</div>
           </div>
           <div class="desc d-flex align-items-center">
             <div @click="goPage('about')" class="d-flex align-items-center" style="margin-right: 24px;cursor: pointer;">
               <img src="../assets/u-aboutUs.svg" style="margin-right: 4px" />
-              <span>ABOUT US</span>
+              <span>About Us</span>
             </div>
             <div @click="goPage('aboutUs')" class="d-flex align-items-center" style="cursor: pointer;">
               <img src="../assets/u-contactUs.svg" style="margin-right: 4px" />
-              <span>CONTACT US</span>
+              <span>Contact Us</span>
             </div>
           </div>
         </div>

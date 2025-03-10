@@ -8,7 +8,7 @@
             <img src="../assets/candy.svg" alt="" />
             <span>{{ cutApart(userInfo.candy) }}</span>
           </div>
-          <img src="../assets/gold.svg" alt="" />
+          <img :src="expImage" alt="" />
         </div>
       </div>
       <div class="candy-box-content">
@@ -44,7 +44,8 @@
             </div>
           </div>
           <div class="wallet-tag wallet-select">
-            <span>{{ cutApartNumber(contactList.value) }}</span>
+            <span v-if="contactList.type == 'USDC'">{{ cutApartNumberTwo(contactList.value) }}</span>
+            <span v-else>{{ cutApartNumber(contactList.value) }}</span>
             <div>
               <div class="selected" @click="toggleDropdown">
                 <div class="selected-img">
@@ -89,7 +90,7 @@
             <span class="wallet-tip" v-if="isTip == 1">You get {{ cutApart(candyType.candyNum) }} CANDY for
               {{ cutApartNumber(candyOrder.currencyNum) }} Sol</span>
             <span class="wallet-tip" v-if="isTip == 2">You get {{ cutApart(candyType.candyNum) }} CANDY for
-              {{ cutApartNumber(candyOrder.currencyNum) }} USDC</span>
+              {{ cutApartNumberTwo(candyOrder.currencyNum) }} USDC</span>
             <span class="wallet-tip" v-if="isTip == 3">You get {{ cutApart(candyType.candyNum) }} CANDY for
               {{ cutApartNumber(candyOrder.currencyNum) }} TSG</span>
           </div>
@@ -134,6 +135,11 @@ import {
 import { transferTokens } from "@metaplex-foundation/mpl-toolbox";
 import Modal from "@/components/Modal.vue";
 import axios from "@/utils/axios";
+import { cutApartNumberTwo } from "../utils/burn";
+import Tier from "../assets/Tier.png"
+import silver from "../assets/SILVER.png"
+import gold from "../assets/GOLD.png"
+import diamond from "../assets/DIAMOND.png"
 
 const candyNumList = ref([
   {
@@ -178,6 +184,8 @@ const selectList = ref([
   },
 ]);
 
+const expImage = ref('')
+
 onMounted(() => {
   getPrizeInit();
 });
@@ -206,6 +214,18 @@ const TSGMintAddress = new PublicKey(
 
 const getPrizeInit = () => {
   userInfo.value = playerInfo().user;
+
+  const info = playerInfo().user
+  console.log(info);
+  if (info.vipExp < 3000000) {
+    expImage.value = Tier
+  } else if (info.vipExp > 3000000 && info.vipExp < 15000000) {
+    expImage.value = silver
+  } else if (info.vipExp > 15000000 && info.vipExp < 90000000) {
+    expImage.value = gold
+  } else {
+    expImage.value = diamond
+  }
 };
 
 const getOrder = (item) => {
@@ -494,7 +514,7 @@ const walletConect = async () => {
 
   .candy-box-content {
     padding: 40px 24px 24px;
-    border-bottom: 1px solid #3f3f3f;
+    // border-bottom: 1px solid #3f3f3f;
 
     .candy-info__title {
       margin-bottom: 24px;

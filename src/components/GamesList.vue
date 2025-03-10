@@ -8,7 +8,7 @@
       class="cursor right-icon d-none d-sm-block"
     /> -->
     <div class="game d-none d-sm-block">
-      <div class="title base-border">GACHA GAMES</div>
+      <div class="title base-border">Gacha Games</div>
 
       <div class="item-box" ref="scrollContainer">
         <div
@@ -108,7 +108,7 @@ const getGamesInit = async () => {
 
 .game {
   margin: 0;
-  padding: 40px;
+  padding: 25px;
   //   height: 466px;
   background: rgba(45, 16, 57, 0.3);
   border: 1px solid #3f3f3f;
@@ -118,7 +118,7 @@ const getGamesInit = async () => {
 
   .title {
     display: inline-block;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     font-size: 40px;
     font-weight: 600;
   }
@@ -169,7 +169,7 @@ const getGamesInit = async () => {
   }
 
   .right-btn {
-    padding-top: 40px;
+    padding-top: 25px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

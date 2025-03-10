@@ -1,7 +1,7 @@
 <template>
   <div class="winner-box">
     <div class="winner">
-      <div class="title base-border">LIVE WINNERS</div>
+      <div class="title base-border">Live Winners</div>
 
       <a-table
         :dataSource="winnerList"
@@ -405,7 +405,7 @@ const goPage = () => {
 
 .winner {
   margin: 0;
-  padding: 40px;
+  padding: 25px;
   background: rgba(45, 16, 57, 0.3);
   border: 1px solid #3f3f3f;
   border-radius: 32px;
@@ -414,7 +414,7 @@ const goPage = () => {
 
   .title {
     display: inline-block;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     font-size: 40px;
     font-weight: 600;
   }
@@ -486,7 +486,7 @@ const goPage = () => {
   }
 
   .right-btn {
-    padding-top: 20px;
+    padding-top: 25px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

@@ -1,6 +1,6 @@
 <template>
   <div class="full">
-    <div class="title base-border">Collection’s full item list</div>
+    <div class="title base-border">Collection’s Full Item List</div>
 
     <div v-for="(item, index) in props.imgData" :key="index" class="type-item">
       <div class="title-box" v-if="item.cardList.length > 0">
@@ -52,7 +52,7 @@ const props = defineProps({
     line-height: 42px;
 
     color: #ffffff;
-    text-transform: uppercase;
+    // text-transform: uppercase;
   }
 
   .type-item {
