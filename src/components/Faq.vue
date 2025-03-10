@@ -114,11 +114,11 @@ p {
   line-height: 24px;
   margin-bottom: 5px;
   color: #ffffff;
-  font-family: 'Figtree';
+  font-family: 'IBM Plex Sans';
 }
 
 b {
-  font-family: 'Figtree';
+  font-family: 'IBM Plex Sans';
 }
 </style>
 

@@ -604,12 +604,13 @@ const toDisocrd = () => {
 }
 
 .tip-title {
-  font-family: "Figtree-bold";
+  font-family: "IBM Plex Sans";
   text-align: center;
   font-size: 32px;
   color: #fff;
   margin-bottom: 50px;
   line-height: 1.4;
+  font-weight:700
 }
 
 .tip-conent {
