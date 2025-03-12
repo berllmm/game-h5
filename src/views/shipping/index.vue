@@ -299,7 +299,6 @@ const isCheckpay = ref(false)
 
 const handleSubmit = async () => {
   let re = /^\w+(?:\.\w+){0,1}@[a-zA-Z0-9]{2,14}(?:\.[a-z]{2,4}){1,2}$/;
-  console.log(payment.value);
 
   if (formState.email == "") {
     isEmail.value = true

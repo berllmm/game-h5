@@ -128,7 +128,6 @@ const currentOrderList = ref([]);
 const showDetail = (record) => {
   currentOrderList.value = [];
   currentOrder.value = record;
-  console.log(record);
 
   currentOrderList.value.push(record.gachaCard);
   showContentModal.value = true;

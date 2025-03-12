@@ -184,8 +184,6 @@ const changeCurrentImage = (img) => {
 };
 
 onMounted(() => {
-  console.log(isLargeWindow);
-
   isPC.value = isLargeWindow.value
 
   getDetailsInit();

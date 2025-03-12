@@ -312,8 +312,6 @@ const progressNumber = ref(0)
 const isProgress = ref(false)
 
 const handleFileChange = async (event) => {
-  console.log(event);
-
   const file = event.target.files[0];
   if (file && file.type.startsWith("image/")) {
     const reader = new FileReader();

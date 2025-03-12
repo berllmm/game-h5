@@ -33,6 +33,9 @@
             <div @click="goPage('market')" class="menu-item border-bo">
               Marketplace
             </div>
+            <div @click="goPage('stake')" class="menu-item border-bo">
+              Staking
+            </div>
             <div @click="goPage('liveWinners')" class="menu-item border-bo">
               Live Winners History
             </div>
@@ -82,13 +85,16 @@
 
             <div class="menu-box" data-bs-toggle="offcanvas" href="#offcanvasExample">
               <div @click="goPage('allGames')" class="menu-item border-bo">
-                GACHA GAMES
+                Gacha Games
               </div>
               <div @click="goPage('market')" class="menu-item border-bo">
-                MARKETPLACE
+                Marketplace
+              </div>
+              <div @click="goPage('stake')" class="menu-item border-bo">
+                Staking
               </div>
               <div @click="goPage('liveWinners')" class="menu-item border-bo">
-                LIVE WINNERS HISTORY
+                Live Winners History
               </div>
               <div @click="goPage('faq')" class="menu-item">FAQ</div>
             </div>
@@ -103,11 +109,11 @@
               <div @click="goPage('about')" class="d-flex align-items-center"
                 style="margin-right: 24px;cursor: pointer;" data-bs-dismiss="offcanvas" aria-label="Close">
                 <img src="../assets/u-aboutUs.svg" style="margin-right: 4px" />
-                <span>ABOUT US</span>
+                <span>About Us</span>
               </div>
               <div @click="goPage('aboutUs')" class="d-flex align-items-center" style="cursor: pointer;">
                 <img src="../assets/u-contactUs.svg" style="margin-right: 4px" />
-                <span>CONTACT US</span>
+                <span>Contact Us</span>
               </div>
             </div>
           </div>
@@ -204,10 +210,10 @@
                   <img src="../assets/header-wallet.svg" alt="" />
                   <div class="detail-box">
                     <div>External Wallet</div>
-                    <div class="desc-info">1554....com</div>
+                    <div class="desc-info">{{ walletAddress }}</div>
                   </div>
                 </div>
-                <div class="right">0.000 SOL</div>
+                <div class="right">{{ cutApartNumber(SolanaPrize) }} SOL</div>
               </div>
             </div>
           </div>
@@ -215,23 +221,36 @@
       </div>
 
       <!-- 钱包弹窗 -->
-      <Modal v-model="showCandy" width="500px">
+      <ModalPrize v-model="showCandy" width="500px">
         <Candy />
-      </Modal>
+      </ModalPrize>
     </div>
   </div>
 
   <Modal v-model="marketBox" width="400px">
     <div class="results-box">
-      <div>
+      <div class="soon-box">
         <div class="result-title">Coming Soon</div>
+      </div>
+    </div>
+  </Modal>
+
+  <Modal v-model="loginVisible" width="400px">
+    <div class="results-box">
+      <div>
+        <img src="../assets/login_error.svg" class="result-img" />
+        <!-- <div class="result-title">Error</div> -->
+        <div class="result-tips">You must log in to continue.</div>
+      </div>
+      <div class="footer-btn__modal footer-btn__modal2">
+        <div @click="goLogin" class="btn1">Login</div>
       </div>
     </div>
   </Modal>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted, watch } from "vue";
+import { ref, reactive, onMounted, onUnmounted, watch, computed } from "vue";
 import login from "@/components/login.vue";
 import Account from "@/components/Account.vue";
 import { useRouter } from "vue-router";
@@ -239,14 +258,20 @@ import VueCookie from "vue-cookie";
 import Candy from "@/components/Candy.vue";
 import { selectConnection, selectWallet, cutApart } from "@/utils/burn";
 import { cutApartNumber, initWalletUmi } from "../utils/burn";
-import { playerInfo, useChangePrize, userLogin, userPay, userPayNow, userSol } from "../utils/counter";
+import { Loginbox, playerInfo, useChangePrize, userDetailLogin, userLogin, userPay, userPayNow, userSol } from "../utils/counter";
 import axios from "@/utils/axios";
 import { PublicKey } from '@solana/web3.js';
 import Modal from "@/components/Modal.vue";
+import ModalPrize from "@/components/ModalPrize.vue";
 
-
+const loginVisible = ref(false)
 const router = useRouter();
 const marketBox = ref(false)
+
+const goLogin = () => {
+  loginVisible.value = false
+  userDetailLogin().truePay()
+}
 
 const goPage = (path) => {
   showPanel.value = false;
@@ -284,8 +309,6 @@ const handleClickOutside = (event) => {
     loginElement.value &&
     !loginElement.value.contains(event.target)
   ) {
-    console.log("点击了区域外");
-    // showPanel.value = false;
   }
 };
 onMounted(() => {
@@ -345,6 +368,14 @@ const getLoginInit = async () => {
   }
   await getWalletPrize();
 };
+
+const walletAddress = computed(
+  () => {
+    const list = userList.value.walletAddress.slice(0, 4) + '...' + userList.value.walletAddress.slice(-4)
+
+    return list
+  }
+)
 
 const SolanaPrize = ref("");
 
@@ -430,7 +461,6 @@ const goHome = () => {
 watch(
   () => userLogin().isLogin,
   (newVal, oldVal) => {
-    console.log(newVal);
     isLogin.value = newVal;
 
     if (isLogin.value) {
@@ -458,6 +488,16 @@ watch(
     }
   }
 );
+
+watch(
+  () => Loginbox().isLogin,
+  (newVal) => {
+    if (newVal) {
+      loginVisible.value = newVal
+      Loginbox().changLogin()
+    }
+  }
+)
 
 const showCandy = ref(false);
 
@@ -685,13 +725,79 @@ const showWallet = ref(false);
   color: #fff;
   text-align: center;
 
-  div {
+  .soon-box {
     padding: 60px 0;
   }
 
   .result-title {
     font-size: 24px;
     font-weight: 600;
+  }
+
+  .result-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .result-center span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .result-center span:nth-child(2) {
+    padding: 0 10px;
+  }
+
+  .result-img {
+    margin: 20px 0;
+    width: 120px;
+    height: 120px;
+  }
+
+  .result-tips {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .blue-text {
+    color: #3052fa;
+    font-weight: 600;
+  }
+
+  .footer-btn__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn1 {
+      padding: 12px 24px;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 48px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(to right, #1f0c27, #1f0c27),
+        linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+    }
+
+    .btn2 {
+      padding: 12px 24px;
+      font-size: 20px;
+      display: inline-block;
+      border-radius: 48px;
+      border: 1px solid #3f3f3f;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      cursor: pointer;
+    }
   }
 }
 

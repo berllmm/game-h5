@@ -10,13 +10,13 @@ const useWindow = () => {
     isLargeWindow.value = window.innerWidth >= 1024; // 更新大窗口状态
   };
 
-  onMounted(() => {
-    window.addEventListener("resize", updateWindowSize);
-  });
+  // onMounted(() => {
+  //   window.addEventListener("resize", updateWindowSize);
+  // });
 
-  onUnmounted(() => {
-    window.removeEventListener("resize", updateWindowSize);
-  });
+  // onUnmounted(() => {
+  //   window.removeEventListener("resize", updateWindowSize);
+  // });
 
   return {
     isLargeWindow,

@@ -180,7 +180,6 @@ const expImage = ref('')
 onMounted(() => {
   solPrize.value = userSol().sol
   const info = playerInfo().user
-  console.log(info);
   if (info.vipExp < 3000000) {
     expImage.value = Tier
   } else if (info.vipExp > 3000000 && info.vipExp < 15000000) {
@@ -212,7 +211,6 @@ const goUser = () => {
 // 是否展示钱包列表
 const showWallet = ref(false);
 const handleShowWallet = () => {
-  console.log(props.SolanaPrize)
 
   showWallet.value = true;
 

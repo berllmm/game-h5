@@ -73,8 +73,6 @@ const activeInit = async () => {
   const res = await axios.get("/tsg/player/getCardList");
 
   if (res.data.code == 200) {
-    console.log(res.data.data);
-
     userTrueList.value = res.data.data;
     dataList.value = await removeFalsePayFreight(userTrueList.value)
     if (dataList.value.length > 10) {
@@ -82,8 +80,6 @@ const activeInit = async () => {
     }
     pageText.value = page.value
     dataList.value = dataList.value.filter(item => item.historyType !== 'shipping')
-    console.log(dataList.value);
-
     size.value = Math.ceil(dataList.value.length / pageNum.value)
     dataSource.value = dataList.value.slice((page.value - 1) * pageNum.value, (pageNum.value * page.value))
   }
@@ -95,8 +91,6 @@ function removeFalsePayFreight(arr) {
 
 const goBurn = async (item) => {
   const address = playerInfo().user.walletAddress
-
-  console.log(item);
   prizeList.value.push({
     transactionId: "",
     type: 3,
@@ -110,8 +104,6 @@ const goBurn = async (item) => {
     payFreight: item.payFreight,
     gameOrderId: item.gameOrderId,
   })
-
-  console.log(prizeList.value);
 
   if (localStorage.getItem('local') == "Wallet") {
     const res = await axios.post('/tsg/player/burnCardWeb2', {

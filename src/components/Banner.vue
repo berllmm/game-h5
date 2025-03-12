@@ -204,8 +204,6 @@ const init = () => {
   });
 
   carousel.cycle();
-
-  console.log("carousel", carousel);
 };
 
 const handlePrev = () => {

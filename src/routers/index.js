@@ -1,4 +1,6 @@
+import VueCookie from "vue-cookie";
 import { createRouter, createWebHistory } from "vue-router";
+import { Loginbox } from "../utils/counter";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +43,14 @@ const router = createRouter({
       path: "/result",
       name: "result",
       component: () => import("../views/results/index.vue"),
+      meta: {
+        isLogin: true
+      },
+    },
+    {
+      path: "/stake",
+      name: "stake",
+      component: () => import("../views/stake/index.vue"),
       meta: {
         isLogin: true
       },
@@ -101,9 +111,38 @@ const router = createRouter({
   ],
 });
 
-router.afterEach((to, from) => {
+// router.afterEach((to, from) => {
+//   const token = VueCookie.get('token')
 
-  window.scrollTo(0, 0);
-});
+//   if (to.meta.isLogin) {
+//     if (token) {
+//       window.scrollTo(0, 0);
+//     } else {
+//       alert('PLEASE LOGIN')
+//       return
+//       // tipText.openSet('PLEASE LOGIN')
+//     }
+//   } else {
+//     window.scrollTo(0, 0);
+//   }
+// });
+
+router.beforeEach((to, from, next) => {
+  const token = VueCookie.get('token')
+
+  if (to.meta.isLogin) {
+    if (token) {
+      next()
+      window.scrollTo(0, 0);
+    } else {
+      router.push({ path: '/' })
+      Loginbox().changLogin()
+      next(false)
+    }
+  } else {
+    next()
+    window.scrollTo(0, 0);
+  }
+})
 
 export default router;

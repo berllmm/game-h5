@@ -1,237 +1,231 @@
 <template>
-  <div>
-    <div class="tier">
-      <div class="desc">Your tier:</div>
-      <div class="number-box">
-        <img src="../assets/candy.svg" alt="" />
-        <span class="value">{{ cutA.cutApart(props.userInfo.vipExp) }}</span>
-      </div>
-
-      <div class="tips-box">
-        <div class="title1">Tier benefit description</div>
-        <div class="title2">
-          You need to accumulate {{ cutA.cutApart(nextPrize) }} more points to reach
-          the next tier.
+  <div class="user-info-content">
+    <div class="userInfo">
+      <div class="header">
+        <div class="header-left">
+          <img :src="imageSrc" class="avatar" />
+          <div class="detailInfo">
+            <div class="name">{{ userInfo.playerName }}</div>
+            <div class="id">UID:{{ userInfo.playerId }}</div>
+          </div>
         </div>
-        <div class="process">
-          <div class="process-line"></div>
-          <div class="process-bar" :style="{ width: props.userInfo.expChange }"></div>
-          <img src="../assets/candy1-bg.png" alt="" />
-          <img src="../assets/candy2-bg.png" alt="" />
-          <img src="../assets/candy3-bg.png" alt="" />
-          <img src="../assets/candy4-bg.png" alt="" />
+        <div class="header-right">
         </div>
       </div>
-    </div>
-    <!-- <div>
-      <div style="border-bottom: 1px solid #3f3f3f;margin-top: 40px;"></div>
-      <p style="text-align: center;font-size: 28px;margin-top: 40px;">Stake Page</p>
-    </div> -->
-    <div v-if="isTest" class="stake">
-      <div @click="handleSwitch('1')" class="stake-item" :class="stakeKey === '1' ? 'active' : ''">
-        Stake
-      </div>
-      <div @click="handleSwitch('2')" class="stake-item" :class="stakeKey === '2' ? 'active' : ''">
-        History
-      </div>
-    </div>
+      <div class="content">
+        <!-- tabs标题 -->
+        <div v-if="isTest" class="stake">
+          <div @click="handleSwitch('1')" class="stake-item" :class="stakeKey === '1' ? 'active' : ''">
+            Stake
+          </div>
+          <div @click="handleSwitch('2')" class="stake-item" :class="stakeKey === '2' ? 'active' : ''">
+            History
+          </div>
+        </div>
 
-    <div v-if="isTest" class="stakebox">
-      <div class="stake-token" v-if="stakeKey == '1' && isPc">
-        <div class="token-left">
-          <div class="flex-lfet">
-            <span>Stake your TSG token</span>
-            <div class="tip-box">
-              <img src="../assets/Group.svg" @click="openTip" alt="">
-              <div class="left-tip" v-if="isTip">
+        <div v-if="isTest" class="stakebox">
+          <div class="stake-token" v-if="stakeKey == '1' && isPc">
+            <div class="token-left">
+              <div class="flex-lfet">
+                <span>Stake your TSG token</span>
+                <div class="tip-box">
+                  <img src="../../assets/Group.svg" @click="openTip" alt="">
+                  <div class="left-tip" v-if="isTip">
+                    <p>-APR (25%)</p>
+                    <p>-Staking 100,000 TSG tokens annually will earn a reward of 25,000 Candy.</p>
+                    <p>-The minimum amount of TSG tokens required for staking is 1,500.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bottom-left">
+                <p>* You have <span>{{ cutA.cutApart(usdcAccount) }}</span> TSG tokens available for staking.</p>
+                <div class="left-btn">
+                  <button @click="stakingToken">STAKE</button>
+                  <button v-if="InfoList.stakingToken" @click="unstakingToken">UNSTAKE</button>
+                </div>
+              </div>
+            </div>
+            <div class="token-right">
+              <div class="flex-right">
+                <p>Your Candy balance: {{ cutA.cutApart(userInfo.candy) }}</p>
+                <p>Yesterday's earnings: <span>+ {{ InfoList.yesterdayCandy }}</span></p>
+              </div>
+              <div class="bottom-right">Staked: <span>{{ cutA.cutApart(InfoList.stakingToken?.tokenNum) }} TSG</span>
+              </div>
+            </div>
+          </div>
+          <div class="stake-token" v-if="stakeKey == '1' && !isPc">
+            <div class="token-flex">
+              <div class="flex-lfet">Stake your TSG token <img @click="openTip" src="../../assets/Group.svg" alt="">
+              </div>
+              <div class="flex-right">
+                <p>Your Candy balance: {{ cutA.cutApart(userInfo.candy) }}</p>
+                <p>Yesterday's earnings: <span>+{{ InfoList.yesterdayCandy }}</span></p>
+              </div>
+            </div>
+            <div class="token-bottom">
+
+              <div class="bottom-right">Staked: <span>{{ cutA.cutApart(InfoList.stakingToken?.tokenNum) }} TSG</span>
+              </div>
+              <div class="bottom-left">
+                <p>* You have <span>{{ cutA.cutApart(usdcAccount) }}</span> TSG tokens available for staking.</p>
+                <div class="left-btn">
+                  <button @click="stakingToken">STAKE</button>
+                  <button v-if="InfoList.stakingToken" @click="unstakingToken">UNSTAKE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stake-table" v-if="stakeKey == '2'">
+            <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false"
+              :customRow="customCell" :customHeaderRow="customHeaderCell" :scroll="{ y: 1200 }">
+              <template #bodyCell="{ column, record }">
+                <template v-if="column.key === 'type'">
+                  <div class="align-items-center" style="text-align: center;">
+                    <span class="item-desc d-md-block" v-if="record.type == 1"> Staked</span>
+                    <span class="item-desc d-md-block" v-if="record.type == 2"> Unstaked</span>
+                    <span class="item-desc d-md-block" v-if="record.type == 3"> Earing</span>
+                  </div>
+                </template>
+                <template v-if="column.key === 'time'">
+                  <div class="align-items-center" style="text-align: center;">
+                    <span class="item-desc d-md-block"> {{ backTime(record.createTime) }}</span>
+                  </div>
+                </template>
+                <template v-if="column.key === 'detail'">
+                  <div class="align-items-center" style="text-align: center;">
+                    <span class="item-desc d-md-block" v-if="record.type == 1" style="color:#00ff00;">+{{
+                      record.tokenNum }} {{
+                        record.tokenName }}</span>
+                    <span class="item-desc d-md-block" v-if="record.type == 2" style="color:#F10419;">-{{
+                      record.tokenNum }} {{
+                        record.tokenName }}</span>
+                    <span class="item-desc d-md-block" v-if="record.type == 3" style="color:#00ff00;">+ {{
+                      record.candyNum
+                    }} {{ record.tokenName
+                      }}</span>
+                  </div>
+                </template>
+              </template>
+            </a-table>
+            <div class="pagebox" v-if="isPage">
+              <div @click="prePage()">
+                <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+                  <path
+                    d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
+                    fill="#ffffff" p-id="4368"></path>
+                </svg>
+              </div>
+              <div>{{ page }} / {{ size }}</div>
+              <div @click="nextPage()">
+                <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="4367" id="mx_n_1736405798737" width="24" height="24">
+                  <path
+                    d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
+                    fill="#ffffff" p-id="4368"></path>
+                </svg>
+              </div>
+              <div class="nextpage">
+                <input type="text" v-model="pageText" @keydown.enter="goPageText">
+                <button @click="goPageText">GO</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Modal v-model="errorTip" width="400px">
+          <div class="results-box">
+            <div>
+              <img src="../../assets/tip_error.svg" class="result-img" />
+              <div class="result-title">Error</div>
+              <div class="result-tips">
+                Your wallet does not have enough TSG tokens to meet the minimum staking requirement.
+              </div>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal v-model="stakeTip" width="720px">
+          <div class="results-box">
+            <div>
+              <div class="result-input">
+                <span>amount</span>
+                <div>
+                  <input type="text" v-model="stakePrize">
+                  <img src="../../assets/changepen.svg" alt="">
+                </div>
+              </div>
+              <div class="result-text" v-if="isStake">
+                How many TSG tokens would you like to stake?
+              </div>
+              <div class="result-text" v-else>
+                How many TSG tokens would you like to unstake?
+              </div>
+              <div class="result-press">
+                <div v-if="isStake" class="press-active" :style="`width:${complatePrize(stakePrize)}%;`"></div>
+                <div v-else class="press-active" :style="`width:${complateUnstake(stakePrize)}%;`"></div>
+              </div>
+              <div class="result-number">
+                <span>0%</span>
+                <span>50%</span>
+                <span>100%</span>
+              </div>
+            </div>
+            <div class="footer-btn__modal footer-btn__modal2">
+              <div @click="hanldeClose" class="btn2">Cancel</div>
+              <div v-if="isStake" @click="hanldeGetStake" class="btn1">Continue</div>
+              <div v-else @click="hanldeUnStake" class="btn1">Continue</div>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal v-model="showSuccess" width="600px">
+          <div class="results-box">
+            <div>
+              <img src="../../assets/result-success.svg" class="result-img" />
+              <div class="result-tips">
+                {{ successText }}
+              </div>
+              <div class="result-tips-tip" v-if="isUnstake">
+                *Please wait a few seconds. The TSG tokens will be transferred to your wallet address.
+              </div>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal v-model="showTip" width="500px">
+          <div class="results-box">
+            <div>
+              <img src="../../assets/tip_error.svg" class="result-img" />
+              <div class="result-tips-tip">
                 <p>-APR (25%)</p>
                 <p>-Staking 100,000 TSG tokens annually will earn a reward of 25,000 Candy.</p>
                 <p>-The minimum amount of TSG tokens required for staking is 1,500.</p>
               </div>
             </div>
           </div>
-          <div class="bottom-left">
-            <p>* You have <span>{{ cutA.cutApart(usdcAccount) }}</span> TSG tokens available for staking.</p>
-            <div class="left-btn">
-              <button @click="stakingToken">STAKE</button>
-              <button v-if="InfoList.stakingToken" @click="unstakingToken">UNSTAKE</button>
-            </div>
-          </div>
-        </div>
-        <div class="token-right">
-          <div class="flex-right">
-            <p>Your Candy balance: {{ cutA.cutApart(props.userInfo.candy) }}</p>
-            <p>Yesterday's earnings: <span>+ {{ InfoList.yesterdayCandy }}</span></p>
-          </div>
-          <div class="bottom-right">Staked: <span>{{ cutA.cutApart(InfoList.stakingToken?.tokenNum) }} TSG</span></div>
-        </div>
-      </div>
-      <div class="stake-token" v-if="stakeKey == '1' && !isPc">
-        <div class="token-flex">
-          <div class="flex-lfet">Stake your TSG token <img @click="openTip" src="../assets/Group.svg" alt=""></div>
-          <div class="flex-right">
-            <p>Your Candy balance: {{ cutA.cutApart(props.userInfo.candy) }}</p>
-            <p>Yesterday's earnings: <span>+ {{ InfoList.yesterdayCandy }}</span></p>
-          </div>
-        </div>
-        <div class="token-bottom">
+        </Modal>
 
-          <div class="bottom-right">Staked: <span>{{ cutA.cutApart(InfoList.stakingToken?.tokenNum) }} TSG</span></div>
-          <div class="bottom-left">
-            <p>* You have <span>{{ cutA.cutApart(usdcAccount) }}</span> TSG tokens available for staking.</p>
-            <div class="left-btn">
-              <button @click="stakingToken">STAKE</button>
-              <button v-if="InfoList.stakingToken" @click="unstakingToken">UNSTAKE</button>
+        <Modal v-model="stakemintip" width="400px">
+          <div class="results-box">
+            <div>
+              <img src="../../assets/tip_error.svg" class="result-img" />
+              <div class="result-title">Error</div>
+              <div class="result-tips">
+                {{ minText }}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="stake-table" v-if="stakeKey == '2'">
-        <a-table :dataSource="dataSource" :columns="columns" :bordered="false" :pagination="false"
-          :customRow="customCell" :customHeaderRow="customHeaderCell" :scroll="{ x: 580, y: 400 }">
-          <template #bodyCell="{ column, record }">
-            <template v-if="column.key === 'type'">
-              <div class="align-items-center" style="text-align: center;">
-                <span class="item-desc d-md-block" v-if="record.type == 1"> Staked + {{ record.tokenNum }} {{
-                  record.tokenName }}</span>
-                <span class="item-desc d-md-block" v-if="record.type == 2"> Unstaked - {{ record.tokenNum }} {{
-                  record.tokenName }}</span>
-                <span class="item-desc d-md-block" v-if="record.type == 3"> Earing + {{ record.candyNum }} {{
-                  record.tokenName }}</span>
-              </div>
-            </template>
-            <template v-if="column.key === 'time'">
-              <div class="align-items-center" style="text-align: center;">
-                <span class="item-desc d-md-block"> {{ backTime(record.createTime) }}</span>
-              </div>
-            </template>
-            <template v-if="column.key === 'detail'">
-              <div class="align-items-center" style="text-align: center;">
-                <span class="item-desc d-md-block" v-if="record.type == 1" style="color:#00ff00;"> Successful</span>
-                <span class="item-desc d-md-block" v-if="record.type == 2" style="color:#00ff00;"> Successful</span>
-                <span class="item-desc d-md-block" v-if="record.type == 3" style="color:#00ff00;">+ {{ record.candyNum
-                }} {{ record.tokenName
-                  }}</span>
-              </div>
-            </template>
-          </template>
-        </a-table>
-        <div class="pagebox" v-if="isPage">
-          <div @click="prePage()">
-            <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-              p-id="4367" id="mx_n_1736405798737" width="24" height="24">
-              <path
-                d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-                fill="#ffffff" p-id="4368"></path>
-            </svg>
-          </div>
-          <div>{{ page }} / {{ size }}</div>
-          <div @click="nextPage()">
-            <svg t="1736405798737" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-              p-id="4367" id="mx_n_1736405798737" width="24" height="24">
-              <path
-                d="M340.688 830.24l11.312 11.328a16 16 0 0 0 22.624 0L685.76 530.448a16 16 0 0 0 0-22.64L374.624 196.688a16 16 0 0 0-22.624 0l-11.312 11.312a16 16 0 0 0 0 22.624l288.496 288.496-288.496 288.512a16 16 0 0 0 0 22.624z"
-                fill="#ffffff" p-id="4368"></path>
-            </svg>
-          </div>
-          <div class="nextpage">
-            <input type="text" v-model="pageText" @keydown.enter="goPageText">
-            <button @click="goPageText">GO</button>
-          </div>
-        </div>
+        </Modal>
       </div>
     </div>
-
-    <Modal v-model="errorTip" width="400px">
-      <div class="results-box">
-        <div>
-          <img src="../assets/tip_error.svg" class="result-img" />
-          <div class="result-title">Error</div>
-          <div class="result-tips">
-            Your wallet does not have enough TSG tokens to meet the minimum staking requirement.
-          </div>
-        </div>
-      </div>
-    </Modal>
-
-    <Modal v-model="stakeTip" width="720px">
-      <div class="results-box">
-        <div>
-          <div class="result-input">
-            <span>amount</span>
-            <div>
-              <input type="text" v-model="stakePrize">
-              <img src="../assets/changepen.svg" alt="">
-            </div>
-          </div>
-          <div class="result-text" v-if="isStake">
-            How many TSG tokens would you like to stake?
-          </div>
-          <div class="result-text" v-else>
-            How many TSG tokens would you like to unstake?
-          </div>
-          <div class="result-press">
-            <div v-if="isStake" class="press-active" :style="`width:${complatePrize(stakePrize)}%;`"></div>
-            <div v-else class="press-active" :style="`width:${complateUnstake(stakePrize)}%;`"></div>
-          </div>
-          <div class="result-number">
-            <span>0%</span>
-            <span>50%</span>
-            <span>100%</span>
-          </div>
-        </div>
-        <div class="footer-btn__modal footer-btn__modal2">
-          <div @click="hanldeClose" class="btn2">Cancel</div>
-          <div v-if="isStake" @click="hanldeGetStake" class="btn1">Continue</div>
-          <div v-else @click="hanldeUnStake" class="btn1">Continue</div>
-        </div>
-      </div>
-    </Modal>
-
-    <Modal v-model="showSuccess" width="600px">
-      <div class="results-box">
-        <div>
-          <img src="../assets/result-success.svg" class="result-img" />
-          <div class="result-tips">
-            {{ successText }}
-          </div>
-          <div class="result-tips-tip" v-if="isUnstake">
-            *Please wait a few seconds. The TSG tokens will be transferred to your wallet address.
-          </div>
-        </div>
-      </div>
-    </Modal>
-
-    <Modal v-model="showTip" width="500px">
-      <div class="results-box">
-        <div>
-          <img src="../assets/tip_error.svg" class="result-img" />
-          <div class="result-tips-tip">
-            <p>-APR (25%)</p>
-            <p>-Staking 100,000 TSG tokens annually will earn a reward of 25,000 Candy.</p>
-            <p>-The minimum amount of TSG tokens required for staking is 1,500.</p>
-          </div>
-        </div>
-      </div>
-    </Modal>
-
-    <Modal v-model="stakemintip" width="400px">
-      <div class="results-box">
-        <div>
-          <img src="../assets/tip_error.svg" class="result-img" />
-          <div class="result-title">Error</div>
-          <div class="result-tips">
-            {{ minText }}
-          </div>
-        </div>
-      </div>
-    </Modal>
   </div>
 </template>
 <script setup>
-import { ref, watch } from "vue";
-import { playerInfo, useUmiWallet } from "../utils/counter";
-import * as cutA from "../utils/burn";
+import { reactive, ref, onMounted, computed } from "vue";
+import { playerInfo, useUmiWallet } from "@/utils/counter";
+import * as cutA from "@/utils/burn";
 import axios from "@/utils/axios";
 import currency from "currency.js";
 import Modal from "@/components/Modal.vue";
@@ -243,13 +237,10 @@ import {
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
 import { transferTokens } from "@metaplex-foundation/mpl-toolbox";
-import useWindow from "../hooks/useWindow";
+import useWindow from "@/hooks/useWindow";
 import { customHeaderCell, customCell } from "@/utils";
-
-const props = defineProps({
-  activeKey: String,
-  userInfo: Object,
-});
+import { useChangePrize } from "../../utils/counter";
+import morAvantar from "@/assets/avatar.svg"
 
 const columns = ref([
   {
@@ -269,8 +260,8 @@ const columns = ref([
 
 const dataSource = ref([])
 
-const isTest = ref(false)
-
+const isTest = ref(true)
+const userInfo = ref({})
 const errorTip = ref(false)
 const stakeTip = ref(false)
 const nextPrize = ref(0);
@@ -294,27 +285,44 @@ const pageNum = ref(10)
 const pageText = ref(1)
 const isPage = ref(false)
 
+onMounted(async () => {
+  await tierInit()
+});
+
+const imageSrc = computed(() => {
+  return userInfo.value?.avatarUrl || morAvantar;
+});
+
 const tierInit = async () => {
-  if (props.userInfo.vipExp < 3000000) {
-    const numNow = currency(props.userInfo.vipExp).divide(3000000).value;
-    props.userInfo.expChange = currency(33.33).multiply(numNow).value + "%";
-    nextPrize.value = currency(3000000).subtract(props.userInfo.vipExp);
+  const prizeRes = await axios.post("/tsg/player/playerInfo");
+  if (prizeRes.data.code == 200) {
+    userInfo.value = prizeRes.data.data;
+    playerInfo().changeList(userInfo.value);
+    if (useChangePrize().prize) {
+      useChangePrize().changePrize();
+    }
+  }
+
+  if (userInfo.value.vipExp < 3000000) {
+    const numNow = currency(userInfo.value.vipExp).divide(3000000).value;
+    userInfo.value.expChange = currency(33.33).multiply(numNow).value + "%";
+    nextPrize.value = currency(3000000).subtract(userInfo.value.vipExp);
   } else if (
-    props.userInfo.vipExp > 3000000 &&
-    props.userInfo.vipExp < 15000000
+    userInfo.value.vipExp > 3000000 &&
+    userInfo.value.vipExp < 15000000
   ) {
-    const numNow = currency(props.userInfo.vipExp).divide(15000000).value;
-    props.userInfo.expChange =
+    const numNow = currency(userInfo.value.vipExp).divide(15000000).value;
+    userInfo.value.expChange =
       currency(33.33).multiply(numNow).add(33.33).value + "%";
-    nextPrize.value = currency(15000000).subtract(props.userInfo.vipExp);
-  } else if (props.userInfo.vipExp >= 90000000) {
-    props.userInfo.expChange = "100%";
+    nextPrize.value = currency(15000000).subtract(userInfo.value.vipExp);
+  } else if (userInfo.value.vipExp >= 90000000) {
+    userInfo.value.expChange = "100%";
     nextPrize.value = 0;
   } else {
-    const numNow = currency(props.userInfo.vipExp).divide(90000000).value;
-    props.userInfo.expChange =
+    const numNow = currency(userInfo.value.vipExp).divide(90000000).value;
+    userInfo.value.expChange =
       currency(33.33).multiply(numNow).add(66.66).value + "%";
-    nextPrize.value = currency(90000000).subtract(props.userInfo.vipExp);
+    nextPrize.value = currency(90000000).subtract(userInfo.value.vipExp);
   }
 
   isPc.value = useWindow().isLargeWindow.value
@@ -332,7 +340,7 @@ const getUserToken = async () => {
     InfoList.value = res.data.data
   }
   const connection = cutA.selectConnection(localStorage.getItem("local"));
-  const publicKey = props.userInfo.walletAddress;
+  const publicKey = userInfo.value.walletAddress;
   const walletAddress = new PublicKey(publicKey);
   const usdcPrize = await connection.getParsedTokenAccountsByOwner(
     walletAddress,
@@ -424,7 +432,7 @@ const hanldeGetStake = async () => {
         },
       });
     } else {
-      const fromAddress = new PublicKey(props.userInfo.walletAddress);
+      const fromAddress = new PublicKey(userInfo.value.walletAddress);
       const userMint = TSGMintAddress
       const umi = useUmiWallet().umi;
       const sourceTokenAccount = await Token.getAssociatedTokenAddress(
@@ -587,125 +595,158 @@ const getHistory = async () => {
     pageText.value = page.value
     size.value = Math.ceil(res.data.data.total / pageNum.value)
   }
-
 }
 
-watch(
-  () => props.activeKey,
-  (newVal, oldVal) => {
-    if (newVal == "1") {
-      tierInit();
-    } else {
-      stakeKey.value = '1'
-    }
-  }
-);
+
+
 </script>
 
 <style lang="scss" scoped>
-.tier {
-  text-align: center;
-  margin: 0 114px;
+.user-info-content {
+  margin-top: 60px;
+  background-color: #1f0c27;
+  border-radius: 32px;
+  padding: 40px;
+  position: relative;
+}
 
-  .desc {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 120%;
+@media (max-width: 576px) {
+  .user-info-content {
+    margin-top: 0;
+    border-radius: 0;
+    padding: 0 0 32px;
   }
+}
 
-  .number-box {
+.userInfo {
+  color: #fff;
+
+  .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    margin-top: 16px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #3f3f3f;
 
-    .value {
-      margin-left: 8px;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 100%;
-      text-align: center;
-      color: #ffffff;
+    .header-left {
+      display: flex;
+      align-items: center;
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-right: 24px;
+      }
+
+      .detailInfo {
+        color: #fff;
+
+        .name {
+          margin-bottom: 16px;
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 20px;
+        }
+
+        .id {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 21px;
+        }
+      }
+    }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+
+      .round-btn {
+        display: flex;
+        align-items: center;
+        margin-right: 24px;
+        border: 1px solid #3f3f3f;
+        padding: 0 22px;
+        border-radius: 32px;
+        height: 48px;
+        line-height: 48px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+        cursor: pointer;
+
+        .edit {
+          margin-left: 24px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .share {
+        cursor: pointer;
+      }
     }
   }
 
-  .tips-box {
-    margin-top: 40px;
+}
 
-    .title1 {
-      margin-bottom: 24px;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 24px;
-      line-height: 20px;
-      /* identical to box height, or 83% */
-      text-align: center;
+@media (max-width: 738px) {
+  .userInfo {
+    .header {
+      display: block;
 
-      color: #ffffff;
-    }
+      .header-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
 
-    .title2 {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 42px;
+        .avatar {
+          width: 60px;
+          height: 60px;
+          margin-right: 0;
+          margin-bottom: 24px;
+        }
 
-      /* White */
-      color: #ffffff;
-    }
+        .detailInfo {
+          .name {
+            font-size: 16px;
+          }
 
-    .process {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      //
-      width: 100%;
-
-      img {
-        z-index: 3;
-        width: 20%;
+          .id {
+            font-size: 12px;
+          }
+        }
       }
 
-      &-line {
-        position: absolute;
-        left: 10%;
-        top: 29.5%;
-        background: #36253d;
-        // background: red;
-        border-radius: 8px;
-        // height: 16px;
-        height: 9%;
-        width: 80%;
-        z-index: 1;
-      }
+      .header-right {
+        margin-top: 32px;
+        justify-content: center;
 
-      &-bar {
-        position: absolute;
-        left: 10%;
-        top: 29.5%;
-        // background: red;
-        background-image: linear-gradient(90deg,
-            #1e58fc,
-            #a427eb,
-            #d914e4,
-            #e10fa3,
-            #f10419);
-        // background: red;
-        border-radius: 8px;
-        // height: 16px;
-        height: 9%;
-        width: 15%;
-        z-index: 2;
+        .round-btn {
+          margin-right: 12px;
+          padding: 0 12px;
+          height: 36px;
+          line-height: 36px;
+          font-size: 12px;
+
+          .edit {
+            margin-left: 12px;
+            width: 12px;
+            height: 12px;
+          }
+        }
+
+        .share {
+          width: 40px;
+
+        }
       }
     }
   }
 }
 
 .stake {
+  margin-top: 40px;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
@@ -746,7 +787,7 @@ watch(
     // border: 1px solid #3f3f3f;
     border-radius: 32px;
     padding: 20px 36px;
-    background-image: url(../assets/wbsite_bg.png);
+    background-image: url(../../assets/wbsite_bg.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 
@@ -783,7 +824,7 @@ watch(
             height: 138.5px;
             bottom: 26px;
             left: 26px;
-            background-image: url(../assets/popup_tips.png);
+            background-image: url(../../assets/popup_tips.png);
             background-size: 100% 100%;
             background-repeat: no-repeat;
             padding: 23px 16px 40px 15px;
@@ -925,7 +966,7 @@ watch(
             height: 138.5px;
             bottom: 26px;
             left: 26px;
-            background-image: url(../assets/popup_tips.png);
+            background-image: url(../../assets/popup_tips.png);
             background-size: 100% 100%;
             background-repeat: no-repeat;
             padding: 23px 16px 40px 15px;
@@ -1319,7 +1360,8 @@ watch(
     padding: 20px 24px;
 
     .stake-token {
-      background-image: url(../assets/sp_bg.png);
+      display: block;
+      background-image: url(../../assets/sp_bg.png);
       padding: 0;
       width: 100%;
       height: auto;

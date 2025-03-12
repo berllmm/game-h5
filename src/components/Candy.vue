@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <Modal v-model="showCandy" width="720px">
+    <Modal v-model="showCandy" width="500px">
       <a-spin :spinning="spinning">
         <div class="wallet-box">
           <p class="wallet-title">BUY</p>
@@ -104,6 +104,18 @@
         </div>
       </a-spin>
     </Modal>
+
+    <Modal v-model="showSuccess" width="500px">
+      <div class="results-box">
+        <div>
+          <div class="result-title">*Please wait a few seconds to receive Candy.</div>
+          <img src="../assets/result-success.svg" class="result-img" />
+          <div class="result-tips">
+            SUCCESSFUL
+          </div>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 <script setup>
@@ -134,12 +146,14 @@ import {
 } from "@solana/spl-token";
 import { transferTokens } from "@metaplex-foundation/mpl-toolbox";
 import Modal from "@/components/Modal.vue";
+import ModalPrize from "@/components/ModalPrize.vue";
 import axios from "@/utils/axios";
 import { cutApartNumberTwo } from "../utils/burn";
 import Tier from "../assets/Tier.png"
 import silver from "../assets/SILVER.png"
 import gold from "../assets/GOLD.png"
 import diamond from "../assets/DIAMOND.png"
+import bs58 from "bs58";
 
 const candyNumList = ref([
   {
@@ -186,6 +200,8 @@ const selectList = ref([
 
 const expImage = ref('')
 
+const showSuccess = ref(false)
+
 onMounted(() => {
   getPrizeInit();
 });
@@ -216,7 +232,6 @@ const getPrizeInit = () => {
   userInfo.value = playerInfo().user;
 
   const info = playerInfo().user
-  console.log(info);
   if (info.vipExp < 3000000) {
     expImage.value = Tier
   } else if (info.vipExp > 3000000 && info.vipExp < 15000000) {
@@ -235,7 +250,6 @@ const getOrder = (item) => {
 
   showCandy.value = true;
   candyType.value = item;
-  console.log(item);
 
   contactList.value = {
     type: "USDC",
@@ -272,7 +286,6 @@ const getUserPay = async () => {
     baseCurrencyAmount: candyType.value.candyPrice,
     currencyCode: contactList.value.type.toLowerCase(),
   });
-  console.log(res);
   if (res.data.code == 200) {
     candyOrder.value = res.data.data.order;
     contactList.value.value = candyOrder.value.currencyNum;
@@ -380,6 +393,7 @@ const walletConect = async () => {
     });
     if (res.data.code == 200) {
       showCandy.value = false;
+      showSuccess.value = true
       userPay().changePay();
     }
   } else {
@@ -411,6 +425,7 @@ const walletConect = async () => {
       });
       if (res.data.code == 200) {
         showCandy.value = false;
+        showSuccess.value = true
         userPay().changePay();
       }
     } else {
@@ -448,6 +463,7 @@ const walletConect = async () => {
       });
       if (res.data.code == 200) {
         showCandy.value = false;
+        showSuccess.value = true
         userPay().changePay();
       }
     }
@@ -513,7 +529,7 @@ const walletConect = async () => {
   }
 
   .candy-box-content {
-    padding: 40px 24px 24px;
+    padding: 40px 40px 24px;
     // border-bottom: 1px solid #3f3f3f;
 
     .candy-info__title {
@@ -525,11 +541,13 @@ const walletConect = async () => {
     .candy-info__desc {
       font-size: 16px;
       font-weight: 400;
+      font-family: 'IBM Plex Sans Regular';
     }
   }
 
   .candy-list {
     margin-top: 24px;
+    padding: 0 40px;
     height: auto;
     // max-height: 500px;
     overflow: auto;
@@ -591,6 +609,9 @@ const walletConect = async () => {
 </style>
 
 <style scoped>
+::-webkit-scrollbar {
+  display: none;
+}
 .wallet-title p {
   font-size: 16px;
 
@@ -873,6 +894,196 @@ div.wallet-tipbox {
 
 .dropdown-item img {
   margin-right: 10px;
+}
+
+/* 弹窗2 样式 */
+.results-box {
+  color: #fff;
+  text-align: center;
+
+  .result-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .result-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .result-center.change-tip {
+    padding-bottom: 20px;
+  }
+
+  .result-center span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .result-center span.change-tip {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .result-center span:nth-child(2) {
+    padding: 0 10px;
+  }
+
+  .result-img {
+    margin: 40px 0;
+    width: 120px;
+    height: 120px;
+  }
+
+  .result-img.change-tip {
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+
+  .result-tips {
+    margin-bottom: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+  }
+
+  .blue-text {
+    color: #3052fa;
+    font-weight: 600;
+  }
+
+  .footer-btn__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+
+    .btn1 {
+      width: 140px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      margin-left: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 48px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(to right, #1f0c27, #1f0c27),
+        linear-gradient(90deg, #1e58fc, #a427eb, #d914e4, #e10fa3, #f10419);
+    }
+
+    .btn2 {
+      width: 140px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      font-size: 20px;
+      display: inline-block;
+      border-radius: 48px;
+      border: 1px solid #3f3f3f;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      cursor: pointer;
+    }
+  }
+
+  .result-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      font-size: 20px;
+      font-weight: 500;
+      color: rgba(140, 128, 145, 1);
+    }
+
+    div {
+      position: relative;
+      width: 200px;
+      height: 48px;
+      margin-left: 15px;
+      border-radius: 126px;
+      border: 1px solid rgba(63, 63, 63, 1);
+      overflow: hidden;
+      text-align: left;
+
+      input {
+        width: calc(100% - 39px);
+        height: 100%;
+        font-size: 32px;
+        border-radius: 126px;
+        background-color: transparent;
+        color: #fff;
+        border: 0;
+        text-align: center;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      img {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .result-text {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+  .result-press {
+    position: relative;
+    width: 100%;
+    height: 16px;
+    border-radius: 34px;
+    margin-top: 35px;
+    overflow: hidden;
+    background: rgba(54, 37, 61, 1);
+
+    .press-active {
+      position: absolute;
+      width: 0%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 34px;
+      background: linear-gradient(90deg, #1E58FC -3.41%, #A427EB 33.84%, #D914E4 50.67%, #E10FA3 74.1%, #F10419 104.15%);
+    }
+  }
+
+  .result-number {
+    margin-top: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      font-size: 20px;
+      color: #fff;
+      font-weight: 400;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {

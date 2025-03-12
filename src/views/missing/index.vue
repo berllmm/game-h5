@@ -370,7 +370,6 @@ const rankData = async () => {
 const getUserInfo = async () => {
   const result = await axios.post("/tsg/player/playerInfo");
   userInfo.value = result.data.data
-  console.log(userInfo.value);
 
 }
 

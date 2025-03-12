@@ -306,8 +306,6 @@ const agianModal = ref(false)
 const agianText = ref('')
 
 const okTipModal = () => {
-  console.log(tipType.value);
-
   if (!tipType.value) {
     tipModal.value = false
     transferPrize()

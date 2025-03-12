@@ -278,7 +278,6 @@ const rarityOrder = ref({
 })
 
 const changeCollection = (val) => {
-  console.log(props.userList);
   
   if (val == 'RARITY') {
     props.userList.sort((a, b) => {

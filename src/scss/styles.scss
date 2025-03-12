@@ -347,28 +347,43 @@ tbody td:last-child {
 
 // 浏览器滚动条样式
 /* 设置滚动条的宽度和高度 */
+// ::-webkit-scrollbar {
+//   width: 2px; /* 垂直滚动条的宽度 */
+//   height: 2px; /* 水平滚动条的高度 */
+// }
+
+// /* 设置滚动条轨道的样式 */
+// ::-webkit-scrollbar-track {
+//   background: transparent; /* 轨道的背景颜色 */
+//   border-radius: 2px; /* 轨道的圆角 */
+// }
+
+// /* 设置滚动条滑块的样式 */
+// ::-webkit-scrollbar-thumb {
+//   // background: #888; /* 滑块的背景颜色 */
+//   background: rgba(255, 255, 255, 0.2);
+//   border-radius: 2px; /* 滑块的圆角 */
+//   border: 1px solid #f1f1f1; /* 滑块的边框 */
+// }
+
+// /* 设置滚动条滑块在悬停时的样式 */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: #555; /* 滑块的悬停背景颜色 */
+// }
+
 ::-webkit-scrollbar {
-  width: 2px; /* 垂直滚动条的宽度 */
-  height: 2px; /* 水平滚动条的高度 */
+  width: 6px;
+  height: 6px;
 }
 
-/* 设置滚动条轨道的样式 */
-::-webkit-scrollbar-track {
-  background: transparent; /* 轨道的背景颜色 */
-  border-radius: 2px; /* 轨道的圆角 */
-}
-
-/* 设置滚动条滑块的样式 */
 ::-webkit-scrollbar-thumb {
-  // background: #888; /* 滑块的背景颜色 */
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px; /* 滑块的圆角 */
-  border: 1px solid #f1f1f1; /* 滑块的边框 */
+  background-color: #4b4b4b;
+  border-radius: 6px;
 }
 
-/* 设置滚动条滑块在悬停时的样式 */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; /* 滑块的悬停背景颜色 */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 6px;
 }
 
 .cursor {

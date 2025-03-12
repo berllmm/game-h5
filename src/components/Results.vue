@@ -387,7 +387,7 @@ const goSell = () => {
 @media (max-width: 576px) {
   .result {
     // height: 80vh;
-    overflow: auto;
+    // overflow: auto;
 
     .select-box {
       margin-top: 20px;

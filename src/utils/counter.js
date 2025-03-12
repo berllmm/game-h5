@@ -117,3 +117,14 @@ export const userSol = defineStore('sol', {
         }
     },
 });
+
+export const Loginbox = defineStore('loginbox', {
+    state: () => ({
+        isLogin: false,
+    }),
+    actions: {
+        changLogin() {
+            this.isLogin = !this.isLogin
+        }
+    },
+});

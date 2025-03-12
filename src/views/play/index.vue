@@ -24,7 +24,6 @@ const toggleMute = () => {
   isMuted.value = !isMuted.value;
 };
 const handleEnd = () => {
-  console.log("播放结束,弹出结果");
 
   handleSkip();
 };

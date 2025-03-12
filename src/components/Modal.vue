@@ -93,8 +93,8 @@ const handleClose = () => {
 /* 关闭按钮样式 */
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   background: none;
   border: none;
   font-size: 20px;
