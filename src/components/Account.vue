@@ -58,6 +58,17 @@
           <img src="../assets/arrow-right.svg" alt="" />
         </div>
       </div>
+      <div @click="goPage('stake')" class="money-item d-flex justify-content-between align-items-center">
+        <div class="left d-flex justify-content-between align-items-center">
+          <img src="../assets/stake-icon.svg" alt="" />
+          <div class="detail-box">
+            <div>Staking</div>
+          </div>
+        </div>
+        <div class="right">
+          <img src="../assets/arrow-right.svg" alt="" />
+        </div>
+      </div>
       <div @click="goPage('accountSetting')" class="money-item d-flex justify-content-between align-items-center">
         <div class="left d-flex justify-content-between align-items-center">
           <img src="../assets/header-setting.svg" alt="" />

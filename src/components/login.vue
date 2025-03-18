@@ -253,7 +253,7 @@ const loginWallet = async (val) => {
         console.error('Connection failed:', err);
       }
     } else {
-      window.location.href = 'https://phantom.app/ul/browse/https%3A%2F%2tokyostupidgames.io?ref=https%3A%2F%2tokyostupidgames.io'
+      window.location.href = 'https://phantom.com/ul/browse/https%3A%2F%2Ftokyostupidgames.io?ref=https%3A%2F%2Ftokyostupidgames.io'
     }
   } else if (val == 'Backpack') {
     if (window.backpack && window.backpack.solana.isBackpack) {
@@ -264,7 +264,7 @@ const loginWallet = async (val) => {
       onSignMessage(wallet)
 
     } else {
-      window.location.href = 'https://backpack.app/ul/browse/https%3A%2F%2tokyostupidgames.io?ref=https%3A%2F%2tokyostupidgames.io'
+      window.location.href = 'https://backpack.app/ul/browse/https%3A%2F%2Ftokyostupidgames.io?ref=https%3A%2F%2Ftokyostupidgames.io'
     }
   } else if (val == 'Solflare') {
     if (window.solflare && window.solflare.isSolflare) {
@@ -276,7 +276,7 @@ const loginWallet = async (val) => {
       onSignMessage(wallet)
 
     } else {
-      window.location.href = 'https://solflare.com/ul/v1/browse/https%3A%2F%2tokyostupidgames.io?ref=https%3A%2F%2tokyostupidgames.io'
+      window.location.href = 'https://solflare.com/ul/v1/browse/https:/tokyostupidgames.io?ref=https://tokyostupidgames.io'
     }
   } else if (val == 'magicEden') {
     if ('magicEden' in window) {
@@ -836,7 +836,7 @@ watch(
   left: 50%;
   transform: translate(-50%, -50%);
   width: 490px;
-    height: 430px;
+  height: 430px;
   padding: 24px;
   z-index: 9999;
   border-radius: 32px;

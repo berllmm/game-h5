@@ -140,7 +140,7 @@ import circle4 from "@/assets/circle4.png";
 import circle5 from "@/assets/circle5.png";
 import FullCardList from "./components/FullCardList.vue";
 import { useRoute, useRouter } from "vue-router";
-import { useChangePrize, userDetailLogin } from "../../utils/counter";
+import { playerInfo, useChangePrize, userDetailLogin } from "../../utils/counter";
 import Modal from "@/components/Modal.vue";
 import { cutApart } from "../../utils/burn";
 import useWindow from "@/hooks/useWindow";
@@ -213,7 +213,7 @@ const getDetailsInit = async () => {
         cardList: findPrize("SR")?.cardInfoList,
       },
       {
-        typeName: "LESS COMMON",
+        typeName: "RARE",
         typeImage: circle3,
         cardList: findPrize("R")?.cardInfoList,
       },
@@ -274,7 +274,12 @@ const loginVisible = ref(false)
 const router = useRouter();
 // 跳转游戏开始界面
 const goPage = async (path) => {
-  
+  if (currentTicketValue.value * detailsList.value.candy > playerInfo().user.candy) {
+    checkTicketTip.value = `Your Candy balance is low, please top up.`
+    tipVisible.value = true
+    return
+  }
+
   const res = await axios.get("/tsg/player/gachaDraw", {
     params: {
       gachaPoolId: detailsList.value.id,
@@ -292,7 +297,7 @@ const goPage = async (path) => {
   } else if (res.data.code == 401) {
     loginVisible.value = true
   } else {
-    if(currentTicketValue.value > (detailsList.totalCardCount - detailsList.drawCardCount)) {
+    if (currentTicketValue.value > (detailsList.totalCardCount - detailsList.drawCardCount)) {
       checkTicketTip.value = `Less than ${currentTicketValue.value} cards in total`
       tipVisible.value = true
       return

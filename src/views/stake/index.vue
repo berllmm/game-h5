@@ -31,7 +31,7 @@
                 <div class="tip-box">
                   <img src="../../assets/Group.svg" @click="openTip" alt="">
                   <div class="left-tip" v-if="isTip">
-                    <p>-APR (25%)</p>
+                    <!-- <p>-APR (25%)</p> -->
                     <p>-Staking 100,000 TSG tokens annually will earn a reward of 25,000 Candy.</p>
                     <p>-The minimum amount of TSG tokens required for staking is 1,500.</p>
                   </div>
@@ -84,7 +84,7 @@
                   <div class="align-items-center" style="text-align: center;">
                     <span class="item-desc d-md-block" v-if="record.type == 1"> Staked</span>
                     <span class="item-desc d-md-block" v-if="record.type == 2"> Unstaked</span>
-                    <span class="item-desc d-md-block" v-if="record.type == 3"> Earing</span>
+                    <span class="item-desc d-md-block" v-if="record.type == 3"> Earned</span>
                   </div>
                 </template>
                 <template v-if="column.key === 'time'">
@@ -102,8 +102,7 @@
                         record.tokenName }}</span>
                     <span class="item-desc d-md-block" v-if="record.type == 3" style="color:#00ff00;">+ {{
                       record.candyNum
-                    }} {{ record.tokenName
-                      }}</span>
+                    }} Candy</span>
                   </div>
                 </template>
               </template>
@@ -134,6 +133,18 @@
           </div>
         </div>
 
+        <Modal v-model="loadingTip" width="400px">
+          <div class="results-box">
+            <div>
+              <!-- <img src="../../assets/tip_error.svg" class="result-img" /> -->
+              <!-- <div class="result-title">Error</div> -->
+              <div class="soon-box">
+                Staking, please wait for the webpage pop-up window to appear successfully
+              </div>
+            </div>
+          </div>
+        </Modal>
+
         <Modal v-model="errorTip" width="400px">
           <div class="results-box">
             <div>
@@ -146,13 +157,13 @@
           </div>
         </Modal>
 
-        <Modal v-model="stakeTip" width="720px">
+        <Modal v-model="stakeTip" width="600px">
           <div class="results-box">
             <div>
               <div class="result-input">
                 <span>amount</span>
                 <div>
-                  <input type="text" v-model="stakePrize">
+                  <input type="text" v-model="stakePrize" @input="changeTagPrize" placeholder="amount">
                   <img src="../../assets/changepen.svg" alt="">
                 </div>
               </div>
@@ -162,14 +173,14 @@
               <div class="result-text" v-else>
                 How many TSG tokens would you like to unstake?
               </div>
-              <div class="result-press">
-                <div v-if="isStake" class="press-active" :style="`width:${complatePrize(stakePrize)}%;`"></div>
-                <div v-else class="press-active" :style="`width:${complateUnstake(stakePrize)}%;`"></div>
+              <div class="result-press" @mousedown="onMouseDown">
+                <div v-if="isStake" class="press-active" :style="`width:${highlightWidth}%;`"></div>
+                <div v-else class="press-active" :style="`width:${highlightWidth}%;`"></div>
               </div>
               <div class="result-number">
-                <span>0%</span>
-                <span>50%</span>
-                <span>100%</span>
+                <span @click="changePrize('0')">0%</span>
+                <span @click="changePrize('5')">50%</span>
+                <span @click="changePrize('10')">100%</span>
               </div>
             </div>
             <div class="footer-btn__modal footer-btn__modal2">
@@ -197,9 +208,9 @@
         <Modal v-model="showTip" width="500px">
           <div class="results-box">
             <div>
-              <img src="../../assets/tip_error.svg" class="result-img" />
+              <!-- <img src="../../assets/tip_error.svg" class="result-img" /> -->
               <div class="result-tips-tip">
-                <p>-APR (25%)</p>
+                <!-- <p>-APR (25%)</p> -->
                 <p>-Staking 100,000 TSG tokens annually will earn a reward of 25,000 Candy.</p>
                 <p>-The minimum amount of TSG tokens required for staking is 1,500.</p>
               </div>
@@ -244,15 +255,15 @@ import morAvantar from "@/assets/avatar.svg"
 
 const columns = ref([
   {
-    title: 'TYPE',
+    title: 'Type',
     key: 'type',
     align: 'center',
   }, {
-    title: 'TIME',
+    title: 'Time',
     key: 'time',
     align: 'center',
   }, {
-    title: 'DETAIL',
+    title: 'Details',
     key: 'detail',
     align: 'center',
   }
@@ -278,6 +289,7 @@ const showTip = ref(false)
 const stakemintip = ref(false)
 const minText = ref('')
 const successText = ref('')
+const loadingTip = ref(false)
 
 const page = ref(1)
 const size = ref(0)
@@ -380,26 +392,24 @@ const goPageText = () => {
   getHistory()
 }
 
-const complatePrize = (val) => {
-  const num = val / usdcAccount.value * 100
-  return num
-}
-
-const complateUnstake = (val) => {
-  const num = val / InfoList.value.stakingToken?.tokenNum * 100
-  return num
-}
-
 const stakingToken = async () => {
   if (usdcAccount.value == 0) {
     errorTip.value = true
     return
   }
+  highlightWidth.value = 0
+  stakePrize.value = 0
+  startX.value = 0
+  lastProgress.value = 0
+  highlightWidth.value = 0
   isStake.value = true
   stakeTip.value = true
 }
 
 const hanldeGetStake = async () => {
+  loadingTip.value = true
+  stakeTip.value = false
+
   if (stakePrize.value < 1500) {
     minText.value = 'The minimum staking amount is 1500 TSG.'
     stakemintip.value = true
@@ -432,6 +442,7 @@ const hanldeGetStake = async () => {
         },
       });
     } else {
+
       const fromAddress = new PublicKey(userInfo.value.walletAddress);
       const userMint = TSGMintAddress
       const umi = useUmiWallet().umi;
@@ -454,18 +465,21 @@ const hanldeGetStake = async () => {
         authority: fromAddress,
         amount: transferLamports,
       }).sendAndConfirm(umi);
-
+      console.log(tx);
+      
       const res = await axios.get("/tsg/pay/reqWalletPay", {
         params: {
           gameOrderId: orderList.value.gameOrderId,
           transactionId: bs58.encode(tx.signature),
         },
-      });
+      }); 
+
     }
+
+    loadingTip.value = false
     isStake.value = true
     successText.value = 'Staking successful'
     showSuccess.value = true
-    stakeTip.value = false
     stakePrize.value = 0
     orderList.value = 0
     reqWallet()
@@ -479,6 +493,10 @@ const hanldeClose = () => {
   showSuccess.value = false
   orderList.value = {}
   stakePrize.value = 0
+  stakePrize.value = 0
+  startX.value = 0
+  lastProgress.value = 0
+  highlightWidth.value = 0
 }
 
 const unstakingToken = () => {
@@ -487,6 +505,11 @@ const unstakingToken = () => {
     stakemintip.value = true
     return
   }
+  stakePrize.value = 0
+  startX.value = 0
+  lastProgress.value = 0
+  highlightWidth.value = 0
+  stakePrize.value = 0
   isStake.value = false
   stakeTip.value = true
 }
@@ -575,7 +598,6 @@ const backTime = (value) => {
   return year + '-' + month + '-' + day;
 }
 
-
 // type 1 质押  2 解除质押 3 candy收益 
 const getHistory = async () => {
   const res = await axios.get('/tsg/player/stakingTokenLog', {
@@ -597,7 +619,90 @@ const getHistory = async () => {
   }
 }
 
+const changePrize = (val) => {
+  if (isStake.value) {
+    if (val == '0') {
+      highlightWidth.value = 0
+      stakePrize.value = 0
+    } else if (val == '5') {
+      highlightWidth.value = 50
+      stakePrize.value = usdcAccount.value * 0.5
+    } else if (val == '10') {
+      highlightWidth.value = 100
+      stakePrize.value = usdcAccount.value
+    }
+  } else {
+    if (val == '0') {
+      stakePrize.value = 0
+      highlightWidth.value = 0
+    } else if (val == '5') {
+      highlightWidth.value = 50
+      stakePrize.value = InfoList.value.stakingToken?.tokenNum * 0.5
+    } else if (val == '10') {
+      highlightWidth.value = 100
+      stakePrize.value = InfoList.value.stakingToken?.tokenNum
+    }
+  }
+}
 
+const changeTagPrize = () => {
+  if (isStake.value) {
+    highlightWidth.value = stakePrize.value / usdcAccount.value * 100
+  } else {
+    highlightWidth.value = stakePrize.value / InfoList.value.stakingToken?.tokenNum * 100
+  }
+}
+
+const isDragging = ref(false); // 是否正在拖动
+const startX = ref(0); // 鼠标点击时的起始位置
+const highlightWidth = ref(0)
+const lastProgress = ref(0);
+
+const onMouseDown = (event) => {
+  event.preventDefault();
+
+  isDragging.value = true;
+  startX.value = event.clientX || event.touches[0].clientX;
+
+  // 添加鼠标移动和鼠标抬起事件监听器
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
+}
+
+// 鼠标移动事件
+const onMouseMove = (event) => {
+  if (!isDragging.value) return;
+  let barBox = document.querySelector('.result-press')
+  // let progressBarWidth = document.querySelector('.result-press').clientWidth
+  // console.log(progressBarWidth);
+  let progressBarWidth = barBox.getBoundingClientRect().width
+
+  const clientX = event.clientX || event.touches[0].clientX;
+
+  const diff = clientX - startX.value;
+  let newWidth = lastProgress.value + (diff / progressBarWidth) * 100;
+
+  // 确保进度在 0% 到 100% 之间
+  newWidth = Math.min(Math.max(newWidth, 0), 100);
+
+  highlightWidth.value = newWidth;
+
+  if (isStake.value) {
+    stakePrize.value = Math.floor(highlightWidth.value * usdcAccount.value / 100)
+  } else {
+    stakePrize.value = Math.floor(highlightWidth.value * InfoList.value.stakingToken?.tokenNum / 100)
+  }
+
+
+};
+
+// 鼠标抬起事件
+const onMouseUp = () => {
+  isDragging.value = false;
+  lastProgress.value = highlightWidth.value;
+  window.removeEventListener('mousemove', onMouseMove);
+  window.removeEventListener('mouseup', onMouseUp);
+};
 
 </script>
 
@@ -1082,6 +1187,10 @@ const getHistory = async () => {
   color: #fff;
   text-align: center;
 
+  .soon-box {
+    padding: 60px 0;
+  }
+
   .result-title {
     font-size: 24px;
     font-weight: 600;
@@ -1242,6 +1351,7 @@ const getHistory = async () => {
   }
 
   .result-press {
+    display: block;
     position: relative;
     width: 100%;
     height: 16px;
@@ -1272,6 +1382,7 @@ const getHistory = async () => {
       font-size: 20px;
       color: #fff;
       font-weight: 400;
+      cursor: pointer;
     }
   }
 }
@@ -1442,6 +1553,11 @@ const getHistory = async () => {
         }
       }
     }
+  }
+
+  .result-press {
+    width: 100%;
+    /* 强制宽度占满父元素 */
   }
 }
 </style>
