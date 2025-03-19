@@ -1,19 +1,17 @@
 <template>
     <Teleport to="body">
-      <!-- 大屏显示弹窗 -->
+      <!-- wdith>1280px -->
       <div class="d-none d-sm-block">
         <div v-if="modelValue" class="modal-overlay">
           <div class="modal-content" :style="{ width }">
-            <!-- 关闭按钮 -->
             <!-- <button class="close-button" @click="closeModal">×</button> -->
             <img src="../assets/simpleClose.svg" class="close-button" @click="closeModal" alt="" />
-            <!-- 插槽内容 -->
             <slot></slot>
           </div>
         </div>
       </div>
   
-      <!-- 小屏显示底部抽屉 -->
+      <!-- width<768px -->
       <div class="d-block d-md-none">
         <div v-if="modelValue" class="modal-overlay">
           <div v-if="modelValue" class="drawer d-block d-sm-none" :class="{ open: modelValue }">
@@ -24,7 +22,6 @@
                 </div>
               </div>
               <div class="drawer-body">
-                <!-- 插槽内容 -->
                 <slot></slot>
               </div>
             </div>

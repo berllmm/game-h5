@@ -253,7 +253,7 @@
 import { ref, reactive, onMounted, onUnmounted, watch, computed } from "vue";
 import login from "@/components/login.vue";
 import Account from "@/components/Account.vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import VueCookie from "vue-cookie";
 import Candy from "@/components/Candy.vue";
 import { selectConnection, selectWallet, cutApart } from "@/utils/burn";
@@ -351,6 +351,8 @@ const getLoginInit = async () => {
 
   await getPrize();
 
+  await getNoSell()
+
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.search);
 
@@ -368,6 +370,23 @@ const getLoginInit = async () => {
   }
   await getWalletPrize();
 };
+
+const route = useRoute()
+
+const getNoSell = async () => {
+  const routerLIst = ["/result", '/sell', '/shipping'];
+
+  if (routerLIst.includes(route.path)) {
+    return
+  }
+
+  const res = await axios.get('/tsg/player/getCardWaitList')
+
+  if (res.data.data.length > 0) {
+    localStorage.setItem('redeem', JSON.stringify(res.data.data))
+    router.push({ path: '/result' })
+  }
+}
 
 const walletAddress = computed(
   () => {

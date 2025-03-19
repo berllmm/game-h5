@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!-- 触发登录按钮 -->
+    <!-- Login button -->
     <img class="loginbtn" src="../assets/login.svg" @click="showLogin = true" />
 
-    <!-- 大屏：模态框 -->
+    <!-- width（>1280px） -->
     <div v-if="showLogin && !showVerificationModal" class="d-none d-sm-block">
       <div class="modal" :class="{ 'd-block': showLogin }" tabindex="-1">
         <div class="modal-dialog">
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <!-- 小屏：底部抽屉 -->
+    <!-- width(<768px) -->
     <div v-if="!showVerificationModal" class="drawer d-block d-sm-none" :class="{ open: showLogin }">
       <div class="drawer-content login-box-small">
         <div class="drawer-header">
@@ -121,21 +121,21 @@
       </div>
     </div>
 
-    <!-- 蒙层 -->
+    <!-- Mask -->
     <div v-if="showLogin" class="overlay" @click="handleClose"></div>
 
-    <!-- 安全验证弹框 -->
+    <!-- secure box -->
     <div v-show="showVerificationModal" class="verification-modal">
       <div class="d-flex align-items-center justify-content-end">
         <img @click="handleCancel" src="../assets/simpleClose.svg" alt="" />
       </div>
       <div class="modal-title">Security verification</div>
-      <!-- 第一步验证 -->
+      <!-- first -->
       <div v-show="!showCodeModal">
         <div class="content"></div>
         <div @click="handleVerify" class="base-round-border m-40">Verify</div>
       </div>
-      <!-- 第二步验证 -->
+      <!-- secdeen -->
       <div v-show="showCodeModal">
         <div class="tips">Please enter the code we’ve sent to your email</div>
         <VerificationCodeInput :digits="digits" />

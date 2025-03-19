@@ -23,11 +23,11 @@
             </div>
           </template>
 
-          <template v-if="column.key === 'price'">
+          <!-- <template v-if="column.key === 'price'">
             <div class="align-items-center" style="text-align: center;">
-              {{ cutApart(record.gachaCard?.usd) }} USDC
+              {{ cutApartNumberTwo(record.gachaCard?.usd / 100) }} USDC
             </div>
-          </template>
+          </template> -->
 
           <template v-if="column.key === 'winner'">
             <div class="d-flex align-items-center">
@@ -95,7 +95,7 @@ import morAvantar from "@/assets/avatar.svg";
 import item1 from "@/assets/item1.png";
 import item2 from "@/assets/item2.png";
 import item3 from "@/assets/item3.png";
-import { cutApart } from "../utils/burn";
+import { cutApart, cutApartNumberTwo } from "../utils/burn";
 
 const { isLargeWindow } = useWindow();
 const columns = ref([
@@ -112,13 +112,13 @@ const columns = ref([
     width: "10%",
     align: 'center'
   },
-  {
-    title: "PRICE",
-    dataIndex: "price",
-    key: "price",
-    width: "18%",
-    align: 'center'
-  },
+  // {
+  //   title: "PRICE",
+  //   dataIndex: "price",
+  //   key: "price",
+  //   width: "18%",
+  //   align: 'center'
+  // },
   {
     title: "OWNER",
     key: "winner",
@@ -209,13 +209,13 @@ watch(
           width: "10%",
           align: "center",
         },
-        {
-          title: "PRICE",
-          dataIndex: "price",
-          key: "price",
-          width: "13%",
-          align: "center",
-        },
+        // {
+        //   title: "PRICE",
+        //   dataIndex: "price",
+        //   key: "price",
+        //   width: "13%",
+        //   align: "center",
+        // },
         {
           title: "OWNER",
           key: "winner",

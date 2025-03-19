@@ -1,5 +1,5 @@
 <template>
-  <!-- 在中等屏幕（≥576px ）上显示 -->
+  <!-- width（≥576px ） -->
 
   <div id="carouselExample" class="carousel slide banner d-none d-sm-block">
     <div class="carousel-inner">
@@ -40,8 +40,8 @@
         </div>
       </div>
     </div>
-    <!-- 切换按钮 -->
-    <!-- 在中等屏幕（≥576px ）上显示 -->
+    <!-- check button -->
+    <!-- width（≥576px ） -->
     <img
       @click="handlePrev"
       class="btn-perv d-none d-sm-block cursor"
@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <!-- 在小屏幕（<576px）上显示 -->
+  <!-- width（<576px） -->
   <div id="carouselExample2" class="carousel slide banner d-block d-sm-none">
     <div class="carousel-inner">
       <div class="carousel-item active small-img-box">
@@ -125,7 +125,7 @@
         </div>
       </div>
     </div>
-    <!-- 指示器 -->
+    <!-- Tip -->
     <div class="carousel-indicators d-block d-sm-none">
       <button
         type="button"

@@ -1,5 +1,5 @@
 <template>
-  <!-- 小屏幕显示标题 -->
+  <!-- width (<768) -->
   <div class="base-title base-border d-block d-sm-none">
     <img
       v-if="showBackIcon"

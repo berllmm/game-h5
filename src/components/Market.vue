@@ -1,7 +1,6 @@
 <template>
   <div class="market-box">
-    <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
-    <!-- 向右切换按钮 -->
+    <!-- width（≥576px | <992px） -->
     <!-- <img @click="handleScroll" src="../assets/banner-right.svg" class="cursor right-icon d-none d-sm-block" /> -->
     <div class="market d-none d-sm-block">
       <div class="title base-border">Marketplace</div>
@@ -41,7 +40,7 @@
       </div>
     </div>
 
-    <!-- 在小屏幕（<576px）上显示 -->
+    <!-- width（<576px） -->
     <div class="market market-small d-block d-sm-none">
       <div class="title base-border">MARKETPLACE</div>
 

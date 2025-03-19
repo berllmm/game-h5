@@ -55,7 +55,6 @@
       </div>
     </div>
 
-    <!-- 订单详情弹窗 -->
     <Modal v-model="showContentModal">
       <div class="order-content-title">Order No. {{ currentOrder.id }}</div>
       <a-table :dataSource="currentOrderList" :columns="columns2" :bordered="false" :pagination="false"

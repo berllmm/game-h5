@@ -99,13 +99,13 @@
     </div>
   </div>
 
-  <!-- wallets 列表 -->
+  <!-- wallets List -->
   <div>
     <Modal v-model="showWallet" width="720px">
       <div class="wallets">
         <div class="title base-border">WALLETS</div>
 
-        <!-- 钱包1 -->
+        <!-- Wallet 1 -->
         <div class="wallets-item wallets-item-border">
           <div class="d-flex align-item-center justify-content-between">
             <span class="fs-20">

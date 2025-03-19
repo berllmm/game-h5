@@ -1,6 +1,6 @@
 <template>
   <div class="faq-box">
-    <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
+    <!-- width（≥576px | <992px） -->
     <div class="faq d-none d-sm-block">
       <div class="title base-border">FAQ</div>
 
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <!-- 在小屏幕（<576px）上显示 -->
+    <!-- wdith（<576px） -->
     <div class="faq faq-small d-block d-sm-none">
       <div class="title base-border">FAQ</div>
 

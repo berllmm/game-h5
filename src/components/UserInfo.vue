@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="content">
-        <!-- tabs标题 -->
+        <!-- tabs -->
         <div class="tabs">
           <div @click="handleSwitch('1')" class="tabs-item" :class="activeKey === '1' ? 'active' : ''">
             Tier

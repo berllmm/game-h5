@@ -8,11 +8,7 @@
         <span :class="'color-' + index">{{ item.typeName }}</span>
       </div>
       <div class="card-list">
-        <div
-          v-for="(imgItem, imgIndex) in item.cardList"
-          :key="imgIndex"
-          class="p-1"
-        >
+        <div v-for="(imgItem, imgIndex) in item.cardList" :key="imgIndex" class="p-1">
           <div class="img-box mb-3">
             <img :src="imgItem.image" class="card-list__img" />
           </div>
@@ -82,21 +78,27 @@ const props = defineProps({
       }
 
       .card-list__img {
-        width: 100%;
-        // width: 154px;
+        // width: 100%;
+        width: 154px;
+        height: 215px;
+        object-fit: contain;
       }
     }
   }
 }
+
 .color-0 {
   color: #f9f2a1;
 }
+
 .color-1 {
   color: #fdf3ed;
 }
+
 .color-2 {
   color: #fe383b;
 }
+
 .color-3 {
   color: #fff011;
 }
@@ -109,10 +111,18 @@ const props = defineProps({
       font-size: 20px;
       color: #ffffff;
     }
+
     .type-item {
       .card-list {
         .img-box {
           width: 147px;
+        }
+
+        .card-list__img {
+          // width: 100%;
+          width: 115px;
+          height: 160px;
+          object-fit: contain;
         }
       }
     }

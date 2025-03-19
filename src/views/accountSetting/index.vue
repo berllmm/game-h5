@@ -322,13 +322,28 @@ const handleFileChange = async (event) => {
     reader.readAsDataURL(file);
     const { fileUrl, filePath } = await uploadManager.upload({
       data: file, onProgress: ({ progress }) => {
-        isProgress.value = true
-        progressNumber.value = progress
+        console.log(progress);
+
+        if (progress >= 100) {
+          isProgress.value = true
+        } else {
+          isProgress.value = true
+          progressNumber.value = progress
+        }
       }
     });
-    isProgress.value = false
-    userImage.value = fileUrl;
-    user.value.avatarUrl = fileUrl
+
+    setTimeout(() => {
+      userImage.value = fileUrl;
+      user.value.avatarUrl = fileUrl
+      progressNumber.value = 100
+    }, 1000)
+
+    setTimeout(() => {
+      userImage.value = fileUrl;
+      user.value.avatarUrl = fileUrl
+      isProgress.value = false
+    }, 2000);
   } else {
     alert('Please select a valid image file.')
   }

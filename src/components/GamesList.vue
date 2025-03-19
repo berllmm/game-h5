@@ -1,7 +1,6 @@
 <template>
   <div class="game-box">
-    <!-- 在中等屏幕（≥576px 且 <992px）上显示 -->
-    <!-- 向右切换按钮 -->
+    <!-- width（≥576px | <992px） -->
     <!-- <img
       @click="handleScroll"
       src="../assets/banner-right.svg"
@@ -29,7 +28,7 @@
       </div>
     </div>
 
-    <!-- 在小屏幕（<576px）上显示 -->
+    <!-- wdith（<576px） -->
     <div class="game game-small d-block d-sm-none">
       <div class="title base-border">GACHA GAMES</div>
 

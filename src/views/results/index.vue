@@ -12,11 +12,7 @@
       <div class="results-box">
         <div>
           <div class="result-title">{{ tip }}</div>
-          <img
-            v-if="tipVisible"
-            src="../../assets/result-success.svg"
-            class="result-img"
-          />
+          <img v-if="tipVisible" src="../../assets/result-success.svg" class="result-img" />
           <img v-else src="../../assets/result-err.svg" class="result-img" />
           <div class="result-tips">
             {{ tipText }}
@@ -129,7 +125,6 @@ const goPage = () => {
   position: relative;
 }
 
-// 弹窗2 样式
 .results-box {
   color: #fff;
   text-align: center;
@@ -157,6 +152,13 @@ const goPage = () => {
   }
 
   .btn2 {
+    padding: 12px 24px;
+    font-size: 20px;
+    display: inline-block;
+    border-radius: 48px;
+    border: 1px solid #3f3f3f;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
     cursor: pointer;
   }
 }
@@ -166,6 +168,7 @@ const goPage = () => {
     // margin: 12px 24px;
     margin: 0;
   }
+
   .modal-border {
     border-radius: 0;
     border: none;
@@ -186,6 +189,7 @@ const goPage = () => {
   color: #ffffff;
   font-size: 20px;
   font-weight: 600;
+
   div {
     width: 240px;
     text-align: center;
@@ -229,6 +233,7 @@ const goPage = () => {
       margin-right: 0;
       font-size: 16px;
     }
+
     .btn2 {
       font-size: 16px;
     }

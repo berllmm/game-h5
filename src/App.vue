@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import Header from "./layout/Header.vue";
 import Footer from "./layout/Footer.vue";
@@ -10,18 +10,34 @@ const { windowWidth } = useWindow();
 
 const hideHeader = computed(() => {
   // 不需要header和footer的页面列表
-  const routerLIst = ["/missing", "/account-setting", "/result", "/user-info",'/sell'];
-  return routerLIst.includes(route.path) && windowWidth.value < 576;
+  const routerLIst = ["/missing", "/account-setting", "/result", "/user-info", '/sell', '/shipping'];
+
+  if (routerLIst.includes(route.path)) {
+    if (windowWidth.value < 576) {
+      return true
+    } else {
+      if (route.path == '/missing') {
+        return false
+      } else if (route.path == '/account-setting') {
+        return false
+      } else if (route.path == '/user-info') {
+        return false
+      } else {
+        return true
+      }
+
+    }
+  } else {
+    return false
+  }
 });
+
 </script>
 
 <template>
   <div class="main">
     <Header v-if="!hideHeader" />
-    <div
-      class="main-box container"
-      :class="hideHeader ? 'special-container' : ''"
-    >
+    <div class="main-box container" :class="hideHeader ? 'special-container' : ''">
       <router-view></router-view>
     </div>
     <!-- <router-view v-slot="{ Component }">
@@ -47,6 +63,7 @@ const hideHeader = computed(() => {
   background-size: cover;
   min-height: 100vh;
   min-width: 100%;
+
   .main-box {
     flex: 1;
   }
@@ -58,6 +75,7 @@ const hideHeader = computed(() => {
 }
 
 @media (min-width: 1200px) {
+
   .container-xxl,
   .container-xl,
   .container-lg,
@@ -73,10 +91,12 @@ const hideHeader = computed(() => {
   .special-container {
     padding: 0;
   }
+
   .container {
     // padding: 0 24px;
   }
 }
+
 // special-container
 
 // .main::before {
@@ -95,5 +115,4 @@ const hideHeader = computed(() => {
 //     #e10fa3 100%
 //   );
 //   opacity: 0.2; /* 只影响背景图像 */
-// }
-</style>
+// }</style>

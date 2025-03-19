@@ -11,7 +11,7 @@
         </template>
         <template v-if="column.key === 'usdcPrice'">
           <div class="align-items-center" style="text-align: center;">
-            <span class="item-desc d-md-block">{{ cutApart(record.usd) }}</span>
+            <span class="item-desc d-md-block">{{ cutApartNumberTwo(record.usd / 100) }}</span>
           </div>
         </template>
         <template v-if="column.key === 'candyPrice'">
@@ -40,7 +40,7 @@
       <span style="margin-right: 70px;">TOTAL</span>
       <span class="d-flex align-items-center" style="margin-right: 56px;">
         <img src="../assets/count.svg" style="margin: 0 8px" />
-        {{ cutApart(allUSDC) }}
+        {{ cutApartNumberTwo(allUSDC / 100) }}
       </span>
       <span class="d-flex align-items-center">
         <img src="../assets/candy.svg"  style="margin: 0 8px"/>
@@ -89,7 +89,7 @@
         <div class="result-title">{{ tipTitle }}</div>
         <div class="result-center">
           <img v-if="!tipType" src="../assets/candy.svg" width="32" alt="">
-          <span>{{ cutApart(tipPrize) }}</span>
+          <span>{{ tipPrize }}</span>
           <span v-if="tipType">USDC</span>
         </div>
         <div class="result-tips">{{ tipFoot }}</div>
@@ -123,7 +123,7 @@ import { useRouter } from "vue-router";
 import { customHeaderCell, customCell } from "@/utils";
 import axios from "@/utils/axios";
 import { playerInfo, useChangePrize, useSell } from "../utils/counter";
-import { cutApart, cutApartNumber } from "../utils/burn";
+import { cutApart, cutApartNumber, cutApartNumberTwo } from "../utils/burn";
 import Modal from "@/components/Modal.vue";
 
 const allUSDC = ref(0)
@@ -286,12 +286,12 @@ const exchangePrize = (val) => {
   if (val == 1) {
     tipTitle.value = 'Are you sure you want to exchange?'
     tipFoot.value = 'TIPS: Please note, transaction results irreversible'
-    tipPrize.value = allCandy.value + ''
+    tipPrize.value = cutApart(allCandy.value) + ''
     tipType.value = false
   } else {
     tipTitle.value = 'Are you sure you want to exchange?'
     tipFoot.value = 'TIPS: Please note, transaction results irreversible'
-    tipPrize.value = allUSDC.value + ''
+    tipPrize.value = cutApartNumberTwo(allUSDC.value / 100) + ''
     tipType.value = true
   }
 

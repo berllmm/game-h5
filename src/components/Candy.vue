@@ -1101,7 +1101,7 @@ div.wallet-tipbox {
 
   .wallet-box {
     top: 5%;
-    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
   }
 
   .buy::before {
