@@ -128,3 +128,14 @@ export const Loginbox = defineStore('loginbox', {
         }
     },
 });
+
+export const VideoUrl = defineStore('video', {
+    state: () => ({
+        url: '',
+    }),
+    actions: {
+        changeUrl(val) {
+            this.url = val
+        }
+    },
+});

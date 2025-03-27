@@ -4,7 +4,9 @@
 
     <div v-for="(item, index) in props.imgData" :key="index" class="type-item">
       <div class="title-box" v-if="item.cardList.length > 0">
-        <img :src="item.typeImage" class="item-type__image" />
+        <div>
+          <img :src="item.typeImage" class="item-type__image" />
+        </div>
         <span :class="'color-' + index">{{ item.typeName }}</span>
       </div>
       <div class="card-list">
@@ -57,12 +59,26 @@ const props = defineProps({
     font-weight: 700;
 
     .title-box {
-      margin: 24px;
+      display: flex;
+      align-items: center;
+      margin: 84px 24px 44px 24px;
+
+      div {
+        display: flex;
+        justify-content: right;
+        width: 50%;
+
+        .item-type__image {
+          width: 60px;
+        }
+      }
+
+      span {
+        margin-left: 15px;
+      }
     }
 
-    .item-type__image {
-      width: 120px;
-    }
+
 
     .card-list {
       display: flex;
@@ -87,21 +103,21 @@ const props = defineProps({
   }
 }
 
-.color-0 {
-  color: #f9f2a1;
-}
+// .color-0 {
+//   color: #f9f2a1;
+// }
 
-.color-1 {
-  color: #fdf3ed;
-}
+// .color-1 {
+//   color: #fdf3ed;
+// }
 
-.color-2 {
-  color: #fe383b;
-}
+// .color-2 {
+//   color: #fe383b;
+// }
 
-.color-3 {
-  color: #fff011;
-}
+// .color-3 {
+//   color: #fff011;
+// }
 
 @media (max-width: 576px) {
   .full {
@@ -123,6 +139,13 @@ const props = defineProps({
           width: 115px;
           height: 160px;
           object-fit: contain;
+        }
+      }
+
+
+      .title-box {
+        div {
+          width: 30%;
         }
       }
     }

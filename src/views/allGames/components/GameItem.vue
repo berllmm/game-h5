@@ -106,10 +106,13 @@ const goPage = (uid) => {
 
     .game-desc {
       font-size: 16px;
+      font-family: 'IBM Plex Sans Regular';
     }
 
     .fb {
       font-weight: 600;
+      font-family: 'IBM Plex Sans Regular';
+      margin-left: 5px;
     }
 
     .btn {

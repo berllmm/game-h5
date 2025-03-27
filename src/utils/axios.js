@@ -2,8 +2,8 @@ import axios from 'axios';
 import VueCookie from 'vue-cookie';
 
 const instance = axios.create({
-    baseURL: 'https://tokyostupidgames.io'
-    // baseURL: 'https://test-tsg.com'
+    // baseURL: 'https://tokyostupidgames.io'
+    baseURL: 'https://test-tsg.com'
     // baseURL: 'http://192.168.1.234:19401'
 
 });

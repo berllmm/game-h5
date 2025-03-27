@@ -140,7 +140,7 @@ import circle4 from "@/assets/circle4.png";
 import circle5 from "@/assets/circle5.png";
 import FullCardList from "./components/FullCardList.vue";
 import { useRoute, useRouter } from "vue-router";
-import { playerInfo, useChangePrize, userDetailLogin } from "../../utils/counter";
+import { playerInfo, useChangePrize, userDetailLogin, VideoUrl } from "../../utils/counter";
 import Modal from "@/components/Modal.vue";
 import { cutApart } from "../../utils/burn";
 import useWindow from "@/hooks/useWindow";
@@ -153,18 +153,23 @@ const route = useRoute();
 
 const imgData = ref([
   {
-    typeName: "SUPER RARE",
+    typeName: "SUPER SUPER RARE",
     typeImage: circle1,
     cardList: [],
   },
   {
-    typeName: "RARE",
+    typeName: "SUPER RARE",
     typeImage: circle2,
     cardList: [],
   },
   {
-    typeName: "LESS COMMON",
+    typeName: "RARE",
     typeImage: circle3,
+    cardList: [],
+  },
+  {
+    typeName: "LESS COMMON",
+    typeImage: circle4,
     cardList: [],
   },
   {
@@ -185,7 +190,7 @@ const changeCurrentImage = (img) => {
 
 onMounted(() => {
   isPC.value = isLargeWindow.value
-
+  VideoUrl().changeUrl('')
   getDetailsInit();
 });
 
@@ -224,7 +229,7 @@ const getDetailsInit = async () => {
       },
       {
         typeName: "NORMAL RARE",
-        typeImage: circle5,
+        typeImage: circle4,
         cardList: findPrize("NR")?.cardInfoList,
       },
       {
@@ -270,6 +275,7 @@ const handleSwitchCurrentTicketValue = (value) => {
 };
 
 const loginVisible = ref(false)
+import { videoList } from "../../utils/video";
 
 const router = useRouter();
 // 跳转游戏开始界面
@@ -288,10 +294,37 @@ const goPage = async (path) => {
   });
   if (res.data.code == 200) {
     const code = res.data.data.gachaCardList;
+    console.log(code);
+
     localStorage.setItem("gachaId", detailsList.value.id);
     localStorage.setItem("count", currentTicketValue.value);
     localStorage.setItem("redeem", JSON.stringify(code));
     useChangePrize().changePrize();
+
+    // 定义rarity的权重映射
+    const rarityWeights = {
+      "LASTONE": 6,
+      "SSR": 5,
+      "SR": 4,
+      "R": 3,
+      "L": 2,
+      "NR": 1
+    };
+
+    // 按照权重排序，返回权重最高的元素
+    const highestRarityItem = code.sort((a, b) => rarityWeights[b.rarity] - rarityWeights[a.rarity])[0];
+
+    console.log(highestRarityItem.rarity);
+
+    const list = videoList(detailsList.value.name)
+
+    if (highestRarityItem.rarity == 'SSR' || highestRarityItem.rarity == 'SR' || highestRarityItem.rarity == 'LASTONE') {
+      VideoUrl().changeUrl(list.SSR)
+    } else if (highestRarityItem.rarity == 'R' || highestRarityItem.rarity == 'L') {
+      VideoUrl().changeUrl(list.R)
+    } else if (highestRarityItem.rarity == 'NR') {
+      VideoUrl().changeUrl(list.NR)
+    }
 
     router.push(path);
   } else if (res.data.code == 401) {
@@ -415,7 +448,7 @@ const goLogin = () => {
       font-size: 16px;
       line-height: 21px;
       letter-spacing: 0.8px;
-
+      font-family: 'IBM Plex Sans Regular';
       color: #ffffff;
     }
 

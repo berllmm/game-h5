@@ -279,10 +279,10 @@ const goPage = (path) => {
     window.open('https://docs.tokyostupidgames.io/help/faq', "_blank")
     return
   }
-  if (path == 'market') {
-    marketBox.value = true
-    return
-  }
+  // if (path == 'market') {
+  //   marketBox.value = true
+  //   return
+  // }
 
   router.push({ name: `${path}` });
 };

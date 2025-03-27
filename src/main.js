@@ -15,7 +15,8 @@ import {
   Radio,
   Upload,
   Spin,
-  Progress
+  Progress,
+  Tooltip
 } from "ant-design-vue";
 
 import VueCookie from 'vue-cookie'
@@ -46,6 +47,7 @@ app.use(Select);
 app.use(Radio);
 app.use(Upload);
 app.use(Spin);
+app.use(Tooltip);
 app.use(Progress);
 app.use(pinia);
 app.use(vue3GoogleLogin, {

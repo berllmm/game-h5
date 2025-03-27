@@ -101,6 +101,30 @@ const router = createRouter({
       },
     },
     {
+      path: "/market",
+      name: "market",
+      component: () => import("../views/marketplace/index.vue"),
+      meta: {
+        isLogin: true
+      },
+    },
+    {
+      path: "/market-card",
+      name: "marketcard",
+      component: () => import("../views/marketplace/card.vue"),
+      meta: {
+        isLogin: true
+      },
+    },
+    {
+      path: "/market-details",
+      name: "marketdetails",
+      component: () => import("../views/marketplace/details.vue"),
+      meta: {
+        isLogin: true
+      },
+    },
+    {
       path: "/account-setting",
       name: "accountSetting",
       component: () => import("../views/accountSetting/index.vue"),

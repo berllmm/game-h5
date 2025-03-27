@@ -1,7 +1,12 @@
 <template>
   <div class="play">
-    <video @ended="handleEnd" :muted="isMuted" width="100%" class="video-box" autoplay preload="auto" ref="videoPlayer">
-      <source src="../../assets/game.mp4" type="video/webm" />
+    <video v-if="isAndroid" @ended="handleEnd" :muted="isMuted" width="100%" class="video-box" autoplay playsinline
+      webkit-playsinline preload="auto" ref="videoPlayer">
+      <source :src="viedoUrl" type="video/webm" />
+    </video>
+    <video v-else @ended="handleEnd" :muted="isMuted" width="100%" class="video-box" autoplay playsinline
+      webkit-playsinline preload="auto" ref="videoPlayer">
+      <source :src="viedoUrl" type="video/mp4" />
     </video>
 
     <div class="right-btns">
@@ -12,13 +17,14 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import bg1 from "../../assets/bg.png";
-import bg2 from "../../assets/play-bg.png";
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
+import { VideoUrl } from "../../utils/counter";
 const router = useRouter();
 
-const isMuted = ref(false);
+const viedoUrl = ref(VideoUrl().url)
+
+const isMuted = ref(true);
 
 const toggleMute = () => {
   isMuted.value = !isMuted.value;
@@ -35,16 +41,33 @@ const handleSkip = () => {
   router.push("result");
 };
 
+const isAndroid = ref(false)
+
 onMounted(() => {
   document.querySelector(".main").classList.add("main-bg2");
-  document.querySelector(".header").style = "display:none;"
-  document.querySelector(".footer").style = "display:none;"
+
+  const userAgent = navigator.userAgent.toLowerCase()
+
+  // if (/iphone|ipod|android|windows phone|blackberry/i.test(userAgent)) {
+  isMuted.value = false
+
+  isAndroid.value = /android/i.test(userAgent)
+  // } else {
+  // isMuted.value = false  
+  // }
+
+  nextTick(() => {
+    videoPlayer.value.load()
+    videoPlayer.value.play()
+  })
+  // document.querySelector(".header").style = "display:none;"
+  // document.querySelector(".footer").style = "display:none;"
 });
 
 onUnmounted(() => {
   document.querySelector(".main").classList.remove("main-bg2");
-  document.querySelector(".header").style = ""
-  document.querySelector(".footer").style = ""
+  // document.querySelector(".header").style = ""
+  // document.querySelector(".footer").style = ""
 });
 </script>
 

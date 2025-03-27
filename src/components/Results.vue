@@ -29,7 +29,9 @@
             <template #bodyCell="{ column, record }">
               <template v-if="column.key === 'item'">
                 <div class="d-flex align-items-center">
-                  <img :src="record.gachaCard?.image" alt="" width="60" style="margin-right: 15px" />
+                  <div style="margin-right: 15px" :class="record.state == 0 ? 'minting' : ''">
+                    <img :src="record.gachaCard?.image" alt="" width="60" />
+                  </div>
                   <span class="item-desc d-md-block">{{
                     record.gachaCard?.name
                   }}</span>
@@ -460,5 +462,30 @@ const goSell = () => {
   box-sizing: border-box;
   height: 24px;
   line-height: 24px;
+}
+
+.minting {
+  position: relative;
+
+  &::after {
+    content: 'Minting';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #FFF;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .2);
+  }
 }
 </style>

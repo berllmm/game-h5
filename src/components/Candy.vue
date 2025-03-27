@@ -366,21 +366,13 @@ const walletConect = async () => {
   if (contactList.value.type == "Sol") {
     typeCode = "sol";
     transferLamports = 1000000000 * candyOrder.value.currencyNum;
-    // if (!isSolana.value) {
-    //   return tipText.openSet("You don't have enough SOL in your wallet, please top up.")
-    // }
   } else if (contactList.value.type == "USDC") {
     typeCode = "usdc";
     transferLamports = candyOrder.value.currencyNum * 10 ** 6;
-    // if (!isUSDC.value) {
-    //   return tipText.openSet("You don't have enough USDC in your wallet, please top up.")
-    // }
   } else if (contactList.value.type == "TSG") {
     typeCode = "tsg";
     transferLamports = candyOrder.value.currencyNum * 10 ** 6;
-    // if (!isTSG.value) {
-    //   return tipText.openSet("You don't have enough TSG in your wallet, please top up.")
-    // }
+
   }
 
   if (localStorage.getItem("local") == "Wallet") {

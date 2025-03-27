@@ -51,8 +51,10 @@ onMounted(() => {
 const userList = ref([]);
 
 const getWinnerInit = async () => {
+  if (!localStorage.getItem("redeem") || JSON.parse(localStorage.getItem("redeem")).length == 0) {
+    router.push({ path: '/' })
+  }
   const refList = JSON.parse(localStorage.getItem("redeem"));
-
   const idList = [];
   refList.forEach((item) => {
     idList.push(item.id);
@@ -84,21 +86,7 @@ const handleAgain = async () => {
     return;
   }
 
-  const res = await axios.get("/tsg/player/gachaDraw", {
-    params: {
-      gachaPoolId: localStorage.getItem("gachaId"),
-      count: localStorage.getItem("count"),
-    },
-  });
-  if (res.data.code == 200) {
-    const code = res.data.data.gachaCardList;
-    localStorage.setItem("redeem", JSON.stringify(code));
-    useChangePrize().changePrize();
-
-    router.push({
-      name: "play",
-    });
-  }
+  router.push({ path: `/game-detail?id=${localStorage.getItem("gachaId")}` })
 };
 
 const goPage = () => {
